@@ -1,0 +1,131 @@
+// Segue os EndPoints Necessarios
+
+//User Get, Set, Delete, Update
+
+[  {
+    "id": 1,
+    "first_name": "Erico",
+    "last_name": "Guedes",
+    "cpf": "123.456.789-01",
+    "email": "erico.guedes@example.com",
+    "nickname": "ericoG",
+    "imageURL": "/assets/img/users/user1.jpg"
+  },
+  /* ... */
+]
+
+//Bookings Get, Set, Delete, Update
+
+[  {
+    "id": 1,
+    "user": {
+            "id": 1,
+            "first_name": "Erico",
+            "last_name": "Guedes",
+            "cpf": "123.456.789-01",
+            "email": "erico.guedes@example.com",
+            "nickname": "ericoG",
+            "imageURL": "/assets/img/users/user1.jpg"
+            },
+    "checkIn": "2025-07-10T00:00:00.000Z",
+    "checkOut": "2025-07-15T00:00:00.000Z",
+    "room": {
+            "id": 1,
+            "name": "Deluxe Room",
+            "price": 350,
+            "imageUrl": "/assets/img/rooms/deluxe-room.jpg",
+            "description": "An elegant room..."
+            },
+    "roomQtd": 1,
+    "adultsNumber": 2,
+    "childNumber": 0,
+    "totalPrice": 350
+  },
+  /* ... */
+]
+
+//Services-Food - Get, Set, Delete
+
+[  {
+    "items": {
+            "food": {
+                    id: 1,
+                    name: 'Pizza Pepperoni',
+                    cookTime: '10-20',
+                    price: 10,
+                    favorite: false,
+                    origins: ['italy'],
+                    stars: 4.5,
+                    imageUrl: '/assets/img/foods/food-1.jpg',
+                    tags: ['FastFood', 'Pizza', 'Lunch'],
+                    }
+            "quantity": 2,
+            },
+            /* ... */
+    "totalPrice": 20,
+    "deliveryTime": "22:45 - 22:55",
+  },
+  /* ... */
+]
+
+//Services-Amenities - Get, Set, Delete
+
+[  {
+    "itemsAmenities": {
+            "amenities": {
+                        id: 1,
+                        name: "Spa Access",
+                        price: 120,
+                        favorite: true,
+                        stars: 5,
+                        imageUrl: "/assets/img/amenities/spa-access.jpg"
+                        }
+            "quantity": 2,
+            },
+            /* ... */
+    "totalPrice": 240,
+    "deliveryTime": "22:45 - 22:55",
+  },
+  /* ... */
+]
+
+//Rooms - Get
+
+[  {
+    "id": 1,
+    "name": "Deluxe Room",
+    "price": 350,
+    "imageUrl": "/assets/img/rooms/deluxe-room.jpg",
+    "description": "An elegant room..."
+  },
+  /* ... */
+]
+
+//Food - Get
+
+[  {
+    id: 1,
+    name: 'Pizza Pepperoni',
+    cookTime: '10-20',
+    price: 10,
+    favorite: false,
+    origins: ['italy'],
+    stars: 4.5,
+    imageUrl: '/assets/img/foods/food-1.jpg',
+    tags: ['FastFood', 'Pizza', 'Lunch'],
+    },
+    /* ... */
+]
+
+//Amenities - Get
+
+[  {
+    id: 1,
+    name: "Spa Access",
+    price: 120,
+    favorite: true,
+    stars: 5,
+    imageUrl: "/assets/img/amenities/spa-access.jpg"
+  },
+  /* ... */
+]

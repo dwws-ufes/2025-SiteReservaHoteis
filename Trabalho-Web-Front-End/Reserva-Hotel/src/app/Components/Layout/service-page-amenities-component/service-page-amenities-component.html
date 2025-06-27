@@ -1,0 +1,64 @@
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Hotel</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="manifest" href="site.webmanifest">
+		<link rel="shortcut icon" type="image/x-icon" href="../../../../../public/assets/img/favicon.ico">
+
+		<!-- CSS here -->
+            <link rel="stylesheet" href="../../../../../public/assets/css/bootstrap.min.css">
+            <link rel="stylesheet" href="../../../../../public/assets/css/owl.carousel.min.css">
+            <link rel="stylesheet" href="../../../../../public/assets/css/gijgo.css">
+            <link rel="stylesheet" href="../../../../../public/assets/css/slicknav.css">
+            <link rel="stylesheet" href="../../../../../public/assets/css/animate.min.css">
+            <link rel="stylesheet" href="../../../../../public/assets/css/magnific-popup.css">
+            <link rel="stylesheet" href="../../../../../public/assets/css/fontawesome-all.min.css">
+            <link rel="stylesheet" href="../../../../../public/assets/css/themify-icons.css">
+            <link rel="stylesheet" href="../../../../../public/assets/css/slick.css">
+            <link rel="stylesheet" href="../../../../../public/assets/css/nice-select.css">
+            <link rel="stylesheet" href="../../../../../public/assets/css/style.css">
+            <link rel="stylesheet" href="../../../../../public/assets/css/responsive.css">
+
+   </head>
+
+   <main>
+
+        <!-- slider Area Start-->
+        <div class="slider-area">
+            <div class="single-slider hero-overly slider-height2 d-flex align-items-center" data-background="assets/img/hero/servicespage_hero.jpg" >
+                <div class="container">
+                    <div class="row ">
+                        <div class="col-md-11 offset-xl-1 offset-lg-1 offset-md-1">
+                            <div class="hero-caption">
+                                <span>Services</span>
+                                <h2>{{food.name}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- slider Area End-->
+        <div *ngIf="food" class="container">
+    <img [src]="food.imageUrl" [alt]="food.name" />
+
+    <div class="details">
+        <div class="header">
+            <span class="name">
+                {{food.name}}
+            </span>
+            <span class="favorite {{food.favorite?'':'not'}}">
+                ❤
+            </span>
+        </div>
+
+
+        <button (click)="addToCart()">Add To Cart</button>
+    </div>
+
+</div>
+    </main>
+

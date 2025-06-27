@@ -1,0 +1,106 @@
+/* ===== Booking Room ===== */
+.booking-area {
+  position: relative;
+  /* Elevação sobre o slider */
+  margin-top: -80px;
+  padding: 0 20px 60px;
+  z-index: 10;
+}
+
+.booking-area .booking-wrap {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Cada campo */
+.booking-area .single-select-box {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 150px;
+}
+
+/* Título do campo */
+.booking-area .boking-tittle span {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+/* Datepicker */
+.booking-area .boking-datepicker {
+  position: relative;
+}
+
+.booking-area .boking-datepicker input {
+  width: 100%;
+  padding: 10px 12px 10px 36px;
+  font-size: 14px;
+  border: 1px solid #c2922e;
+  border-radius: 4px;
+  outline: none;
+}
+
+/* Ícone de calendário (FontAwesome) */
+.booking-area .boking-datepicker::before {
+  content: "\f073";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #c2922e;
+  pointer-events: none;
+}
+
+/* Select boxes */
+.booking-area .select-itms select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #c2922e;
+  border-radius: 4px;
+  appearance: none;
+  background: white url('/assets/img/icon/arrow-down.svg') no-repeat right 12px center;
+  background-size: 12px;
+  outline: none;
+}
+
+/* Botão */
+.booking-area .select-btn {
+  background-color: #c2922e;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  width: 200px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.booking-area .select-btn:hover {
+  background-color: #a3771f;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .booking-area .booking-wrap {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .booking-area .single-select-box {
+    flex: 1 1 100%;
+  }
+  .booking-area .select-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

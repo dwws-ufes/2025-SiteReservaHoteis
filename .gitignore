@@ -1,0 +1,27 @@
+# Dependências
+node_modules/
+
+# Pastas de build/produção
+dist/
+build/
+
+# Arquivos de log
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db
+
+# Configurações de IDE/editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Arquivos de ambiente
+.env
