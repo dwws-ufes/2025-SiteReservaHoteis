@@ -10,5 +10,8 @@ export class Booking {
   roomQtd!: number;
   adultsNumber!: number;
   childNumber!: number;
-  totalPrice!: number;
+
+  get totalPrice(): number{
+        return this.room.price * this.roomQtd;
+    }
  }

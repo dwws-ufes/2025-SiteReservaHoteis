@@ -47,6 +47,15 @@
 //Services-Food - Get, Set, Delete
 
 [  {
+    "client": {
+            "id": 1,
+            "first_name": "Erico",
+            "last_name": "Guedes",
+            "cpf": "123.456.789-01",
+            "email": "erico.guedes@example.com",
+            "nickname": "ericoG",
+            "imageURL": "/assets/img/users/user1.jpg"
+            },
     "items": {
             "food": {
                     id: 1,
@@ -71,6 +80,15 @@
 //Services-Amenities - Get, Set, Delete
 
 [  {
+    "client": {
+            "id": 1,
+            "first_name": "Erico",
+            "last_name": "Guedes",
+            "cpf": "123.456.789-01",
+            "email": "erico.guedes@example.com",
+            "nickname": "ericoG",
+            "imageURL": "/assets/img/users/user1.jpg"
+            },
     "itemsAmenities": {
             "amenities": {
                         id: 1,

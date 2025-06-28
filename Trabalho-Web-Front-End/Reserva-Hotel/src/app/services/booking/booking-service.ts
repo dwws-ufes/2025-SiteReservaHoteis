@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Booking } from '../../shared/models/Booking';
 import { UserService } from '../user/user-service';
 import { RoomService } from '../room/room-service';
+import { User } from '../../shared/models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,10 @@ import { RoomService } from '../room/room-service';
 export class BookingService {
 
   constructor(private userService: UserService, private roomService: RoomService) { }
+
+  getBookingsByUser(user: User): Booking[]{
+      return this.getAll().filter(order => order.user == user)
+    }
 
   getAll(): Booking[]{
     return [

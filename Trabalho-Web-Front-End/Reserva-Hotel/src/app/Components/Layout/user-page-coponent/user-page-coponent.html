@@ -95,8 +95,226 @@
                            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
                            type="submit">Your Cart</button>
                            <h4 class="widget_title"></h4>
-                           <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
-                           type="submit">Logout</button>
+                           <!-- botão para abrir o modal -->
+                            <button
+                            class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                            (click)="openUserEditModal()"
+                            >
+                            Edit Profile
+                            </button>
+
+                            <!-- backdrop -->
+                            <div
+                            class="modal-backdrop fade"
+                            [class.show]="showUserEditModal"
+                            *ngIf="showUserEditModal"
+                            (click)="closeUserEditModal()"
+                            ></div>
+
+                            <!-- modal de edição de usuário -->
+                            <div
+                            class="modal fade"
+                            [class.show]="showUserEditModal"
+                            [ngStyle]="{ display: showUserEditModal ? 'block' : 'none' }"
+                            (click)="closeUserEditModal()"
+                            tabindex="-1"
+                            aria-labelledby="editUserLabel"
+                            aria-modal="true"
+                            role="dialog"
+                            >
+                            <div class="modal-dialog" (click)="$event.stopPropagation()">
+                                <form class="modal-content" (ngSubmit)="saveUserChanges()">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editUserLabel">Edit User Information</h5>
+                                    <button
+                                    type="button"
+                                    class="btn-close"
+                                    (click)="closeUserEditModal()"
+                                    aria-label="Close"
+                                    ></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input
+                                        id="firstName"
+                                        type="text"
+                                        class="form-control"
+                                        [(ngModel)]="editFirstName"
+                                        name="firstName"
+                                        required
+                                    />
+                                    </div>
+                                    <div class="mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input
+                                        id="lastName"
+                                        type="text"
+                                        class="form-control"
+                                        [(ngModel)]="editLastName"
+                                        name="lastName"
+                                        required
+                                    />
+                                    </div>
+                                    <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        class="form-control"
+                                        [(ngModel)]="editEmail"
+                                        name="email"
+                                        required
+                                    />
+                                    </div>
+                                    <div class="mb-3">
+                                    <label for="nickname" class="form-label">Nickname</label>
+                                    <input
+                                        id="nickname"
+                                        type="text"
+                                        class="form-control"
+                                        [(ngModel)]="editNickname"
+                                        name="nickname"
+                                        required
+                                    />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button
+                                    type="button"
+                                    class="btn btn-light"
+                                    (click)="closeUserEditModal()"
+                                    >
+                                    Cancel
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                    Save Changes
+                                    </button>
+                                </div>
+                                </form>
+                            </div>
+                            </div>
+
+                           <h4 class="widget_title"></h4>
+                           <button
+                            class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                            (click)="openUserDeleteModal()"
+                            >
+                            Delete Account
+                            </button>
+
+                            <!-- backdrop -->
+                            <div
+                            class="modal-backdrop fade"
+                            [class.show]="showUserDeleteModal"
+                            *ngIf="showUserDeleteModal"
+                            (click)="closeUserDeleteModal()"
+                            ></div>
+
+                            <!-- modal -->
+                            <div
+                            class="modal fade"
+                            [class.show]="showUserDeleteModal"
+                            [ngStyle]="{ display: showUserDeleteModal ? 'block' : 'none' }"
+                            (click)="closeUserDeleteModal()"
+                            tabindex="-1"
+                            aria-labelledby="deleteAccountLabel"
+                            aria-modal="true"
+                            role="dialog"
+                            >
+                            <div class="modal-dialog" (click)="$event.stopPropagation()">
+                                <div class="modal-content border-danger">
+                                <div class="modal-header bg-danger text-white">
+                                    <h5 class="modal-title" id="deleteAccountLabel">Delete Account?</h5>
+                                    <button
+                                    type="button"
+                                    class="btn-close btn-close-white"
+                                    (click)="closeUserDeleteModal()"
+                                    aria-label="Close"
+                                    ></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                    This action <strong>cannot</strong> be undone. Are you sure you want to
+                                    delete your account permanently?
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button
+                                    type="button"
+                                    class="btn btn-light"
+                                    (click)="closeUserDeleteModal()"
+                                    >
+                                    Cancel
+                                    </button>
+                                    <button type="button" class="btn btn-danger">Yes, Delete</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+
+                           <h4 class="widget_title"></h4>
+                           <!-- botão de logout -->
+                            <button
+                            class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                            (click)="openLogoutModal()"
+                            >
+                            Logout
+                            </button>
+
+                            <!-- backdrop -->
+                            <div
+                            class="modal-backdrop fade"
+                            [class.show]="showLogoutModal"
+                            *ngIf="showLogoutModal"
+                            (click)="closeLogoutModal()"
+                            ></div>
+
+                            <!-- modal de confirmação de logout -->
+                            <div
+                            class="modal fade"
+                            [class.show]="showLogoutModal"
+                            [ngStyle]="{ display: showLogoutModal ? 'block' : 'none' }"
+                            (click)="closeLogoutModal()"
+                            tabindex="-1"
+                            aria-labelledby="logoutConfirmLabel"
+                            aria-modal="true"
+                            role="dialog"
+                            >
+                            <div class="modal-dialog" (click)="$event.stopPropagation()">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="logoutConfirmLabel">Confirm Logout</h5>
+                                    <button
+                                    type="button"
+                                    class="btn-close"
+                                    (click)="closeLogoutModal()"
+                                    aria-label="Close"
+                                    ></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to log out?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button
+                                    type="button"
+                                    class="btn btn-light"
+                                    (click)="closeLogoutModal()"
+                                    >
+                                    Cancel
+                                    </button>
+                                    <button
+                                    type="button"
+                                    class="btn btn-danger"
+                                    (click)="confirmLogout()"
+                                    >
+                                    Logout
+                                    </button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+
                   </aside>
                </div>
             </div>
@@ -107,11 +325,11 @@
                                 <div class="blog-area blog-padding">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                            <div class="col-xl-4 col-lg-4 col-md-6" (click)="openBookingModal()">
                                                 <!-- Single Blog -->
                                                 <div class="single-blog mb-30">
                                                     <div class="blog-img">
-                                                        <a href="single-blog.html"><img src="assets/img/rooms/room4.jpg" alt=""></a>
+                                                        <a ><img src="assets/img/rooms/room4.jpg" alt=""></a>
                                                     </div>
                                                     <div class="blog-caption">
                                                         <div class="blog-cap-top d-flex justify-content-between mb-40">
@@ -129,6 +347,52 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="modal-overlay" *ngIf="showBookingModal" (click)="closeBookingModal()">
+                                                <div class="modal-content" (click)="$event.stopPropagation()">
+                                                <button class="modal-close" (click)="closeBookingModal()">×</button>
+                                                    <div class="edit-reservation-area">
+                                                        <form>
+                                                            <div class="reservation-wrap">
+                                                            <div class="single-field datepicker">
+                                                                <label>Check In Date:</label>
+                                                                <input type="text" id="datepicker1" placeholder="10/12/2020" />
+                                                            </div>
+                                                            <div class="single-field datepicker">
+                                                                <label>Check Out Date:</label>
+                                                                <input type="text" id="datepicker2" placeholder="12/12/2020" />
+                                                            </div>
+                                                            <div class="single-field">
+                                                                <label>Adults:</label>
+                                                                <input type="number" value="1" min="1" />
+                                                            </div>
+                                                            <div class="single-field">
+                                                                <label>Children:</label>
+                                                                <input type="number" value="1" min="0" />
+                                                            </div>
+                                                            <div class="single-field">
+                                                                <label>Rooms:</label>
+                                                                <input type="number" value="1" min="1" />
+                                                            </div>
+                                                            <div class="single-field">
+                                                                <label>Room Type:</label>
+                                                                <select>
+                                                                <option value="">Deluxe Room</option>
+                                                                <option value="">Executive Suite</option>
+                                                                <option value="">Presidential Suite</option>
+                                                                <option value="">Penthouse Suite</option>
+                                                                <option value="">Private Villa</option>
+                                                                <option value="">Royal Palace Suite</option>
+                                                                </select>
+                                                            </div>
+                                                            <button type="submit" class="book-btn">Book Now</button>
+                                                            <div class="total-price">$350</div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                        
+
                                             <div class="col-xl-4 col-lg-4 col-md-6">
                                                 <!-- Single Blog -->
                                                 <div class="single-blog mb-30">
