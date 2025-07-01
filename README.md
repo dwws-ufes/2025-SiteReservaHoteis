@@ -63,19 +63,20 @@ Em vez de instalar o PostgreSQL localmente, vamos usar um container Docker:
 ### 3.1. Backend (.NET)
 
 1. Clone o repositório e acesse a pasta do backend:
+
    ```bash
-git clone [https://github.com/dwws-ufes/2025-SiteReservaHoteis.git](https://github.com/dwws-ufes/2025-SiteReservaHoteis.git) cd Parte2/ReservaHotelBack
-````
+   git clone [https://github.com/dwws-ufes/2025-SiteReservaHoteis.git](https://github.com/dwws-ufes/2025-SiteReservaHoteis.git) cd Parte2/ReservaHotelBack
+   ````
 
 2. Configure a _connection string_ em `appsettings.Development.json` (ou via variável de ambiente) para apontar ao container Docker:
 
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Port=5432;Database=mydb;Username=postgres;Password=1234"
-  }
-}
-````
+   ```json
+   {
+     "ConnectionStrings": {
+       "DefaultConnection": "Host=localhost;Port=5432;Database=mydb;Username=postgres;Password=1234"
+     }
+   }
+   ````
 
 3. Execute a aplicação em modo de desenvolvimento:
 
