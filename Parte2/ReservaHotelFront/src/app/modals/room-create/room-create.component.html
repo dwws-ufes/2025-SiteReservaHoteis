@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Create a new room</h2>
+
+<mat-dialog-content>
+  <div class="container">
+    <div class="inputs">
+        <p class="p_input">Name</p>
+        <input type="text" [(ngModel)]="name" placeholder="Name" />
+    
+        <p class="p_input">Price</p>
+        <input type="number" [(ngModel)]="price" placeholder="Price" />
+    
+        <p class="p_input">Description</p>
+        <input type="email" [(ngModel)]="description" placeholder="Description" />
+
+        <p class="p_input">Image</p>
+
+        <input type="file" id="inputImg" (change)="onFileSelected($event)" accept="image/*" hidden />
+        <div class="file_upload">
+          <label for="inputImg">
+            <span class="file_input">Select image</span>
+          </label>
+          <p>{{ imgName }}</p>
+        </div>
+    </div>
+
+    <button class="btn" (click)="create()">{{ data.btnSuccess }}</button>
+</div>
+</mat-dialog-content>

@@ -1,0 +1,105 @@
+.container {
+    .title {
+        background-color: #7D726F;
+        text-align: center;
+
+        h1 {
+            padding-top: 300px;
+            font-size: 66px;
+            color: #fff;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.3;
+            margin: 0px;
+            font-family: "Noto Serif", serif;
+        }
+    }
+
+    .info {
+        background: linear-gradient(to bottom, #7D726F, #FFFFFF);
+        text-align: center;
+
+        .subtitle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            h3 {
+                text-align: center;
+                font-size: 30px;
+                color: #fff;
+                position: relative;
+                display: inline-block;
+                line-height: 1.2em;
+                font-family: "Lato", sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                padding: 20px;
+            }
+
+            .stylization {
+                background-color: #e59a09;
+                height: 2px;
+                width: 154px;
+            }
+        }
+
+        .search {
+            margin: 200px 100px;
+            padding: 39px 80px 20px 80px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 8px 79px 0px rgba(0, 0, 0, 0.08);
+            flex-wrap: wrap;
+            text-align: left;
+
+            .search__inputs {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+
+                p {
+                    text-align: left;
+                    color: #262626;
+                    font-size: 16px;
+                    margin-bottom: 20px;
+                    font-weight: 600;
+                    display: block;
+                    font-family: "Quicksand", sans-serif;
+                }
+    
+                input {
+                    padding: 10px 12px;
+                    font-size: 14px;
+                    border: 1px solid #c2922e;
+                    border-radius: 4px;
+                    appearance: none;
+                    background: #ffffff;
+                    background-size: 12px;
+                    outline: none;
+                    text-transform: none;
+
+                    width: 100%;
+                    height: 28px;
+                }
+            }
+
+            button {
+                border: medium none;
+                background-color: #c2922e;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 600;
+                width: 200px;
+                border-radius: 4px;
+                text-decoration: none;
+                font-family: "Quicksand", sans-serif;
+                padding: 20px 50px;
+
+                margin: 44px 0px;
+                cursor: pointer;
+            }
+        }
+    }
+}

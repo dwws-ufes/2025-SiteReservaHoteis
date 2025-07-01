@@ -1,0 +1,102 @@
+.container {
+    .rooms {
+        text-align: center;
+
+        .title {
+            h1 {
+                color: #112e41;
+                font-size: 50px;
+                font-weight: 700;
+                font-family: "Noto Serif", serif;
+                line-height: 1.2em;
+            }
+        }
+
+        button {
+            background-color: #dca73a;
+            color: #fff;
+
+            border: medium none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            line-height: 0;
+            margin-bottom: 0;
+
+            padding: 25px 39px;
+
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .content {
+            text-align: left;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0 200px 0;
+
+            .room {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 600px;
+                box-sizing: border-box;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                
+                img {
+                    width: 180px;
+                }
+
+                .info {
+                    padding: 20px;
+
+                    h1 {
+                        color: #112e41;
+                        font-size: 25px;
+                        font-weight: 600;
+                        margin-bottom: 19px;
+                        line-height: 1.2em;
+                        font-family: "Lato", sans-serif;
+                    }
+        
+                    p {
+                        color: #848484;
+                        font-size: 14px;
+                        font-weight: 600;
+                        box-sizing: border-box;
+                        font-family: "Quicksand", sans-serif;
+                    }
+                }
+
+                .btnEdit {
+                    position: absolute;
+                    top: -4px;
+                    right: -4px;
+                    background-color: #7D726F;
+                    padding: 4px;
+                    box-sizing: border-box;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    border-radius: 16px;
+                    cursor: pointer;
+
+                    width: 28px;
+                    height: 28px;
+                    
+                    svg {
+                        width: 20px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="info">
+        <div class="title">
+            <p>Login</p>
+        </div>
+    
+        <h1>Enter your Credentials</h1>
+    
+        <p class="p_input">Email</p>
+        <input type="email" [(ngModel)]="email" placeholder="Email address" />
+    
+        <p class="p_input">Password</p>
+        <input type="password" [(ngModel)]="password" placeholder="Password" />
+    
+        <p class="p_register">Do not have an account? <a routerLink="/register">Register here!</a></p>
+    
+        <button (click)="login()">Login</button>
+    </div>
+</div>

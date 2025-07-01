@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="info">
+        <div class="title">
+            <p>Register</p>
+        </div>
+    
+        <h1>Register your Credentials</h1>
+    
+        <p class="p_input">First Name</p>
+        <input type="text" [(ngModel)]="firstName" placeholder="First Name" />
+
+        <p class="p_input">Last Name</p>
+        <input type="text" [(ngModel)]="lastName" placeholder="Last Name" />
+
+        <p class="p_input">Email</p>
+        <input type="email" [(ngModel)]="email" placeholder="Email address" />
+    
+        <p class="p_input">Password</p>
+        <input type="password" [(ngModel)]="password" placeholder="Password" />
+    
+        <p class="p_register">Already registered? <a routerLink="/login">Login here!</a></p>
+    
+        <button (click)="register()">Register</button>
+    </div>
+</div>

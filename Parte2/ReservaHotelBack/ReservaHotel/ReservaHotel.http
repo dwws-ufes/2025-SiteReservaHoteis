@@ -1,0 +1,6 @@
+@ReservaHotel_HostAddress = http://localhost:5058
+
+GET {{ReservaHotel_HostAddress}}/api/user/
+Accept: application/json
+
+###

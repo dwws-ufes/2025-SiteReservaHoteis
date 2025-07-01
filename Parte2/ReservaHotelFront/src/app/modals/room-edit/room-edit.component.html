@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Edit room</h2>
+
+<mat-dialog-content>
+  <div class="container">
+    <div class="inputs">
+        <p class="p_input">Name</p>
+        <input type="text" [(ngModel)]="room.name" placeholder="Name" />
+    
+        <p class="p_input">Price</p>
+        <input type="number" [(ngModel)]="room.price" placeholder="Price" />
+    
+        <p class="p_input">Description</p>
+        <input type="email" [(ngModel)]="room.description" placeholder="Description" />
+
+        <p class="p_input">Image</p>
+
+        <input type="file" id="inputImg" (change)="onFileSelected($event)" accept="image/*" hidden />
+        <div class="file_upload">
+          <label for="inputImg">
+            <span class="file_input">Select image</span>
+          </label>
+          <p>{{ imgName }}</p>
+        </div>
+    </div>
+
+    <div class="btns">
+      <button class="btn" (click)="delete()">{{ data.btnDelete }}</button>
+      <button class="btn" (click)="edit()">{{ data.btnSuccess }}</button>
+    </div>
+</div>
+</mat-dialog-content>

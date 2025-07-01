@@ -1,0 +1,104 @@
+.container {
+    width: 300px;
+    text-align: center;
+    overflow: hidden;
+    margin: auto;
+
+    .inputs {
+        text-align: left;
+        width: 100%;
+
+        .p_input {
+            color: #112e41 !important;
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-family: "Lato", sans-serif;
+            font-weight: 500;
+        }
+
+        .file_input {
+            background: #7D726F;
+            border: medium none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            line-height: 0;
+            margin-bottom: 0;
+            padding: 12px;
+            text-align: center;
+            text-transform: capitalize;
+            touch-action: manipulation;
+            transition: all 0.3s ease 0s;
+            vertical-align: middle;
+            white-space: nowrap;
+
+            label {
+                cursor: pointer;
+            }
+        }
+    
+        input {
+            display: block;
+            width: 100%;
+            line-height: 40px;
+            border: none;
+            outline: none;
+            background: #f9f9ff;
+            padding: 0 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file_upload {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+
+            label {
+                cursor: pointer;
+            }
+
+            p {
+                margin: 0 0 0 14px;
+            }
+        }
+    }
+
+    .btns {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    
+        .btn:first-child {
+            background-color: #c15b5b;
+        }
+
+        .btn {
+            background: #dca73a;
+            border: medium none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            line-height: 0;
+            margin-top: 20px;
+            margin-bottom: 0;
+            padding: 20px 20px;
+            text-align: center;
+            text-transform: capitalize;
+            touch-action: manipulation;
+            transition: all 0.3s ease 0s;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+    }
+}
