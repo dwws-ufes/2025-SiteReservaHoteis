@@ -26,21 +26,21 @@ Em vez de instalar o PostgreSQL localmente, vamos usar um container Docker:
 1. Crie um diretório para persistência de dados e um arquivo `docker-compose.yml` mínimo:
 
    ```yaml
-   version: '3.8'
    services:
      db:
-       image: postgres:14
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: 1234
-          POSTGRES_DB: reservaHotel
+       image: "postgres:14"
+       environment:
+         POSTGRES_USER: "postgres"
+         POSTGRES_PASSWORD: "1234"
+         POSTGRES_DB: "reservaHotel"
        volumes:
          - db_data:/var/lib/postgresql/data
        ports:
          - "5432:5432"
-
+   
    volumes:
      db_data:
+
    ```
 
 2. Suba o container:
