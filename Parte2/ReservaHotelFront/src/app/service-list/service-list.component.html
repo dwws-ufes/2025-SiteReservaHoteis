@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="title">
+        <h2>Food List</h2>
+    </div>
+</div>
+
+
+<div class="food-list">
+    <app-search></app-search>
+
+    <ul class="food-grid">
+        <li *ngFor="let food of foods" class="food-card">
+            <a (click)="foodPage(food)">
+                <div class="card-image">
+                <img [src]="food.imageUrl" alt="{{ food.name }}" />
+                </div>
+                    <div class="card-content">
+                    <div class="header">
+                        <h4 class="name">{{ food.name }}</h4>
+                        <span class="favorite" [class.not]="!food.favorite">❤</span>
+                    </div>
+                    <div class="origins">
+                        <span *ngFor="let origin of food.origins">{{ origin }}</span>
+                    </div>
+                    <div class="footer">
+                        <span class="cook-time">🕒 {{ food.cookTime }}</span>
+                        <span class="price">{{ food.price | currency }}</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>

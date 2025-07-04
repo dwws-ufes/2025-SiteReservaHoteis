@@ -44,24 +44,7 @@
   background-color: #fff;
 }
 
-/* Ícone no datepicker, se usar FontAwesome */
-.reservation-wrap .single-field.datepicker {
-  position: relative;
-}
-.reservation-wrap .single-field.datepicker input {
-  padding-left: 36px;
-}
-.reservation-wrap .single-field.datepicker::before {
-  content: "\f073";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #c2922e;
-  pointer-events: none;
-}
+
 
 /* Book Now button */
 .reservation-wrap .book-btn {

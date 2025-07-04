@@ -16,6 +16,11 @@ import { RegisterComponent } from './register/register.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { RoomCreateComponent } from './modals/room-create/room-create.component';
 import { RoomEditComponent } from './modals/room-edit/room-edit.component';
+import { UserPageComponent } from './user-page/user-page.component';
+import { SearchComponent } from './search/search.component';
+import { ServiceListComponent } from './service-list/service-list.component';
+import { CartPageComponent } from './cart-page/cart-page.component';
+import { FoodPageComponent } from './modals/food-page/food-page.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +32,12 @@ import { RoomEditComponent } from './modals/room-edit/room-edit.component';
     RegisterComponent,
     AdminPageComponent,
     RoomCreateComponent,
-    RoomEditComponent
+    RoomEditComponent,
+    UserPageComponent,
+    SearchComponent,
+    ServiceListComponent,
+    CartPageComponent,
+    FoodPageComponent
   ],
   imports: [
     BrowserModule,

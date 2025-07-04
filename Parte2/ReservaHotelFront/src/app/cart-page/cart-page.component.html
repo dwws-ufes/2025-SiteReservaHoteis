@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="title">
+        <h2>Your Cart</h2>
+    </div>
+</div>
+
+<div *ngIf="cart?.items?.length" class="cart-page">
+  <div class="cart-list">
+    <div *ngFor="let item of cart.items" class="cart-item">
+      <img [src]="item.food.imageUrl" alt="{{ item.food.name }}" class="item-img" />
+      <a [routerLink]="['/services/servicePage', item.food.id]" class="item-name">
+        {{ item.food.name }}
+      </a>
+      <select #quantitySelect (change)="changeQuantity(item,quantitySelect.value)">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+      <span class="item-price">{{ item.price | currency }}</span>
+      <button class="remove-btn" (click)="removeFromCart(item)">Remove</button>
+    </div>
+  </div>
+
+  <div class="checkout-panel">
+    <div class="summary">
+      <span class="label">Count:</span> <span>{{ cart.items.length }}</span>
+    </div>
+    <div class="summary">
+      <span class="label">Total:</span> <span>{{ cart.totalPrice | currency }}</span>
+    </div>
+    <button class="checkout-btn">Checkout</button>
+  </div>
+</div>

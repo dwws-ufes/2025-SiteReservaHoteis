@@ -1,3 +1,19 @@
+.container {
+    .title {
+        background: linear-gradient(to bottom, #7D726F, #FFFFFF);
+        padding: 50px;
+        text-align: center;
+
+        h2 {
+            color: #fff;
+            font-size: 50px;
+            font-weight: 700;
+            font-family: "Lato", sans-serif;
+        }
+    }
+}
+
+
 .food-list {
   display: flex;
   flex-direction: column;

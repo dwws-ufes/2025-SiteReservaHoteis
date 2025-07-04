@@ -1,6 +1,13 @@
 .container {
+    background: 
+    linear-gradient(
+      to bottom,            
+      rgba(255,255,255,0) 50%,  
+      rgba(255,255,255,1) 100% 
+    ),
+    url('/assets/imgs/h1_hero.jpg') center/cover no-repeat;
+
     .title {
-        background-color: #7D726F;
         text-align: center;
 
         h1 {
@@ -16,7 +23,6 @@
     }
 
     .info {
-        background: linear-gradient(to bottom, #7D726F, #FFFFFF);
         text-align: center;
 
         .subtitle {
@@ -102,4 +108,7 @@
             }
         }
     }
+
+    
 }
+

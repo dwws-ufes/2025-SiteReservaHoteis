@@ -65,48 +65,45 @@
         </ng-container>
         <ng-template #showFood>
             <!-- slider Area Start-->
-        <div class="slider-area">
-            <div class="single-slider hero-overly slider-height2 d-flex align-items-center" data-background="assets/img/hero/servicespage_hero.jpg" >
-                <div class="container">
-                    <div class="row ">
-                        <div class="col-md-11 offset-xl-1 offset-lg-1 offset-md-1">
-                            <div class="hero-caption">
-                                <span>Services</span>
-                                <h2>Foods List</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <section class="header-section">
+  <div class="overlay"></div>
+  <div class="header-content">
+    <div class="subtitle-group">
+      <span class="accent"></span>
+      <span class="subtitle">Services</span>
+    </div>
+    <h1 class="title">Foods List</h1>
+  </div>
+</section>
         <!-- slider Area End-->
             <!-- FOOD LIST -->
-            <div class="FoodList">
+            <div class="food-list">
                 <app-search-coponent></app-search-coponent>
                 <app-tags></app-tags>
-                <ul>
-                <li *ngFor="let food of foods">
-                    <a [routerLink]="['/services/servicePage', food.id]">
-                    <img [src]="food.imageUrl" alt="">
-                    <div class="content">
-                        <div class="name">{{ food.name }}</div>
-                        <span class="favorite {{food.favorite ? '' : 'not'}}">❤</span>
-                        <div class="product-item-footer">
-                        <div class="origins">
-                            <span *ngFor="let origin of food.origins">{{ origin }}</span>
-                        </div>
-                        <div class="cook-time">
-                            <span>🕒</span> {{ food.cookTime }}
-                        </div>
-                        </div>
-                        <div class="price">
-                        {{ food.price | currency }}
-                        </div>
-                    </div>
-                    </a>
-                </li>
-                </ul>
-            </div>
+
+  <ul class="food-grid">
+    <li *ngFor="let food of foods" class="food-card">
+      <a [routerLink]="['/services/servicePage', food.id]">
+        <div class="card-image">
+          <img [src]="food.imageUrl" alt="{{ food.name }}" />
+        </div>
+        <div class="card-content">
+          <div class="header">
+            <h4 class="name">{{ food.name }}</h4>
+            <span class="favorite" [class.not]="!food.favorite">❤</span>
+          </div>
+          <div class="origins">
+            <span *ngFor="let origin of food.origins">{{ origin }}</span>
+          </div>
+          <div class="footer">
+            <span class="cook-time">🕒 {{ food.cookTime }}</span>
+            <span class="price">{{ food.price | currency }}</span>
+          </div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>
         </ng-template>
 
     </main>
