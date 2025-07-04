@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { FoodService } from '../services/food.service';
 import { Food } from '../models/food';
 import { MatDialog } from '@angular/material/dialog';
-import { tap } from 'rxjs/operators';
 import { FoodPageComponent } from '../modals/food-page/food-page.component';
 
 @Component({
@@ -15,8 +14,8 @@ export class ServiceListComponent implements OnInit {
 
   serviceType = '';
   foods: Food[] = [];
-  searchTerm: String = "";
-  constructor(private foodService: FoodService, private route: ActivatedRoute, private readonly dialog: MatDialog,) { }
+  searchTerm: string = "";
+  constructor(private readonly foodService: FoodService, private readonly route: ActivatedRoute, private readonly dialog: MatDialog,) { }
 
   ngOnInit(): void {
     this.getFood();
@@ -25,8 +24,7 @@ export class ServiceListComponent implements OnInit {
   foodPage(food: Food) {
       const dialog = this.dialog.open(FoodPageComponent, {
         data: { food, btnSuccess: 'Edit room', btnDelete: 'Delete room' },
-        width: '1500px',
-        height: '800px'
+        width: '1500px'
       });
   
       dialog.afterClosed()
