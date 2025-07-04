@@ -56,7 +56,7 @@
         }
       }
 
-      select {
+      input {
         width: 4rem;
         padding: 0.25rem;
         border: 2px solid #dca73a;
