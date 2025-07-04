@@ -23,7 +23,15 @@ export class UserService {
     return this.http.delete<void>(`this.apiUrl/${id}`);
   }
 
+  editUser(id: string) {
+    //return null;
+  }
+
   login(email: string, password: string): Observable<{ user: User, token: string}> {
     return this.http.post<{ user: User, token: string}>(`${this.apiUrl}/login`, { email, password });
+  }
+
+  logout() {
+    
   }
 }

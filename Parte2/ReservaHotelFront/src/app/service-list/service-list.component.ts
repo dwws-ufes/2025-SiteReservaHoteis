@@ -24,9 +24,9 @@ export class ServiceListComponent implements OnInit {
 
   foodPage(food: Food) {
       const dialog = this.dialog.open(FoodPageComponent, {
-        data: { food, btnSuccess: 'Edit room', btnDelete: 'Delete room' },
+        data: { food },
         width: '1500px',
-        height: '800px'
+        height: '1000px'
       });
   
       dialog.afterClosed()

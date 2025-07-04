@@ -8,6 +8,7 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { AdminPageComponent } from "./admin-page/admin-page.component";
 import { CartPageComponent } from "./cart-page/cart-page.component";
+import { UserPageComponent } from "./user-page/user-page.component";
 
 const routes: Routes = [
     { path: '', component: HomePageComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'admin', component: AdminPageComponent },
+    { path: 'userpage', component: UserPageComponent },
     { path: '**', redirectTo: '' }
 ]
 

@@ -4,6 +4,7 @@ export interface User {
     lastName: string;
     email: string;
     password: string;
+    avatar: string;
 }
 
 export interface UserCreate {
@@ -11,4 +12,5 @@ export interface UserCreate {
     lastName: string;
     email: string;
     password: string;
+    avatar: string;
 }

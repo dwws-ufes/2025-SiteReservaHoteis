@@ -1,0 +1,84 @@
+
+
+::ng-deep .mat-dialog-container {
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+::ng-deep .modal-content.border-danger {
+  border: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+::ng-deep .modal-header.bg-danger {
+  background-color: #dc3545;       /* vermelho forte */
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-bottom: none;
+  position: relative;
+
+  .modal-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+
+  .btn-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    &:hover { opacity: 1; }
+  }
+}
+
+::ng-deep .modal-body {
+  padding: 1.5rem;
+  font-size: 0.95rem;
+  color: #6c757d;
+  border-bottom: 1px solid #e9ecef;
+  p {
+    margin: 0;
+    line-height: 1.6;
+    strong { font-weight: 600; color: #343a40; }
+  }
+}
+
+::ng-deep .modal-footer {
+  padding: 1rem 1.5rem;
+  background: #fff;
+  border-top: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+
+  .btn {
+    min-width: 100px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    border-radius: 4px;
+  }
+
+  .btn-light {
+    background: #f8f9fa;
+    color: #495057;
+    border: 1px solid #ced4da;
+    &:hover {
+      background: #e2e6ea;
+    }
+  }
+
+  .btn-danger {
+    background: #dca73a;      /* dourado */
+    border-color: #dca73a;
+    color: #fff;
+    &:hover {
+      background: #c49b32;
+      border-color: #c49b32;
+    }
+  }
+}

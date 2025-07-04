@@ -21,6 +21,11 @@ import { SearchComponent } from './search/search.component';
 import { ServiceListComponent } from './service-list/service-list.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { FoodPageComponent } from './modals/food-page/food-page.component';
+import { BookOnlineComponent } from './modals/book-online/book-online.component';
+import { UserDeleteComponent } from './modals/user-delete/user-delete.component';
+import { LogoutComponent } from './modals/logout/logout.component';
+import { BookingEditComponent } from './modals/booking-edit/booking-edit.component';
+import { UserEditComponent } from './modals/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +42,12 @@ import { FoodPageComponent } from './modals/food-page/food-page.component';
     SearchComponent,
     ServiceListComponent,
     CartPageComponent,
-    FoodPageComponent
+    FoodPageComponent,
+    BookOnlineComponent,
+    UserDeleteComponent,
+    LogoutComponent,
+    BookingEditComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,

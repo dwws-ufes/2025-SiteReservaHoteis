@@ -1,0 +1,142 @@
+/* Modal Backdrop */
+.modal-backdrop.fade {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Center the dialog */
+.modal.fade .modal-dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal container */
+.modal-content {
+  width: 500px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Header */
+.modal-header {
+  background: #fff;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+  position: relative;
+
+  .modal-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #1f2c34;
+  }
+
+  .btn-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+/* Body */
+.modal-body {
+  padding: 1.5rem;
+  background: #fff;
+
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #7a8b9c;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: #1f2c34;
+    background: #fff;
+    border: 1px solid #ede8f0;
+    border-radius: 4px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    
+    &:focus {
+      outline: none;
+      border-color: #dca73a;
+      box-shadow: 0 0 0 0.2rem rgba(220, 167, 58, 0.25);
+    }
+  }
+
+  .file_upload {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+
+    label {
+      background: #f8f9fa;
+      border: 1px solid #ede8f0;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: #495057;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      
+      &:hover {
+        border-color: #dca73a;
+        color: #dca73a;
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+  }
+}
+
+/* Footer */
+.modal-footer {
+  padding: 1rem 1.5rem;
+  background: #fff;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+
+  .btn-light {
+    background: #f8f9fa;
+    border: 1px solid #ced4da;
+    color: #495057;
+    
+    &:hover {
+      background: #e2e6ea;
+    }
+  }
+
+  .btn-primary {
+    background: #dca73a;
+    border-color: #dca73a;
+    color: #fff;
+    
+    &:hover {
+      background: #c49b32;
+      border-color: #c49b32;
+    }
+  }
+}

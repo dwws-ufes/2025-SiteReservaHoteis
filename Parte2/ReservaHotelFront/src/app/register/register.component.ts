@@ -31,7 +31,8 @@ export class RegisterComponent implements OnInit {
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,
-      password: this.password
+      password: this.password,
+      avatar: "assets/imgs/User_Icon.jpg"
     }
 
     this.userService.createUser(user)

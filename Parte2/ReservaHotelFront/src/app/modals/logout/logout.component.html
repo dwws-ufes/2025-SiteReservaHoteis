@@ -1,0 +1,40 @@
+<div
+    class="modal-backdrop fade"
+    >
+    <div
+    class="modal fade"
+    >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutConfirmLabel">Confirm Logout</h5>
+                    <button
+                    type="button"
+                    class="btn-close"
+                    (click)="closeLogoutModal()"
+                    aria-label="Close"
+                    ></button>
+                </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to log out?</p>
+                    </div>
+                <div class="modal-footer">
+                    <button
+                    type="button"
+                    class="btn btn-light"
+                    (click)="closeLogoutModal()"
+                    >
+                    Cancel
+                    </button>
+                    <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="confirmLogout()"
+                    >
+                    Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
