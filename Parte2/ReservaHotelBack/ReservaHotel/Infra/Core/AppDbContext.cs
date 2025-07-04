@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReservaHotel.Entities;
+using ReservaHotel.Utils;
 
 namespace ReservaHotel.Infra.Core
 {
@@ -16,6 +17,18 @@ namespace ReservaHotel.Infra.Core
 
             modelBuilder.Entity<User>()
                 .HasIndex(x => x.Email).IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasData(
+                    new User
+                    {
+                        Id = Guid.Parse("8df75a4a-783d-4f4d-8e8e-cb3d3e32ba29"),
+                        Email = "admin@mail.com",
+                        FirstName = "Admin",
+                        LastName = "Admin",
+                        Password = "AQAAAAIAAYagAAAAEGz/fpd61Ohoc6bWFk7V6IDD9IsMBIrxAflFIc5mJFqki6ZS6hAg2/IIx4fEEF9ODw=="
+                    }
+                );
         }
     }
 }
