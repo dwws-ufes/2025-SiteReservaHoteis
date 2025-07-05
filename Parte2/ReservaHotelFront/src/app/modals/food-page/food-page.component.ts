@@ -30,9 +30,9 @@ export class FoodPageComponent {
       id: data.food.id,
       name: data.food.name,
       price: data.food.price,
-      favorite: data.food.favorite,
+      // favorite: data.food.favorite,
       imageUrl: data.food.imageUrl,
-      stars: data.food.stars,
+      // stars: data.food.stars,
       origins: data.food.origins,
       cookTime: data.food.cookTime
     }

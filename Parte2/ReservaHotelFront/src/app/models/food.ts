@@ -3,8 +3,8 @@ export interface Food {
     name:string;
     price:number;
     tags?:string[];
-    favorite:boolean;
-    stars:number;
+    // favorite:boolean;
+    // stars:number;
     imageUrl:string;
     origins:string[];
     cookTime:string;
@@ -14,8 +14,8 @@ export interface FoodCreate {
     name:string;
     price:number;
     tags?:string[];
-    favorite:boolean;
-    stars:number;
+    // favorite:boolean;
+    // stars:number;
     imageUrl:string;
     origins:string[];
     cookTime:string;

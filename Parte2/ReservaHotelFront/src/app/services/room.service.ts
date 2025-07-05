@@ -12,11 +12,11 @@ export class RoomService {
   constructor(private readonly http: HttpClient) { }
 
   getRoomById(roomId: number): Room {
-  let room!: Room;
-  this.getRooms()
-    .pipe(map(rooms => rooms.filter(r => r.id === roomId)))
-    .subscribe(arr => room = arr[0]);
-  return room;
+    let room!: Room;
+    this.getRooms()
+      .pipe(map(rooms => rooms.filter(r => r.id === roomId)))
+      .subscribe(arr => room = arr[0]);
+    return room;
   }
 
   getRooms(): Observable<Room[]> {

@@ -14,7 +14,11 @@ export class ServiceListComponent implements OnInit {
 
   serviceType = '';
   foods: Food[] = [];
-  searchTerm: string = "";
+
+  searchId: number | undefined;
+  searchTerm: string | undefined;
+  searchTag: string | undefined;
+  
   constructor(private readonly foodService: FoodService, private readonly route: ActivatedRoute, private readonly dialog: MatDialog,) { }
 
   ngOnInit(): void {
@@ -22,30 +26,27 @@ export class ServiceListComponent implements OnInit {
   }
 
   foodPage(food: Food) {
-      const dialog = this.dialog.open(FoodPageComponent, {
-        data: { food, btnSuccess: 'Edit room', btnDelete: 'Delete room' },
-        width: '1500px'
-      });
-  
-      dialog.afterClosed()
-        .subscribe(success => {
-          if (!success)
-            return;
-  
-          this.getFood();
-        })
-    }
+    const dialog = this.dialog.open(FoodPageComponent, {
+      data: { food, btnSuccess: 'Edit food', btnDelete: 'Delete food' },
+      width: '1500px'
+    });
 
-    getFood() {
-        this.route.params.subscribe(params => {
-          if (params['searchTerm']){
-            this.foods = this.foodService.getAllFoodsBySearchTerm(params['searchTerm']);
-          }
-          else if (params['tag'])
-            this.foods = this.foodService.getAllFoodsByTag(params['tag']);
-          else
-            this.foods = this.foodService.getAll();
-        })
-      }
+    dialog.afterClosed()
+      .subscribe(success => {
+        if (!success)
+          return;
 
+        this.getFood();
+      })
+  }
+
+  getFood() {
+    this.foodService.get(this.searchId, this.searchTerm, this.searchTag)
+      .subscribe(foods => this.foods = foods);
+  }
+
+  getSearchTerm(searchTerm: string) {
+    this.searchTerm = searchTerm;
+    this.getFood();
+  }
 }

@@ -1,32 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Food } from '../models/food';
-//import { Tag } from '../../shared/models/Tag';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root',
 })
 export class FoodService {
-  constructor() { }
+  private readonly apiUrl = 'https://localhost:7099/api/food'
 
-  getFoodById(id: number): Food{
-    return this.getAll().find(food => food.id == id)!;
-  }
+  constructor(private readonly http: HttpClient) { }
   
-  getAllFoodsBySearchTerm(searchTerm:string) :Food[]{
-    return  this.getAll().filter(food =>
-      food.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  get(id?: number, searchTerm?: string, tag?: string): Observable<Food[]> {
+    let filter = '';
+    if (id != undefined)
+      filter += `id=${id}&`;
+    if (searchTerm != undefined)
+      filter += `name=${searchTerm}&`;
+    if (tag != undefined)
+      filter += `tag=${tag}`;
+
+    return this.http.get<Food[]>(`${this.apiUrl}?${filter}`);
   }
-//   getAllTags(): Tag[] {
-//     return [
-//       { name: 'All', count: 14 },
-//       { name: 'FastFood', count: 4 },
-//       { name: 'Pizza', count: 2 },
-//       { name: 'Lunch', count: 3 },
-//       { name: 'SlowFood', count: 2 },
-//       { name: 'Hamburger', count: 1 },
-//       { name: 'Fry', count: 1 },
-//       { name: 'Soup', count: 1 },
-//     ];
-//   }
 
   getAllFoodsByTag(tag: string): Food[] {
     return tag == "All" ?
@@ -41,9 +36,9 @@ export class FoodService {
         name: 'Pizza Pepperoni',
         cookTime: '10-20',
         price: 10,
-        favorite: false,
+        // favorite: false,
         origins: ['italy'],
-        stars: 4.5,
+        // stars: 4.5,
         imageUrl: '/assets/imgs/foods/food-1.jpg',
         tags: ['FastFood', 'Pizza', 'Lunch'],
       },
@@ -52,9 +47,9 @@ export class FoodService {
         name: 'Meatball',
         price: 20,
         cookTime: '20-30',
-        favorite: true,
+        // favorite: true,
         origins: ['persia', 'middle east', 'china'],
-        stars: 4.7,
+        // stars: 4.7,
         imageUrl: '/assets/imgs/foods/food-2.jpg',
         tags: ['SlowFood', 'Lunch'],
       },
@@ -63,9 +58,9 @@ export class FoodService {
         name: 'Hamburger',
         price: 5,
         cookTime: '10-15',
-        favorite: false,
+        // favorite: false,
         origins: ['germany', 'us'],
-        stars: 3.5,
+        // stars: 3.5,
         imageUrl: '/assets/imgs/foods/food-3.jpg',
         tags: ['FastFood', 'Hamburger'],
       },
@@ -74,9 +69,9 @@ export class FoodService {
         name: 'Fried Potatoes',
         price: 2,
         cookTime: '15-20',
-        favorite: true,
+        // favorite: true,
         origins: ['belgium', 'france'],
-        stars: 3.3,
+        // stars: 3.3,
         imageUrl: '/assets/imgs/foods/food-4.jpg',
         tags: ['FastFood', 'Fry'],
       },
@@ -85,9 +80,9 @@ export class FoodService {
         name: 'Chicken Soup',
         price: 11,
         cookTime: '40-50',
-        favorite: false,
+        // favorite: false,
         origins: ['india', 'asia'],
-        stars: 3.0,
+        // stars: 3.0,
         imageUrl: '/assets/imgs/foods/food-5.jpg',
         tags: ['SlowFood', 'Soup'],
       },
@@ -96,9 +91,9 @@ export class FoodService {
         name: 'Vegetables Pizza',
         price: 9,
         cookTime: '40-50',
-        favorite: false,
+        // favorite: false,
         origins: ['italy'],
-        stars: 4.0,
+        // stars: 4.0,
         imageUrl: '/assets/imgs/foods/food-6.jpg',
         tags: ['FastFood', 'Pizza', 'Lunch'],
       },
