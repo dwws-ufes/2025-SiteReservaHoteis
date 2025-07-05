@@ -23,7 +23,7 @@
     <main class="main-content">
       <section class="bookings">
         <h3>Bookings</h3>
-        <div class="booking-card" *ngFor="let b of bookings">
+        <div class="booking-card" *ngFor="let b of bookings" (click)="editBooking(b)">
           <div class="image-wrapper">
             <img src="assets/imgs/rooms/room1.jpg" alt="{{ b.title }}" />
           </div>

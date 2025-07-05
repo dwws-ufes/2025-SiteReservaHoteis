@@ -1,10 +1,7 @@
 import { Room } from "./room";
 
 export class BookingItem{
-    constructor(room:Room){
-      this.room = room;  
-    }
-    room:Room;
+    room!:Room;
     quantity:number = 1;
 
     get price():number{
@@ -13,8 +10,8 @@ export class BookingItem{
 }
 
 export interface Booking {
-    id:number;
-    userId:number;
+    id: number;
+    userId: number;
     price:number;
     checkIn: Date;
     checkOut: Date;

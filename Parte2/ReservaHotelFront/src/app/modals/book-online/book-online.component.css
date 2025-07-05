@@ -1,0 +1,104 @@
+/* app.component.css ou book-online.component.css */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-overlay .modal-content {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  width: 520px;
+  max-width: 95%;
+}
+
+/* Close button */
+.modal-overlay .modal-content .modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #1f2c34;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.modal-overlay .modal-content .modal-close:hover {
+  color: #dca73a;
+}
+
+.modal-overlay .modal-content .edit-reservation-area form .reservation-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.modal-overlay .modal-content .single-field {
+  display: flex;
+  flex-direction: column;
+}
+.modal-overlay .modal-content .single-field label {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+  color: #1f2c34;
+}
+.modal-overlay .modal-content .single-field input,
+.modal-overlay .modal-content .single-field select {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  color: #1f2c34;
+  border: 1px solid #dca73a;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.modal-overlay .modal-content .single-field input:focus,
+.modal-overlay .modal-content .single-field select:focus {
+  border-color: #c49b32;
+  box-shadow: 0 0 0 0.2rem rgba(220, 167, 58, 0.25);
+}
+
+/* Datepicker tweaks */
+.modal-overlay .modal-content .single-field.datepicker {
+  position: relative;
+}
+.modal-overlay .modal-content .single-field.datepicker input {
+  padding-right: 2.5rem;
+}
+
+/* Botão e preço */
+.modal-overlay .modal-content .book-btn {
+  grid-column: 1 / span 2;
+  background: #dca73a;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modal-overlay .modal-content .book-btn:hover {
+  background: #c49b32;
+}
+.modal-overlay .modal-content .total-price {
+  grid-column: 2;
+  justify-self: end;
+  background: #ffffff;
+  border: 2px solid #1f2c34;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2c34;
+}

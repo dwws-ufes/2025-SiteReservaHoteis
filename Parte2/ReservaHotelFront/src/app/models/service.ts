@@ -3,7 +3,7 @@ export interface ServiceItem{
     quantity:number;
 }
 
-export interface Booking {
+export interface Service {
     id:number;
     userId:number;
     totalprice:number;
@@ -12,7 +12,7 @@ export interface Booking {
     status: string;
 }
 
-export interface BookingCreate {
+export interface ServiceCreate {
     userId:number;
     totalprice:number;
     itens: ServiceItem[];

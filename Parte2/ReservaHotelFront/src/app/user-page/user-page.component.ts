@@ -190,7 +190,7 @@ export class UserPageComponent implements OnInit{
             })
   }
 
-  editBooking(): void {
+  editBooking(booking: Booking): void {
     const dialog = this.dialog.open(BookingEditComponent, {
             width: '400px',
           });
