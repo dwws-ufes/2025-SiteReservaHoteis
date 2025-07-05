@@ -1,7 +1,6 @@
 ﻿using ReservaHotel.DTOs;
-using ReservaHotel.Entities;
-using ReservaHotel.Repository;
-using System.Xml.Linq;
+using ReservaHotel.Repository.Interfaces;
+using ReservaHotel.Services.Interfaces;
 
 namespace ReservaHotel.Services
 {

@@ -1,6 +1,7 @@
 ﻿using ReservaHotel.DTOs;
 using ReservaHotel.Entities;
-using ReservaHotel.Repository;
+using ReservaHotel.Repository.Interfaces;
+using ReservaHotel.Services.Interfaces;
 using ReservaHotel.Utils;
 
 namespace ReservaHotel.Services

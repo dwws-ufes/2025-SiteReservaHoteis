@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ReservaHotel.DTOs;
-using ReservaHotel.Services;
+using ReservaHotel.Services.Interfaces;
 
 namespace ReservaHotel.Controllers
 {

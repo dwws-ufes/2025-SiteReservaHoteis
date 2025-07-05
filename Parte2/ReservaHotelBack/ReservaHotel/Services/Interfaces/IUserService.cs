@@ -1,6 +1,6 @@
 ﻿using ReservaHotel.DTOs;
 
-namespace ReservaHotel.Services
+namespace ReservaHotel.Services.Interfaces
 {
     public interface IUserService
     {

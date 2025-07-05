@@ -1,7 +1,7 @@
 ﻿using ReservaHotel.DTOs;
 using ReservaHotel.Entities;
 
-namespace ReservaHotel.Repository
+namespace ReservaHotel.Repository.Interfaces
 {
     public interface IRoomRepository
     {

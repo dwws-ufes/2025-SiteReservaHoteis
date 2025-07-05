@@ -2,7 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using ReservaHotel.Config;
 using ReservaHotel.Infra.Core;
 using ReservaHotel.Repository;
+using ReservaHotel.Repository.Interfaces;
 using ReservaHotel.Services;
+using ReservaHotel.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,11 +27,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
 builder.Services.AddControllers();
 

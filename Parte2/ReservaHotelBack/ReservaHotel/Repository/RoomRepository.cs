@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReservaHotel.Entities;
 using ReservaHotel.Infra.Core;
+using ReservaHotel.Repository.Interfaces;
 
 namespace ReservaHotel.Repository
 {
