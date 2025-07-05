@@ -8,6 +8,6 @@ namespace ReservaHotel.Repository
         Task<IEnumerable<Room>> Get();
         Task<Room> Create(Room room);
         Task<Room> Edit(Room room);
-        Task Delete(Guid id);
+        Task Delete(int id);
     }
 }

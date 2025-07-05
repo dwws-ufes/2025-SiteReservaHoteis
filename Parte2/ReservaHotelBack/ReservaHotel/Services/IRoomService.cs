@@ -7,6 +7,6 @@ namespace ReservaHotel.Services
         Task<IEnumerable<RoomDTO>> Get();
         Task<RoomDTO> Create(RoomCreateDTO roomDto);
         Task<RoomDTO> Edit(RoomDTO roomDto);
-        Task Delete(Guid id);
+        Task Delete(int id);
     }
 }

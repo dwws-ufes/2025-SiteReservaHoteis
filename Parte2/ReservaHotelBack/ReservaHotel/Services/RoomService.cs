@@ -17,7 +17,6 @@ namespace ReservaHotel.Services
         {
             var roomCreate = new Room
             {
-                Id = Guid.NewGuid(),
                 Name = roomDto.Name,
                 Description = roomDto.Description,
                 Price = roomDto.Price,
@@ -48,7 +47,7 @@ namespace ReservaHotel.Services
             return new RoomDTO { Id = newRoom.Id, Name = newRoom.Name, Price = newRoom.Price, ImageUrl = newRoom.ImageUrl, Description = newRoom.Description };
         }
 
-        public async Task Delete(Guid id)
+        public async Task Delete(int id)
         {
             await roomRepository.Delete(id);
         }

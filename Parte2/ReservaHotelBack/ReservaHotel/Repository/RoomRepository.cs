@@ -39,7 +39,7 @@ namespace ReservaHotel.Repository
             return oldRoom;
         }
 
-        public async Task Delete(Guid id)
+        public async Task Delete(int id)
         {
             var room = await _context.Rooms.AsQueryable().FirstOrDefaultAsync(x => x.Id == id);
             if (room == null)
