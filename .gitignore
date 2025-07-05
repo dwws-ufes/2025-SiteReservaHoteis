@@ -21,7 +21,6 @@ Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
 
 # Arquivos de ambiente
 .env
