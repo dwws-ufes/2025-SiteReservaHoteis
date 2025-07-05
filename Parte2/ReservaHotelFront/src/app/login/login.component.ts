@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', login.token);
 
           this.auth.setUser(login.user);
-          this.router.navigate(['/']);
+          this.router.navigate(['/userpage']);
         })
       )
       .subscribe();
