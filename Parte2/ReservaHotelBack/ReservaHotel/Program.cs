@@ -24,10 +24,12 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 
 builder.Services.AddControllers();
 
