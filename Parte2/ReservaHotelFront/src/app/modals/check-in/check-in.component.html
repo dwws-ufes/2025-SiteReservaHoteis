@@ -1,0 +1,18 @@
+<div class="modal-overlay" (click)="close()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="close()">×</button>
+    <div class="confirm-checkin-area">
+      <form (ngSubmit)="confirmCheckIn()">
+        <div class="modal-header">
+          <h2>Confirmar Check-In</h2>
+        </div>
+        <p>Tem certeza de que deseja realizar o check-in?</p>
+        <div class="actions">
+          <button type="submit" class="book-btn">Confirmar</button>
+          <button type="button" class="book-btn cancel-btn" (click)="close()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

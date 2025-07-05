@@ -34,4 +34,15 @@ export class UserService {
   logout() {
     
   }
+
+  getCurrentUser(): User{
+    return {
+      id: '1',
+      firstName: 'Clifford',
+      lastName: 'Frazier',
+      email: 'email-exemple@exemple.com',
+      password: '1234',
+      avatar: 'assets/imgs/User_Icon.jpg'
+  };
+  }
 }

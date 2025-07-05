@@ -41,17 +41,12 @@ export class BookingEditComponent implements OnInit{
         roomQtd: data.booking.roomQtd,
         adultsNumber: data.booking.adultsNumber,
         childNumber: data.booking.childNumber
-      }
+      };
   }
 
   ngOnInit() {
-    this.bookingItem.room = {
-                              id: 1,
-                              name: "Deluxe Room",
-                              price: 350,
-                              imageUrl: "/assets/img/rooms/deluxe-room.jpg",
-                              description: "An elegant room with a king-size bed, floor-to-ceiling windows offering city views, and complimentary premium amenities."
-                            };
+    this.bookingItem.room = this.getRoomById(this.booking.roomId)!;
+    this.bookingItem.quantity = this.booking.roomQtd;
     this.selectedRoom = this.getRoomById(this.booking.roomId)!;
     this.roomService.getRooms()
       .subscribe(data => this.rooms = data);

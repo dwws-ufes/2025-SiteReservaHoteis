@@ -1,0 +1,17 @@
+<div class="modal-overlay" (click)="close()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="close()">×</button>
+    <div class="confirm-cancel-area">
+      <form (ngSubmit)="delete()">
+        <div class="modal-header">
+          <h2>Cancelar Reserva</h2>
+        </div>
+        <p>Tem certeza de que deseja cancelar esta reserva?</p>
+        <div class="actions">
+          <button type="submit" class="book-btn">Sim, Cancelar</button>
+          <button type="button" class="book-btn cancel-btn" (click)="close()">Não</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

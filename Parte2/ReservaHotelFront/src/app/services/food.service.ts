@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Food } from '../models/food';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,14 @@ export class FoodService {
   private readonly apiUrl = 'https://localhost:7099/api/food'
 
   constructor(private readonly http: HttpClient) { }
+
+  getFoodById(foodId: number): Food {
+      let food!: Food;
+      this.get()
+        .pipe(map(foods => foods.filter(r => r.id === foodId)))
+        .subscribe(arr => food = arr[0]);
+      return food;
+    }
   
   get(id?: number, searchTerm?: string, tag?: string): Observable<Food[]> {
     let filter = '';
@@ -19,8 +28,8 @@ export class FoodService {
       filter += `name=${searchTerm}&`;
     if (tag != undefined)
       filter += `tag=${tag}`;
-
-    return this.http.get<Food[]>(`${this.apiUrl}?${filter}`);
+    return of(this.getAll());
+    //return this.http.get<Food[]>(`${this.apiUrl}?${filter}`);
   }
 
   getAllFoodsByTag(tag: string): Food[] {

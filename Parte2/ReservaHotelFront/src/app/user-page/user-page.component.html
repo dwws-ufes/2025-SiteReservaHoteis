@@ -22,32 +22,63 @@
 
     <main class="main-content">
       <section class="bookings">
-        <h3>Bookings</h3>
-        <div class="booking-card" *ngFor="let b of bookings" (click)="editBooking(b)">
-          <div class="image-wrapper">
-            <img src="assets/imgs/rooms/room1.jpg" alt="{{ b.title }}" />
-          </div>
-          <div class="info">
-            <button class="status-btn">{{ b.status }}</button>
-            <span class="by">by <strong>{{ b.by }}</strong></span>
-            <h4>{{ b.title }}</h4>
-            <p>{{ b.description }}</p>
-            <small>Check-in Date - {{ b.date }}</small>
-          </div>
+  <h3>Bookings</h3>
+  <div class="booking-card" *ngFor="let b of bookings">
+    <div class="image-wrapper">
+      <!-- Busca o quarto pelo ID e exibe sua imagem -->
+      <img
+        [src]="roomService.getRoomById(b.roomId).imageUrl"
+        alt="{{ roomService.getRoomById(b.roomId).name }}"
+      />
+    </div>
+    <div class="info">
+      <!-- Botão que exibe o status da reserva -->
+      <button
+        class="status-btn"
+        (click)="checkIn(b); $event.stopPropagation()"
+      >
+        Check-in
+      </button>
+      <span class="by">by <strong>{{ user.firstName }} {{ user.lastName }}</strong></span>
+      <!-- Título e descrição da reserva -->
+      <h4>{{ roomService.getRoomById(b.roomId).name }}</h4>
+      <p>{{ roomService.getRoomById(b.roomId).description }}</p>
+      <!-- Linha de data com botões de ação -->
+      <div class="checkin-date-row">
+        <small>Check-in Date – {{ b.checkIn | date:'shortDate' }}</small>
+        <div class="action-buttons">
+          <button
+            type="button"
+            class="btn-edit"
+            (click)="editBooking(b); $event.stopPropagation()"
+          >
+            ✏️
+          </button>
+          <button
+            type="button"
+            class="btn-cancel"
+            (click)="cancelBooking(b); $event.stopPropagation()"
+          >
+            ❌
+          </button>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       <section class="services">
         <h3>Services</h3>
         <div class="service-item" *ngFor="let s of services">
-          <img class="icon" src="assets/imgs/dining/dining-img3.png" alt="{{ s.category }}" />
+          <img class="icon" src="assets/imgs/dining/dining-img3.png" alt="Food" />
           <div class="details">
             <div class="item-list">
-              <p *ngFor="let it of s.items">{{ it }}</p>
+              <p *ngFor="let it of s.itens">{{ it.quantity }} - {{ it.food }}</p>
             </div>
             <div class="meta">
-              <span class="category">{{ s.category }}</span>
-              <span class="time">Delivery Time → {{ s.timeRange }}</span>
+              <span class="category">Food and Take-Out</span>
+              <span class="time">Delivery Time → {{ s.deliveryTime }}</span>
               <span class="status">{{ s.status }}</span>
             </div>
           </div>

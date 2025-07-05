@@ -11,7 +11,7 @@ export class BookingItem{
 
 export interface Booking {
     id: number;
-    userId: number;
+    userId: string;
     price:number;
     checkIn: Date;
     checkOut: Date;
@@ -22,12 +22,12 @@ export interface Booking {
 }
 
 export interface BookingCreate {
-    name:string;
-    price:number;
-    tags?:string[];
-    favorite:boolean;
-    stars:number;
-    imageUrl:string;
-    origins:string[];
-    cookTime:string;
+    userId: string;
+    price: number;
+    checkIn: Date;
+    checkOut: Date;
+    roomId:number;
+    roomQtd:number;
+    adultsNumber:number;
+    childNumber:number;
 }

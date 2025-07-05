@@ -1,0 +1,86 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  width: 480px;
+  max-width: 90%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #1f2c34;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: #dca73a;
+}
+
+.confirm-cancel-area {
+  text-align: center;
+}
+
+.confirm-cancel-area .modal-header h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  color: #1f2c34;
+}
+
+.confirm-cancel-area p {
+  margin-bottom: 1.5rem;
+  color: #333333;
+  font-size: 1rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.book-btn {
+  background: #dca73a;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.book-btn:hover {
+  background: #c49b32;
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  color: #1f2c34;
+}
+
+.cancel-btn:hover {
+  background: #e0e0e0;
+}

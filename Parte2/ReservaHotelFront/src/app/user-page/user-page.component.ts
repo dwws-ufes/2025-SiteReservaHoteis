@@ -9,23 +9,16 @@ import { BookingEditComponent } from '../modals/booking-edit/booking-edit.compon
 import { RoomEditComponent } from '../modals/room-edit/room-edit.component';
 import { UserEditComponent } from '../modals/user-edit/user-edit.component';
 import { User } from '../models/user';
+import { CheckInComponent } from '../modals/check-in/check-in.component';
+import { UserService } from '../services/user.service';
+import { CancelBookingComponent } from '../modals/cancel-booking/cancel-booking.component';
+import { Booking } from '../models/booking';
+import { Service } from '../models/service';
+import { BookingService } from '../services/booking.service';
+import { ServiceService } from '../services/service.service';
+import { RoomService } from '../services/room.service';
+import { FoodService } from '../services/food.service';
 
-interface Booking {
-  title: string;
-  description: string;
-  image: string;
-  by: string;
-  date: string;
-  status: string;
-}
-
-interface ServiceItem {
-  icon: string;
-  items: string[];
-  category: string;
-  timeRange: string;
-  status: string;
-}
 
 @Component({
   selector: 'app-user-page',
@@ -33,14 +26,9 @@ interface ServiceItem {
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit{
-  user: User = {
-    id: '1',
-    firstName: 'Clifford',
-    lastName: 'Frazier',
-    email: 'email-exemple@exemple.com',
-    password: '1234',
-    avatar: 'assets/imgs/User_Icon.jpg'
-  };
+  user!: User ;
+  bookings: Booking[] = [];
+  services: Service[] = [];
 
   options = [
     'Book Online',
@@ -51,60 +39,20 @@ export class UserPageComponent implements OnInit{
     'Logout'
   ];
 
-  bookings: Booking[] = [
-    {
-      title: 'Penthouse Suite',
-      description: 'Cobertura de luxo com terraço panorâmico, piscina privativa e serviço de mordomo 24 h.',
-      image: 'assets/booking1.jpg',
-      by: 'Clifford Frazier',
-      date: 'Feb 28, 2020',
-      status: 'CHECK-IN'
-    },
-    {
-      title: 'Presidential Suite',
-      description: 'Suíte espaçosa (120 m²) com sala de jantar, escritório privativo e banheira de hidromassagem.',
-      image: 'assets/booking2.jpg',
-      by: 'Clifford Frazier',
-      date: 'Feb 28, 2020',
-      status: 'CHECK-IN'
-    },
-    {
-      title: 'Deluxe Room',
-      description: 'Quarto elegante com vista para a cidade, cama king-size, amenidades de cortesia premium.',
-      image: 'assets/booking3.jpg',
-      by: 'Clifford Frazier',
-      date: 'Feb 28, 2020',
-      status: 'CHECK-IN'
-    }
-  ];
-
-  services: ServiceItem[] = [
-    {
-      icon: 'assets/icons/food.png',
-      items: ['4 Donuts', '1 1.5 mls Coke', '1 Chocolate Cake'],
-      category: 'Food and Take-out',
-      timeRange: '20:45 - 20:55',
-      status: 'ARRIVED'
-    },
-    {
-      icon: 'assets/icons/amenities.png',
-      items: ['Room Cleaning', 'Bathroom Refreshment', 'New Towels'],
-      category: 'Amenities',
-      timeRange: '20:35 - 20:45',
-      status: 'ARRIVED'
-    },
-    {
-      icon: 'assets/icons/food.png',
-      items: ['2 Hamburguer', '2 French-Frys'],
-      category: 'Food and Take-out',
-      timeRange: '20:25 - 20:35',
-      status: 'ARRIVED'
-    }
-  ];
-
-  constructor( private route: ActivatedRoute, private readonly dialog: MatDialog, private router: Router) { }
+  constructor(  private route: ActivatedRoute, 
+                private readonly dialog: MatDialog,
+                private router: Router,
+                private userService: UserService,
+                private bookingService: BookingService,
+                private serviceService: ServiceService,
+                public roomService: RoomService,
+                public foodService: FoodService
+              ) { }
   
   ngOnInit(): void {
+    this.user = this.userService.getCurrentUser();
+    this.bookings = this.bookingService.getBookingsByUserId(this.user.id);
+    this.services = this.serviceService.getServicesByUserId(this.user.id);
   }
 
   onOptionClick(option: string): void {
@@ -192,6 +140,33 @@ export class UserPageComponent implements OnInit{
 
   editBooking(booking: Booking): void {
     const dialog = this.dialog.open(BookingEditComponent, {
+            data: {booking},
+            width: '400px',
+          });
+      
+          dialog.afterClosed()
+            .subscribe(success => {
+              if (!success)
+                return;
+            })
+  }
+
+  cancelBooking(booking: Booking): void {
+    const dialog = this.dialog.open(CancelBookingComponent, {
+            data: {booking},
+            width: '400px',
+          });
+      
+          dialog.afterClosed()
+            .subscribe(success => {
+              if (!success)
+                return;
+            })
+  }
+
+  checkIn(booking: Booking): void {
+    const dialog = this.dialog.open(CheckInComponent, {
+            data: {booking},
             width: '400px',
           });
       

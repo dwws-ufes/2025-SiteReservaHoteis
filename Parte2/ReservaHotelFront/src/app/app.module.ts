@@ -26,6 +26,8 @@ import { UserDeleteComponent } from './modals/user-delete/user-delete.component'
 import { LogoutComponent } from './modals/logout/logout.component';
 import { BookingEditComponent } from './modals/booking-edit/booking-edit.component';
 import { UserEditComponent } from './modals/user-edit/user-edit.component';
+import { CheckInComponent } from './modals/check-in/check-in.component';
+import { CancelBookingComponent } from './modals/cancel-booking/cancel-booking.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { UserEditComponent } from './modals/user-edit/user-edit.component';
     UserDeleteComponent,
     LogoutComponent,
     BookingEditComponent,
-    UserEditComponent
+    UserEditComponent,
+    CheckInComponent,
+    CancelBookingComponent
   ],
   imports: [
     BrowserModule,

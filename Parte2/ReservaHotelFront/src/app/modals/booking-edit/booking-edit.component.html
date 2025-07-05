@@ -14,15 +14,15 @@
                 </div>
                 <div class="single-field">
                     <label>Adults:</label>
-                    <input type="number" [(ngModel)]="booking.adultsNumber" value="1" min="1" />
+                    <input type="number" [(ngModel)]="booking.adultsNumber" [value]="booking.adultsNumber" min="1" />
                 </div>
                 <div class="single-field">
                     <label>Children:</label>
-                    <input type="number" [(ngModel)]="booking.childNumber" value="1" min="0" />
+                    <input type="number" [(ngModel)]="booking.childNumber" [value]="booking.childNumber" min="0" />
                 </div>
                 <div class="single-field">
                     <label>Rooms QTD:</label>
-                    <input #quantitySelect (change)="changeQuantity(selectedRoom,quantitySelect.value)" [(ngModel)]="booking.roomQtd" type="number" value="1" min="1" />
+                    <input #quantitySelect (change)="changeQuantity(selectedRoom,quantitySelect.value)" [(ngModel)]="booking.roomQtd" type="number" [value]="booking.roomQtd" min="1" />
                 </div>
                 <div class="single-field">
                     <label>Rooms: </label>
@@ -30,6 +30,7 @@
                         id="select3"
                         class="form-control"
                         name="select"
+                        [value]="selectedRoom"
                         [(ngModel)]="selectedRoom"
                         (ngModelChange)="changeRoom($event)"
                     >

@@ -5,7 +5,7 @@ export interface ServiceItem{
 
 export interface Service {
     id:number;
-    userId:number;
+    userId:string;
     totalprice:number;
     itens: ServiceItem[];
     deliveryTime: string;

@@ -7,6 +7,7 @@ import { Room } from 'src/app/models/room';
 import { BookingService } from 'src/app/services/booking.service';
 import { RoomService } from 'src/app/services/room.service';
 import { map } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-book-online',
@@ -15,10 +16,14 @@ import { map } from 'rxjs/operators';
 })
 export class BookOnlineComponent implements OnInit{
 
-  booking!: Booking;
   bookingItem!:BookingItem;
   rooms: Room[] = []
   selectedRoom!: Room;
+  checkIn: Date = new Date;
+  checkOut: Date = new Date;
+  adultsNumber : number = 1
+  childNumber : number = 1
+  roomQtd : number = 1
 
   success = false;
 
@@ -28,20 +33,10 @@ export class BookOnlineComponent implements OnInit{
           @Inject(MAT_DIALOG_DATA) public data: {  },
           private readonly toastr: ToastrService,
           private bookingService: BookingService,
-          private roomService: RoomService
+          private roomService: RoomService,
+          private userService: UserService
     ) {
       this.setBookingItem();
-      // this.booking = {
-      //   id: data.booking.id,
-      //   userId: data.booking.userId,
-      //   price: data.booking.price,
-      //   checkIn: data.booking.checkIn,
-      //   checkOut: data.booking.checkOut,
-      //   roomId: data.booking.roomId,
-      //   roomQtd: data.booking.roomQtd,
-      //   adultsNumber: data.booking.adultsNumber,
-      //   childNumber: data.booking.childNumber
-      // }
   }
 
   ngOnInit() {
@@ -62,15 +57,25 @@ export class BookOnlineComponent implements OnInit{
   }
 
   create() {
-      // this.userService.editUser(this.user.id)
-      //   .pipe(
-      //     tap(() => {
-      //       this.toastr.success('User atualizado com sucesso!', 'Sucesso!');
-      //       this.success = true;
-      //       this.close();
-      //     })
-      //   )
-      //   .subscribe();
+    let booking = {
+        userId: this.userService.getCurrentUser().id,
+        price: this.bookingItem.price,
+        checkIn: this.checkIn,
+        checkOut: this.checkOut,
+        roomId: this.selectedRoom.id,
+        roomQtd: this.roomQtd,
+        adultsNumber: this.adultsNumber,
+        childNumber: this.childNumber
+      }
+      this.bookingService.createBooking(booking)
+        .pipe(
+          tap(() => {
+            this.toastr.success('Booking Criado com sucesso!', 'Sucesso!');
+            this.success = true;
+            this.close();
+          })
+        )
+        .subscribe();
   }
 
   changeRoom(room:Room):void{

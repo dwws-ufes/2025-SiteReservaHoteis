@@ -6,23 +6,23 @@
                 <div class="reservation-wrap">
                 <div class="single-field datepicker">
                     <label>Check In Date:</label>
-                    <input type="date" name="" id="" placeholder="12/12/2020">
+                    <input [(ngModel)]="checkIn" type="date" name="" id="" placeholder="12/12/2020">
                 </div>
                 <div class="single-field datepicker">
                     <label>Check Out Date:</label>
-                    <input type="date" name="" id="" placeholder="12/12/2020">
+                    <input [(ngModel)]="checkOut" type="date" name="" id="" placeholder="12/12/2020">
                 </div>
                 <div class="single-field">
                     <label>Adults:</label>
-                    <input type="number" value="1" min="1" />
+                    <input [(ngModel)]="adultsNumber" type="number" value="1" min="1" />
                 </div>
                 <div class="single-field">
                     <label>Children:</label>
-                    <input type="number" value="1" min="0" />
+                    <input [(ngModel)]="childNumber" type="number" value="1" min="0" />
                 </div>
                 <div class="single-field">
                     <label>Rooms QTD:</label>
-                    <input #quantitySelect (change)="changeQuantity(selectedRoom,quantitySelect.value)" type="number" value="1" min="1" />
+                    <input [(ngModel)]="roomQtd" #quantitySelect (change)="changeQuantity(selectedRoom,quantitySelect.value)" type="number" value="1" min="1" />
                 </div>
                 <div class="single-field">
                     <label>Rooms: </label>
