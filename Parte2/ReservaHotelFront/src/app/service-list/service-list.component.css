@@ -1,7 +1,7 @@
 .container {
     .title {
         background: linear-gradient(to bottom, #7D726F, #FFFFFF);
-        padding: 50px;
+        padding: 100px;
         text-align: center;
 
         h2 {
@@ -11,10 +11,7 @@
             font-family: "Lato", sans-serif;
         }
     }
-    .title-reverse {
-      background: linear-gradient(to top, #7D726F, #FFFFFF);
-      padding: 30px;
-    }
+
     .food-service-section {
   padding: 2rem;
   max-width: 1200px;

@@ -59,53 +59,48 @@
             flex-wrap: wrap;
             text-align: left;
 
-            .search__inputs {
+            .quality-ratings {
                 display: flex;
-                align-items: center;
+                gap: 2rem;
                 justify-content: space-between;
-                gap: 16px;
-
-                p {
-                    text-align: left;
-                    color: #262626;
-                    font-size: 16px;
-                    margin-bottom: 20px;
-                    font-weight: 600;
-                    display: block;
-                    font-family: "Quicksand", sans-serif;
                 }
-    
-                input {
-                    padding: 10px 12px;
-                    font-size: 14px;
-                    border: 1px solid #c2922e;
-                    border-radius: 4px;
-                    appearance: none;
-                    background: #ffffff;
-                    background-size: 12px;
-                    outline: none;
-                    text-transform: none;
 
-                    width: 100%;
-                    height: 28px;
+                .rating-item {
+                text-align: center;
                 }
-            }
 
-            button {
-                border: medium none;
-                background-color: #c2922e;
-                color: #fff;
-                font-size: 16px;
+                .rating-item p {
+                margin: 0 0 0.5rem;
                 font-weight: 600;
-                width: 200px;
-                border-radius: 4px;
-                text-decoration: none;
-                font-family: "Quicksand", sans-serif;
-                padding: 20px 50px;
+                color: #1f2c34;
+                }
 
-                margin: 44px 0px;
-                cursor: pointer;
-            }
+                .stars {
+                font-size: 1.5rem;
+                color: #dca73a;
+                line-height: 1;
+                }
+
+                .rating-desc {
+                margin: 0.25rem 0 0;
+                font-size: 0.85rem;
+                color: #666;
+                max-width: 160px;
+                margin-left: auto;
+                margin-right: auto;
+                }
+
+
+                .evaluator-img {
+                display: block;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin: 0 auto 0.5rem;
+                border: 2px solid #dca73a;
+                }
+
         }
     }
 
