@@ -13,7 +13,7 @@ export interface Service {
 }
 
 export interface ServiceCreate {
-    userId:number;
+    userId:string;
     totalprice:number;
     itens: ServiceItem[];
     deliveryTime: string;

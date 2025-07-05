@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="title">
+        <h2>Our Pool</h2>
+    </div>
+    <section class="pool-section">
+    <div class="hero">
+        <img src="/assets/imgs/pool/dining-img2.jpg" alt="Piscina do Hotel" class="hero-img" />
+        <div class="hero-text">
+        <h1>Piscina do Hotel</h1>
+        <p>Relaxe e aproveite nosso espaço aquático projetado para conforto e diversão.</p>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="feature-card" *ngFor="let feature of poolFeatures">
+        <img [src]="feature.img" [alt]="feature.title" class="feature-img" />
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+        </div>
+    </div>
+    </section>
+</div>

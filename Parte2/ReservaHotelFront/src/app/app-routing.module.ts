@@ -9,9 +9,15 @@ import { RegisterComponent } from "./register/register.component";
 import { AdminPageComponent } from "./admin-page/admin-page.component";
 import { CartPageComponent } from "./cart-page/cart-page.component";
 import { UserPageComponent } from "./user-page/user-page.component";
+import { PoolPageComponent } from "./pool-page/pool-page.component";
+import { RestaurantPageComponent } from "./restaurant-page/restaurant-page.component";
+import { AmenitiesPageComponent } from "./amenities-page/amenities-page.component";
 
 const routes: Routes = [
     { path: '', component: HomePageComponent },
+    { path: 'pool', component: PoolPageComponent },
+    { path: 'restaurant', component: RestaurantPageComponent },
+    { path: 'amenities', component: AmenitiesPageComponent },
     { path: 'services', component: ServicesPageComponent },
     { path: 'services/list', component: ServiceListComponent },
     { path: 'services/list/:searchTerm', component: ServiceListComponent },

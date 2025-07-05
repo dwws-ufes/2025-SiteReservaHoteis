@@ -3,6 +3,12 @@ import { RouterLink } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { Cart, CartItem } from '../models/cart';
 import { CommonModule } from '@angular/common';
+import { ServiceCreate, ServiceItem } from '../models/service';
+import { User } from '../models/user';
+import { UserService } from '../services/user.service';
+import { ServiceService } from '../services/service.service';
+import { tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -11,9 +17,19 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./cart-page.component.css']
 })
 export class CartPageComponent implements OnInit {
+
   cart!:Cart;
-  constructor(private cartService: CartService) { 
+  user!:User;
+
+  success = false;
+
+  constructor(private cartService: CartService, 
+    private userService: UserService,
+    private serviceService: ServiceService,
+    private readonly toastr: ToastrService
+) { 
     this.setCart();
+    this.user = this.userService.getCurrentUser()
   }
   ngOnInit(): void {
   }
@@ -29,8 +45,35 @@ export class CartPageComponent implements OnInit {
     this.setCart();
   }
 
-  setCart(){
+  setCart() {
     this.cart = this.cartService.getCart();
+  }
+
+  checkOut() {
+    // Mapeia cada CartItem para ServiceItem
+    const itens: ServiceItem[] = this.cart.items.map(ci => ({
+      food: ci.food.name,
+      quantity: ci.quantity
+    }));
+
+    // Gera o objeto ServiceCreate
+    const serviceCreate: ServiceCreate = {
+      userId : this.user.id,
+      totalprice: this.cart.totalPrice,
+      itens,
+      deliveryTime: new Date().toISOString(),
+      status: 'pending'
+    };
+
+    this.serviceService.createService(serviceCreate)
+        .pipe(
+          tap(() => {
+            this.toastr.success('Quarto criado com sucesso!', 'Sucesso!');
+            this.success = true;
+          })
+        )
+        .subscribe();
+
   }
 
 }

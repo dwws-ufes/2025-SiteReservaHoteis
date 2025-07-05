@@ -5,6 +5,12 @@ import { Food } from '../models/food';
 import { MatDialog } from '@angular/material/dialog';
 import { FoodPageComponent } from '../modals/food-page/food-page.component';
 
+interface FoodFeature {
+  img: string;
+  title: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-service-list',
   templateUrl: './service-list.component.html',
@@ -49,4 +55,27 @@ export class ServiceListComponent implements OnInit {
     this.searchTerm = searchTerm;
     this.getFood();
   }
+
+  foodFeatures: FoodFeature[] = [
+    {
+      img: '/assets/imgs/food-take-out/room-service.jpg',
+      title: 'Room Service',
+      description: 'Refeições completas entregues diretamente no conforto do seu quarto.'
+    },
+    {
+      img: '/assets/imgs/food-take-out/take-out.jpg',
+      title: 'Take-Out',
+      description: 'Opções práticas e rápidas para viagem, prontas em poucos minutos.'
+    },
+    {
+      img: '/assets/imgs/food-take-out/special-menu.jpg',
+      title: 'Menu Especial',
+      description: 'Pratos exclusivos preparados pelos nossos chefs para ocasiões especiais.'
+    },
+    {
+      img: '/assets/imgs/food-take-out/healthy-options.jpg',
+      title: 'Opções Saudáveis',
+      description: 'Refeições balanceadas e nutritivas para quem busca bem-estar.'
+    }
+  ];
 }

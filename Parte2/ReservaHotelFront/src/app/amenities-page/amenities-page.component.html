@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="title">
+        <h2>Amenities</h2>
+    </div>
+    <section class="amenities-section">
+    <div class="hero">
+        <img src="/assets/imgs/amenities/amenities-hero.jpg" alt="Amenidades do Hotel" class="hero-img" />
+        <div class="hero-text">
+        <h1>Amenidades do Hotel</h1>
+        <p>Descubra nossos serviços e facilidades para tornar sua estadia inesquecível.</p>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="feature-card" *ngFor="let feature of amenitiesFeatures">
+        <img [src]="feature.img" [alt]="feature.title" class="feature-img" />
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+        </div>
+    </div>
+    </section>
+</div>

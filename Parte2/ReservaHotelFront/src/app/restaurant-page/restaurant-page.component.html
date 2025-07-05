@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="title">
+        <h2>Our Restaurant</h2>
+    </div>
+    <section class="restaurant-section">
+    <div class="hero">
+        <img src="/assets/imgs/restaurant/dining-img.jpg" alt="Restaurante do Hotel" class="hero-img" />
+        <div class="hero-text">
+        <h1>Restaurante do Hotel</h1>
+        <p>Sabores exclusivos preparados pelos nossos chefs para você desfrutar.</p>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="feature-card" *ngFor="let feature of restaurantFeatures">
+        <img [src]="feature.img" [alt]="feature.title" class="feature-img" />
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+        </div>
+    </div>
+    </section>
+</div>

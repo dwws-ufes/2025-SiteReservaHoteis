@@ -28,6 +28,9 @@ import { BookingEditComponent } from './modals/booking-edit/booking-edit.compone
 import { UserEditComponent } from './modals/user-edit/user-edit.component';
 import { CheckInComponent } from './modals/check-in/check-in.component';
 import { CancelBookingComponent } from './modals/cancel-booking/cancel-booking.component';
+import { PoolPageComponent } from './pool-page/pool-page.component';
+import { RestaurantPageComponent } from './restaurant-page/restaurant-page.component';
+import { AmenitiesPageComponent } from './amenities-page/amenities-page.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { CancelBookingComponent } from './modals/cancel-booking/cancel-booking.c
     BookingEditComponent,
     UserEditComponent,
     CheckInComponent,
-    CancelBookingComponent
+    CancelBookingComponent,
+    PoolPageComponent,
+    RestaurantPageComponent,
+    AmenitiesPageComponent
   ],
   imports: [
     BrowserModule,

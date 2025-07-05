@@ -11,7 +11,75 @@
             font-family: "Lato", sans-serif;
         }
     }
+    .title-reverse {
+      background: linear-gradient(to top, #7D726F, #FFFFFF);
+      padding: 30px;
+    }
+    .food-service-section {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
+
+.food-service-section .hero {
+  position: relative;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.food-service-section .hero-img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.food-service-section .hero-text {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+}
+
+.food-service-section .features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.food-service-section .feature-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.food-service-section .feature-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.food-service-section .feature-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  color: #1f2c34;
+}
+
+.food-service-section .feature-card p {
+  font-size: 0.95rem;
+  color: #4a4a4a;
+}
+
+}
+
+
 
 
 .food-list {
