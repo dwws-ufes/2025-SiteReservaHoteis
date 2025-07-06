@@ -21,6 +21,10 @@ namespace ReservaHotel.Infra.Core
             modelBuilder.Entity<User>()
                 .HasIndex(x => x.Email).IsUnique();
 
+            modelBuilder.Entity<Room>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Booking>()
                 .HasOne(x => x.User)
                 .WithMany(x => x.Bookings)

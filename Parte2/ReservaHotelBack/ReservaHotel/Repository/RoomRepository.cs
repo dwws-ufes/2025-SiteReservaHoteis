@@ -15,6 +15,7 @@ namespace ReservaHotel.Repository
 
         public async Task<Room> Create(Room room)
         {
+            room.Id = await _context.Rooms.Select(x => x.Id).Order().LastAsync() + 1;
             _context.Rooms.Add(room);
             await _context.SaveChangesAsync();
             return room;
