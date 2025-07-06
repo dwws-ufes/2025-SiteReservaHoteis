@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Food } from '../models/food';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 
