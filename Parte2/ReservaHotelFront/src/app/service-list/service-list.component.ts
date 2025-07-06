@@ -60,22 +60,22 @@ export class ServiceListComponent implements OnInit {
     {
       img: '/assets/imgs/food-take-out/room-service.jpg',
       title: 'Room Service',
-      description: 'Refeições completas entregues diretamente no conforto do seu quarto.'
+      description: 'Full meals delivered directly to the comfort of your room.'
     },
     {
       img: '/assets/imgs/food-take-out/take-out.jpg',
       title: 'Take-Out',
-      description: 'Opções práticas e rápidas para viagem, prontas em poucos minutos.'
+      description: 'Quick and convenient options to go, ready in minutes.'
     },
     {
       img: '/assets/imgs/food-take-out/special-menu.jpg',
-      title: 'Menu Especial',
-      description: 'Pratos exclusivos preparados pelos nossos chefs para ocasiões especiais.'
+      title: 'Special Menu',
+      description: 'Exclusive dishes crafted by our chefs for special occasions.'
     },
     {
       img: '/assets/imgs/food-take-out/healthy-options.jpg',
-      title: 'Opções Saudáveis',
-      description: 'Refeições balanceadas e nutritivas para quem busca bem-estar.'
+      title: 'Healthy Options',
+      description: 'Balanced and nutritious meals for those seeking wellness.'
     }
   ];
 }

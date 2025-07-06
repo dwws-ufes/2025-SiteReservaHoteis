@@ -15,23 +15,23 @@ export class RestaurantPageComponent implements OnInit {
   restaurantFeatures: RestaurantFeature[] = [
     {
       img: '/assets/imgs/restaurant/fine-dining.jpg',
-      title: 'Gastronomia de Alto Nível',
-      description: 'Pratos sofisticados preparados com ingredientes frescos e sazonais.'
+      title: 'Fine Dining',
+      description: 'Sophisticated dishes prepared with fresh, seasonal ingredients.'
     },
     {
       img: '/assets/imgs/restaurant/buffet.jpeg',
-      title: 'Buffet Variado',
-      description: 'Estação com saladas, pratos quentes e sobremesas para todos os gostos.'
+      title: 'Varied Buffet',
+      description: 'Stations with salads, hot dishes, and desserts to suit every taste.'
     },
     {
       img: '/assets/imgs/restaurant/wine-selection.jpg',
-      title: 'Carta de Vinhos',
-      description: 'Seleção premiada de vinhos nacionais e importados para harmonização.'
+      title: 'Wine List',
+      description: 'Award-winning selection of domestic and imported wines for perfect pairing.'
     },
     {
       img: '/assets/imgs/restaurant/outdoor-seating.jpg',
-      title: 'Ambiente ao Ar Livre',
-      description: 'Mesas externas sob pérgola, ideal para refeições ao ar livre.'
+      title: 'Outdoor Seating',
+      description: 'Al fresco tables under a pergola, ideal for open-air dining.'
     }
   ];
 

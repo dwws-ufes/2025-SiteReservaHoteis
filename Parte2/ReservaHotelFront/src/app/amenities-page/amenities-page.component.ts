@@ -15,23 +15,23 @@ export class AmenitiesPageComponent implements OnInit {
   amenitiesFeatures: AmenityFeature[] = [
     {
       img: '/assets/imgs/amenities/fitness-center.jpg',
-      title: 'Academia Completa',
-      description: 'Equipamentos de última geração para treinos cardiovasculares e de força.'
+      title: 'Fitness Center',
+      description: 'State-of-the-art equipment for cardiovascular and strength training.'
     },
     {
       img: '/assets/imgs/amenities/spa.jpg',
-      title: 'Spa & Bem-Estar',
-      description: 'Tratamentos relaxantes e terapias para revitalizar corpo e mente.'
+      title: 'Spa & Wellness',
+      description: 'Relaxing treatments and therapies to revitalize body and mind.'
     },
     {
       img: '/assets/imgs/amenities/business-center.jpg',
       title: 'Business Center',
-      description: 'Sala equipada com computadores, impressoras e internet de alta velocidade.'
+      description: 'Room equipped with computers, printers, and high-speed internet.'
     },
     {
       img: '/assets/imgs/amenities/laundry.jpg',
-      title: 'Serviço de Lavanderia',
-      description: 'Lavagem e passagem expressa para sua conveniência.'
+      title: 'Laundry Service',
+      description: 'Express wash and press service for your convenience.'
     }
   ];
 

@@ -1,17 +1,19 @@
+ <mat-dialog-content>
 <div class="modal-overlay" (click)="close()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <button class="modal-close" (click)="close()">×</button>
     <div class="confirm-cancel-area">
       <form (ngSubmit)="delete()">
         <div class="modal-header">
-          <h2>Cancelar Reserva</h2>
+          <h2>Cancel Booking</h2>
         </div>
-        <p>Tem certeza de que deseja cancelar esta reserva?</p>
+        <p>Are you sure you want to cancel this booking?</p>
         <div class="actions">
-          <button type="submit" class="book-btn">Sim, Cancelar</button>
-          <button type="button" class="book-btn cancel-btn" (click)="close()">Não</button>
+          <button type="submit" class="book-btn">Yes, Cancel</button>
+          <button type="button" class="book-btn cancel-btn" (click)="close()">No</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+</mat-dialog-content>

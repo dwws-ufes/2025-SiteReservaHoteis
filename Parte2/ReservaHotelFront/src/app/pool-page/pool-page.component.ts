@@ -15,27 +15,27 @@ export class PoolPageComponent implements OnInit {
   poolFeatures: PoolFeature[] = [
     {
       img: '/assets/imgs/pool/relax-spa.jpg',
-      title: 'Área de Relaxamento',
-      description: 'Espreguiçadeiras confortáveis e guarda-sóis à beira da piscina para total conforto e descanso.'
+      title: 'Relaxation Area',
+      description: 'Comfortable loungers and umbrellas by the pool for complete comfort and relaxation.'
     },
     {
       img: '/assets/imgs/pool/pool-bar.jpg',
       title: 'Pool Bar',
-      description: 'Bebidas refrescantes e petiscos servidos diretamente na beira da água, sem precisar sair da piscina.'
+      description: 'Refreshing drinks and snacks served right at the water’s edge without leaving the pool.'
     },
     {
       img: '/assets/imgs/pool/kids-pool.jpg',
-      title: 'Espaço Kids',
-      description: 'Piscina rasa com brinquedos aquáticos para a diversão segura das crianças.'
+      title: 'Kids Area',
+      description: 'Shallow pool with water toys for safe and fun experiences for children.'
     },
     {
       img: '/assets/imgs/pool/pool-night.jpg',
-      title: 'Iluminação Noturna',
-      description: 'Efeitos de luz subaquática que criam um ambiente mágico e acolhedor após o pôr do sol.'
+      title: 'Night Lighting',
+      description: 'Underwater lighting effects that create a magical and cozy atmosphere after sunset.'
     }
   ];
 
   ngOnInit(): void {
-    // Eventuais inicializações
+    
   }
 }

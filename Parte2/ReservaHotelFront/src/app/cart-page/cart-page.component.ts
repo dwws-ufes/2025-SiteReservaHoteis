@@ -50,13 +50,11 @@ export class CartPageComponent implements OnInit {
   }
 
   checkOut() {
-    // Mapeia cada CartItem para ServiceItem
     const itens: ServiceItem[] = this.cart.items.map(ci => ({
       food: ci.food.name,
       quantity: ci.quantity
     }));
-
-    // Gera o objeto ServiceCreate
+    
     const serviceCreate: ServiceCreate = {
       userId : this.user.id,
       totalprice: this.cart.totalPrice,
