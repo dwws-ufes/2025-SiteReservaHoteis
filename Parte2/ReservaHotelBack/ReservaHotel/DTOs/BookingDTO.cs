@@ -44,8 +44,12 @@ namespace ReservaHotel.DTOs
                 RoomQtd = booking.RoomQtd,
                 AdultsNumber = booking.AdultsNumber,
                 ChildNumber = booking.ChildNumber,
+
                 UserId = booking.UserId,
-                RoomId = booking.RoomId
+                User = UserDTO.GetDto(booking.User),
+
+                RoomId = booking.RoomId,
+                Room = RoomDTO.GetDto(booking.Room)
             };
     }
 }

@@ -1,12 +1,47 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.IdentityModel.Tokens;
 using ReservaHotel.Config;
 using ReservaHotel.Infra.Core;
 using ReservaHotel.Repository;
 using ReservaHotel.Repository.Interfaces;
 using ReservaHotel.Services;
 using ReservaHotel.Services.Interfaces;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
+// Add authentication
+var key = builder.Configuration["Configuration:JwtKey"];
+var issuer = builder.Configuration["Configuration:Issuer"];
+var audience = builder.Configuration["Configuration:Audience"];
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = false,
+
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+        };
+    });
+builder.Services.AddAuthorization();
 
 // Add services to the container.
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -24,17 +59,20 @@ builder.Services.AddCors(options =>
         });
 });
 
+// Add services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
+// Add repositorys
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
+// Add controllers
 builder.Services.AddControllers();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -51,6 +89,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

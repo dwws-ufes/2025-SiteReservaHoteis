@@ -23,9 +23,9 @@ namespace ReservaHotel.Services
             await bookingRepository.Delete(id);
         }
 
-        public async Task<IEnumerable<BookingDTO>> Get()
+        public async Task<IEnumerable<BookingDTO>> Get(Guid userId)
         {
-            return (await bookingRepository.Get()).Select(booking => BookingDTO.GetDto(booking));
+            return (await bookingRepository.Get(userId)).Select(booking => BookingDTO.GetDto(booking));
         }
 
         public async Task Update(BookingDTO booking)

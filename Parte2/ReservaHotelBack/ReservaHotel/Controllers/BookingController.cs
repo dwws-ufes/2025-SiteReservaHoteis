@@ -36,10 +36,10 @@ namespace ReservaHotel.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> Get(Guid userId)
         {
-            var bookings = await bookingService.Get();
+            var bookings = await bookingService.Get(userId);
             return Ok(bookings);
         }
     }

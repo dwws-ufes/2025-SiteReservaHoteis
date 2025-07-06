@@ -36,9 +36,9 @@ namespace ReservaHotel.Services
             await _userRepository.Delete(id);
         }
 
-        public async Task<IEnumerable<UserDTO>> Get(Guid? id = null)
+        public async Task<IEnumerable<UserDTO>> Get(Guid? id = null, string? email = null)
         {
-            var users = await _userRepository.Get(id);
+            var users = await _userRepository.Get(id, email);
             return users.Select(x => new UserDTO
             {
                 Id = x.Id,
