@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { FoodService } from '../services/food.service';
 import { Food } from '../models/food';
 import { MatDialog } from '@angular/material/dialog';
 import { FoodPageComponent } from '../modals/food-page/food-page.component';
+import { AuthService } from '../services/auth.service';
 
 interface FoodFeature {
   img: string;
@@ -24,11 +24,14 @@ export class ServiceListComponent implements OnInit {
   searchId: number | undefined;
   searchTerm: string | undefined;
   searchTag: string | undefined;
+
+  isLogged: boolean = false;
   
-  constructor(private readonly foodService: FoodService, private readonly route: ActivatedRoute, private readonly dialog: MatDialog,) { }
+  constructor(private readonly foodService: FoodService, private readonly dialog: MatDialog, private readonly auth: AuthService) { }
 
   ngOnInit(): void {
     this.getFood();
+    this.isLogged = this.auth.isLoggedIn();
   }
 
   foodPage(food: Food) {

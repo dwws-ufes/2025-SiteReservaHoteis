@@ -2,8 +2,7 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
     <button class="modal-close" (click)="close()">×</button>
         <div class="edit-reservation-area">
-            <form (ngSubmit)="create()">
-                <div class="reservation-wrap">
+            <div class="reservation-wrap">
                 <div class="single-field datepicker">
                     <label>Check In Date:</label>
                     <input [(ngModel)]="checkIn" type="date" name="" id="" placeholder="12/12/2020">
@@ -22,7 +21,7 @@
                 </div>
                 <div class="single-field">
                     <label>Rooms QTD:</label>
-                    <input [(ngModel)]="roomQtd" #quantitySelect (change)="changeQuantity(selectedRoom,quantitySelect.value)" type="number" value="1" min="1" />
+                    <input [(ngModel)]="roomQtd" type="number" value="1" min="1" />
                 </div>
                 <div class="single-field">
                     <label>Rooms: </label>
@@ -30,18 +29,17 @@
                         id="select3"
                         class="form-control"
                         name="select"
-                        [(ngModel)]="selectedRoom"
+                        [(ngModel)]="selectedRoomId"
                         (ngModelChange)="changeRoom($event)"
                     >
-                        <option *ngFor="let room of rooms" [ngValue]="room">
-                        {{ room.name }}
+                        <option *ngFor="let room of rooms" [value]="room.id">
+                            {{ room.name }}
                         </option>
                     </select>
                 </div >
-                <button type="submit" class="book-btn">Book Now</button>
-                <div class="total-price">${{ bookingItem.price }}</div>
-                </div>
-            </form>
+                <button type="button" (click)="create()" class="book-btn">Book Now</button>
+                <div *ngIf="selectedRoom?.price != null" class="total-price">${{ selectedRoom.price * roomQtd }}</div>
+            </div>
         </div>
     </div>
 </div>

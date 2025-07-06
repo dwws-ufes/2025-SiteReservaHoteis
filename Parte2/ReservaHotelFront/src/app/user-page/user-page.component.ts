@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { tap } from 'rxjs/operators';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { BookOnlineComponent } from '../modals/book-online/book-online.component';
 import { LogoutComponent } from '../modals/logout/logout.component';
 import { UserDeleteComponent } from '../modals/user-delete/user-delete.component';
 import { BookingEditComponent } from '../modals/booking-edit/booking-edit.component';
-import { RoomEditComponent } from '../modals/room-edit/room-edit.component';
 import { UserEditComponent } from '../modals/user-edit/user-edit.component';
 import { User } from '../models/user';
 import { CheckInComponent } from '../modals/check-in/check-in.component';
@@ -17,7 +16,8 @@ import { Service } from '../models/service';
 import { BookingService } from '../services/booking.service';
 import { ServiceService } from '../services/service.service';
 import { RoomService } from '../services/room.service';
-import { FoodService } from '../services/food.service';
+import { Room } from '../models/room';
+import { EMPTY, Subject } from 'rxjs';
 
 
 @Component({
@@ -29,6 +29,10 @@ export class UserPageComponent implements OnInit{
   user!: User ;
   bookings: Booking[] = [];
   services: Service[] = [];
+  rooms: Room[] = [];
+
+  private destroyBookingCreate$ = new Subject<void>();
+  private destroyBookingEdit$ = new Subject<void>();
 
   options = [
     'Book Online',
@@ -39,20 +43,30 @@ export class UserPageComponent implements OnInit{
     'Logout'
   ];
 
-  constructor(  private route: ActivatedRoute, 
-                private readonly dialog: MatDialog,
-                private router: Router,
-                private userService: UserService,
-                private bookingService: BookingService,
-                private serviceService: ServiceService,
-                public roomService: RoomService,
-                public foodService: FoodService
-              ) { }
+  constructor(
+    private readonly dialog: MatDialog,
+    private readonly router: Router,
+    private readonly userService: UserService,
+    private readonly bookingService: BookingService,
+    private readonly serviceService: ServiceService,
+    private readonly roomService: RoomService,
+  ) { }
   
   ngOnInit(): void {
-    this.user = this.userService.getCurrentUser();
-    this.bookings = this.bookingService.getBookingsByUserId(this.user.id);
-    this.services = this.serviceService.getServicesByUserId(this.user.id);
+    this.userService.getUserProfile()
+      .pipe(
+        tap(user => {
+          this.user = user;
+          return user.id;
+        }),
+        switchMap(user => this.bookingService.getBookingsByUserId(user.id)),
+        tap(bookings => {
+          this.bookings = bookings;
+        })
+      )
+      .subscribe();
+    // this.services = this.serviceService.getServicesByUserId(this.user.id);
+    this.roomService.getRooms().subscribe(rooms => this.rooms = rooms);
   }
 
   onOptionClick(option: string): void {
@@ -82,14 +96,21 @@ export class UserPageComponent implements OnInit{
 
   bookOnline(): void {
     const dialog = this.dialog.open(BookOnlineComponent, {
-            width: '400px',
-          });
-      
-          dialog.afterClosed()
-            .subscribe(success => {
-              if (!success)
-                return;
-            })
+      width: '400px',
+      data: { userId: this.user.id, rooms: this.rooms }
+    });
+    
+    dialog.afterClosed()
+      .pipe(
+        tap(res => {
+          if (!res)
+            this.destroyBookingCreate$.next();
+        }),
+        switchMap(() => this.bookingService.getBookingsByUserId(this.user.id)),
+        tap(bookings => this.bookings = bookings),
+        takeUntil(this.destroyBookingCreate$)
+      )
+      .subscribe()
   }
 
   servicePage(): void {
@@ -102,15 +123,15 @@ export class UserPageComponent implements OnInit{
 
   editProfile(user : User): void {
     const dialog = this.dialog.open(UserEditComponent, {
-            data: {user},
-            width: '400px',
-          });
-      
-          dialog.afterClosed()
-            .subscribe(success => {
-              if (!success)
-                return;
-            })
+      data: {user},
+      width: '400px',
+    });
+    
+    dialog.afterClosed()
+      .subscribe(success => {
+        if (!success)
+          return;
+      })
   }
 
   deleteAccount(user : User): void {
@@ -140,28 +161,40 @@ export class UserPageComponent implements OnInit{
 
   editBooking(booking: Booking): void {
     const dialog = this.dialog.open(BookingEditComponent, {
-            data: {booking},
-            width: '400px',
-          });
-      
-          dialog.afterClosed()
-            .subscribe(success => {
-              if (!success)
-                return;
-            })
+      data: { booking, rooms: this.rooms },
+      width: '400px',
+    });
+    
+    dialog.afterClosed()
+      .pipe(
+        tap(res => {
+          if (!res)
+            this.destroyBookingEdit$.next();
+        }),
+        switchMap(() => this.bookingService.getBookingsByUserId(this.user.id)),
+        tap(bookings => this.bookings = bookings),
+        takeUntil(this.destroyBookingEdit$)
+      )
+      .subscribe()
   }
 
   cancelBooking(booking: Booking): void {
     const dialog = this.dialog.open(CancelBookingComponent, {
-            data: {booking},
-            width: '400px',
-          });
-      
-          dialog.afterClosed()
-            .subscribe(success => {
-              if (!success)
-                return;
-            })
+      data: { bookingId: booking.id },
+      width: '400px',
+    });
+    
+    dialog.afterClosed()
+      .pipe(
+        tap(res => {
+          if (!res)
+            this.destroyBookingCreate$.next();
+        }),
+        switchMap(() => this.bookingService.getBookingsByUserId(this.user.id)),
+        tap(bookings => this.bookings = bookings),
+        takeUntil(this.destroyBookingCreate$)
+      )
+      .subscribe()
   }
 
   checkIn(booking: Booking): void {

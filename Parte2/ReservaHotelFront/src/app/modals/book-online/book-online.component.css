@@ -35,7 +35,7 @@
   color: #dca73a;
 }
 
-.modal-overlay .modal-content .edit-reservation-area form .reservation-wrap {
+.modal-overlay .modal-content .edit-reservation-area .reservation-wrap {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;

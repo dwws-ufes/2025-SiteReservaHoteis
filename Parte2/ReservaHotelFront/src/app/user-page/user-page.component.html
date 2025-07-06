@@ -5,7 +5,7 @@
 
   <div class="user-page">
     <aside class="sidebar">
-      <div class="profile">
+      <div *ngIf="user != null" class="profile">
         <img class="avatar" src="assets/imgs/User_Icon.png" alt="avatar" />
         <h2>{{ user.firstName }} {{ user.lastName }}</h2>
         <p>{{ user.email }}</p>
@@ -27,8 +27,8 @@
     <div class="image-wrapper">
       <!-- Busca o quarto pelo ID e exibe sua imagem -->
       <img
-        [src]="roomService.getRoomById(b.roomId).imageUrl"
-        alt="{{ roomService.getRoomById(b.roomId).name }}"
+        [src]="b.room?.imageUrl"
+        alt="{{ b.room?.name }}"
       />
     </div>
     <div class="info">
@@ -39,13 +39,13 @@
       >
         Check-in
       </button>
-      <span class="by">by <strong>{{ user.firstName }} {{ user.lastName }}</strong></span>
+      <span *ngIf="user != null" class="by">by <strong>{{ user.firstName }} {{ user.lastName }}</strong></span>
       <!-- Título e descrição da reserva -->
-      <h4>{{ roomService.getRoomById(b.roomId).name }}</h4>
-      <p>{{ roomService.getRoomById(b.roomId).description }}</p>
+      <h4>{{ b.room?.name }}</h4>
+      <p>{{ b.room?.description }}</p>
       <!-- Linha de data com botões de ação -->
       <div class="checkin-date-row">
-        <small>Check-in Date – {{ b.checkIn | date:'shortDate' }}</small>
+        <small>Check-in Date - {{ b.checkIn | date:'shortDate' }}</small>
         <div class="action-buttons">
           <button
             type="button"
