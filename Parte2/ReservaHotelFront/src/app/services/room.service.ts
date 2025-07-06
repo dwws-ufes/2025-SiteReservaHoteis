@@ -20,8 +20,7 @@ export class RoomService {
   }
 
   getRooms(): Observable<Room[]> {
-    return of(this.getAll());
-    //return this.http.get<Room[]>(this.apiUrl);
+    return this.http.get<Room[]>(this.apiUrl);
   }
 
   createRoom(room: RoomCreate): Observable<Room> {

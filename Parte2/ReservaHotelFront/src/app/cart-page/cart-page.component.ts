@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { Cart, CartItem } from '../models/cart';
-import { CommonModule } from '@angular/common';
 import { ServiceCreate, ServiceItem } from '../models/service';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
@@ -23,16 +21,16 @@ export class CartPageComponent implements OnInit {
 
   success = false;
 
-  constructor(private cartService: CartService, 
-    private userService: UserService,
-    private serviceService: ServiceService,
+  constructor(
+    private readonly cartService: CartService, 
+    private readonly userService: UserService,
+    private readonly serviceService: ServiceService,
     private readonly toastr: ToastrService
-) { 
+  ) { 
     this.setCart();
-    this.user = this.userService.getCurrentUser()
+    this.userService.getUserProfile().subscribe(user => this.user = user)
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   removeFromCart(cartItem:CartItem){
     this.cartService.removeFromCart(cartItem.food.id);

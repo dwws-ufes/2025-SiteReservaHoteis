@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './models/user';
 import { AuthService } from './services/auth.service';
-import { tap } from 'rxjs/operators';
+import { UserService } from './services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,19 @@ import { tap } from 'rxjs/operators';
 export class AppComponent implements OnInit {
   user: User | null = null;
 
-  constructor(private readonly auth: AuthService) {}
+  constructor(
+    private readonly auth: AuthService,
+    private readonly userService: UserService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit() {
-    this.auth.user$
-      .pipe(
-        tap(user => this.user = user)
-      )
-      .subscribe()
+    if (this.auth.isLoggedIn()) {
+      this.userService.getUserProfile().subscribe(user => this.user = user);
+    }
+  }
+
+  redirectTo() {
+    this.router.navigate(['/userpage'])
   }
 }

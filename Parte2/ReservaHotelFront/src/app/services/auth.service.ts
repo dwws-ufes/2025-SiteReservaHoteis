@@ -17,4 +17,9 @@ export class AuthService {
   cleanUser() {
     this.userSubject.next(null);
   }
+
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
 }
