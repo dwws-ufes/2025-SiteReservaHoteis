@@ -8,6 +8,7 @@ namespace ReservaHotel.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        public bool IsAdmin { get; set; }
 
         public static UserDTO GetDto(User user) =>
             new()
@@ -15,7 +16,8 @@ namespace ReservaHotel.DTOs
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Email = user.Email
+                Email = user.Email,
+                IsAdmin = user.IsAdmin
             };
     }
 }

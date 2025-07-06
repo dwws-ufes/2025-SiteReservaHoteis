@@ -25,6 +25,13 @@ namespace ReservaHotel.Repository
 
         public async Task Delete(Guid id)
         {
+            var user = (await Get(id)).FirstOrDefault();
+            if (user == null)
+                throw new Exception("User not found");
+
+            if (user.IsAdmin)
+                throw new Exception("Cannot delete admin");
+
             _context.Remove(id);
             await _context.SaveChangesAsync();
             return;

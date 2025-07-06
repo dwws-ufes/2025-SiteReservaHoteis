@@ -39,7 +39,8 @@ namespace ReservaHotel.Infra.Core
                         Email = "admin@mail.com",
                         FirstName = "Admin",
                         LastName = "Admin",
-                        Password = "AQAAAAIAAYagAAAAEGz/fpd61Ohoc6bWFk7V6IDD9IsMBIrxAflFIc5mJFqki6ZS6hAg2/IIx4fEEF9ODw=="
+                        Password = "AQAAAAIAAYagAAAAEGz/fpd61Ohoc6bWFk7V6IDD9IsMBIrxAflFIc5mJFqki6ZS6hAg2/IIx4fEEF9ODw==",
+                        IsAdmin = true,
                     }
                 );
 

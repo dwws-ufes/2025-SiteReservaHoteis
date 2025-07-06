@@ -18,6 +18,7 @@ namespace ReservaHotel.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get(Guid? id = null)
         {
             return Ok(await _userService.Get(id));
@@ -31,6 +32,7 @@ namespace ReservaHotel.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _userService.Delete(id);
