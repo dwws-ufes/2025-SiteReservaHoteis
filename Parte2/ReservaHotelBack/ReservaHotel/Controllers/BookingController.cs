@@ -18,11 +18,18 @@ namespace ReservaHotel.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(BookingCreateDTO bookingDto)
         {
-            await bookingService.Create(bookingDto);
-            return Ok();
+            try
+            {
+                await bookingService.Create(bookingDto);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest("It was not possible to create the reservation");
+            }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await bookingService.Delete(id);

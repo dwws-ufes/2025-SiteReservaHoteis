@@ -14,10 +14,10 @@ namespace ReservaHotel.DTOs
         public int AdultsNumber { get; set; }
         public int ChildNumber { get; set; }
 
-        public UserDTO User { get; set; }
+        public UserDTO? User { get; set; } = null;
         public Guid UserId { get; set; }
 
-        public RoomDTO Room { get; set; }
+        public RoomDTO? Room { get; set; } = null;
         public int RoomId { get; set; }
 
         public Booking GetEntity() =>

@@ -20,8 +20,8 @@ namespace ReservaHotel.DTOs
             new()
             {
                 Price = Price,
-                CheckIn = CheckIn,
-                CheckOut = CheckOut,
+                CheckIn = CheckIn.ToUniversalTime(),
+                CheckOut = CheckOut.ToUniversalTime(),
                 RoomQtd = RoomQtd,
                 AdultsNumber = AdultsNumber,
                 ChildNumber = ChildNumber,
