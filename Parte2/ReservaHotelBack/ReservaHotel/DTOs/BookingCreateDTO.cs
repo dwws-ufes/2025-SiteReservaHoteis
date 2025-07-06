@@ -12,18 +12,16 @@ namespace ReservaHotel.DTOs
         public int AdultsNumber { get; set; }
         public int ChildNumber { get; set; }
 
-        public UserDTO User { get; set; }
         public Guid UserId { get; set; }
 
-        public RoomDTO Room { get; set; }
         public int RoomId { get; set; }
 
         public Booking GetEntity() =>
             new()
             {
                 Price = Price,
-                CheckIn = CheckIn,
-                CheckOut = CheckOut,
+                CheckIn = CheckIn.ToUniversalTime(),
+                CheckOut = CheckOut.ToUniversalTime(),
                 RoomQtd = RoomQtd,
                 AdultsNumber = AdultsNumber,
                 ChildNumber = ChildNumber,

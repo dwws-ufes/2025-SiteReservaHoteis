@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ReservaHotel.Infra.Core;
@@ -11,9 +12,11 @@ using ReservaHotel.Infra.Core;
 namespace ReservaHotel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250706153739_addFlagAdmin")]
+    partial class addFlagAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,15 +283,6 @@ namespace ReservaHotel.Migrations
                             IsAdmin = true,
                             LastName = "Admin",
                             Password = "AQAAAAIAAYagAAAAEGz/fpd61Ohoc6bWFk7V6IDD9IsMBIrxAflFIc5mJFqki6ZS6hAg2/IIx4fEEF9ODw=="
-                        },
-                        new
-                        {
-                            Id = new Guid("31aa1652-db12-41a6-9109-23c04d8eb1b2"),
-                            Email = "cliff@mail.com",
-                            FirstName = "Cliff",
-                            IsAdmin = false,
-                            LastName = "Stanford",
-                            Password = "AQAAAAIAAYagAAAAEIIRpFTL+PuPKFKyfyfZ8ZRVZNWzXFZ8hJQkmtFvfy14h3TRSvx37W3oTJU57wY4iA=="
                         });
                 });
 

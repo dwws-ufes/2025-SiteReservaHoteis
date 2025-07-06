@@ -31,18 +31,7 @@ export class UserService {
     return this.http.post<{ user: User, token: string}>(`${this.apiUrl}/login`, { email, password });
   }
 
-  logout() {
-    
-  }
-
-  getCurrentUser(): User{
-    return {
-      id: '1',
-      firstName: 'Clifford',
-      lastName: 'Frazier',
-      email: 'email-exemple@exemple.com',
-      password: '1234',
-      avatar: 'assets/imgs/User_Icon.jpg'
-  };
+  getUserProfile(): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/profile`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
   }
 }

@@ -2,11 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { tap } from 'rxjs/operators';
-import { Booking, BookingItem } from 'src/app/models/booking';
+import { Booking } from 'src/app/models/booking';
 import { Room } from 'src/app/models/room';
 import { BookingService } from 'src/app/services/booking.service';
-import { RoomService } from 'src/app/services/room.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-booking-edit',
@@ -16,77 +14,66 @@ import { map } from 'rxjs/operators';
 export class BookingEditComponent implements OnInit{
 
   booking!: Booking;
-  bookingItem!:BookingItem;
-  rooms: Room[] = []
+  rooms: Room[] = [];
+
+  selectedRoomId!: number;
   selectedRoom!: Room;
 
   success = false;
 
   constructor(
-          
-          public dialogRef: MatDialogRef<BookingEditComponent>,
-          @Inject(MAT_DIALOG_DATA) public data: { booking: Booking },
-          private readonly toastr: ToastrService,
-          private bookingService: BookingService,
-          private roomService: RoomService
-    ) {
-      this.setBookingItem();
-      this.booking = {
-        id: data.booking.id,
-        userId: data.booking.userId,
-        price: data.booking.price,
-        checkIn: data.booking.checkIn,
-        checkOut: data.booking.checkOut,
-        roomId: data.booking.roomId,
-        roomQtd: data.booking.roomQtd,
-        adultsNumber: data.booking.adultsNumber,
-        childNumber: data.booking.childNumber
-      };
-  }
+    public dialogRef: MatDialogRef<BookingEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { booking: Booking, rooms: Room[] },
+    private readonly toastr: ToastrService,
+    private readonly bookingService: BookingService
+  ) { }
 
   ngOnInit() {
-    this.bookingItem.room = this.getRoomById(this.booking.roomId)!;
-    this.bookingItem.quantity = this.booking.roomQtd;
-    this.selectedRoom = this.getRoomById(this.booking.roomId)!;
-    this.roomService.getRooms()
-      .subscribe(data => this.rooms = data);
+    this.booking = {
+      id: this.data.booking.id,
+      userId: this.data.booking.userId,
+      price: this.data.booking.price,
+      checkIn: this.data.booking.checkIn,
+      checkOut: this.data.booking.checkOut,
+      roomId: this.data.booking.roomId,
+      roomQtd: this.data.booking.roomQtd,
+      adultsNumber: this.data.booking.adultsNumber,
+      childNumber: this.data.booking.childNumber
+    };
+
+    this.rooms = this.data.rooms;
+
+    this.selectedRoomId = this.data.booking.room?.id as number;
+    this.selectedRoom = this.data.rooms.find(r => r.id == this.selectedRoomId) as Room;
+
+    console.log(this.booking);
   }
 
   close(){
     this.dialogRef.close(this.success);
   }
 
-  create() {
-      this.bookingService.editBooking(this.booking.id)
-        .pipe(
-          tap(() => {
-            this.toastr.success('Booking atualizado com sucesso!', 'Sucesso!');
-            this.success = true;
-            this.close();
-          })
-        )
-        .subscribe();
+  edit() {
+    this.bookingService.editBooking(this.booking)
+      .pipe(
+        tap(() => {
+          this.toastr.success('Booking atualizado com sucesso!', 'Sucesso!');
+          this.success = true;
+          this.close();
+        })
+      )
+      .subscribe();
   }
 
-  getRoomById(roomId: number): Room{
-    let room = this.roomService.getRoomById(roomId)
-    return room
+  changeRoom(roomId: number): void{
+    this.selectedRoom = this.rooms.find(r => r.id == roomId)!;
   }
 
-  changeRoom(room:Room):void{
-    this.selectedRoom = room;
-    this.bookingService.ChangeRoom(this.selectedRoom);
-    this.setBookingItem();
+  formatDate(date: Date): string {
+    return date.toString().split('T')[0];
   }
 
-  changeQuantity(room:Room, quantityInString:string){
-      const quantity= parseInt(quantityInString);
-      this.bookingService.changeQuantity(quantity);
-      this.setBookingItem();
+  parseDate(valor: string): Date {
+    return new Date(valor);
   }
-  
-  setBookingItem(){
-      this.bookingItem = this.bookingService.getBookingItem();
-  }
-
 }

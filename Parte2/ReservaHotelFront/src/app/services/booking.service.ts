@@ -1,56 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Booking, BookingItem , BookingCreate} from '../models/booking';
+import { Booking , BookingCreate} from '../models/booking';
 import { Room } from '../models/room';
-import { RoomService } from './room.service';
 import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
-    private readonly apiUrl = 'https://localhost:7099/api/user'
-    private bookingItem:BookingItem = new BookingItem();
+    private readonly apiUrl = 'https://localhost:7099/api/booking';
 
-    constructor(private roomService: RoomService, private readonly http: HttpClient) {}
+    constructor(private readonly http: HttpClient) {}
 
-    getBookingsByUserId(userId: string): Booking[] {
-        let booking: Booking[] = [];
-        this.getBookings()
-            .pipe(map(booking => booking.filter(r => r.userId === userId)))
-            .subscribe(arr => booking = arr);
-        return booking;
-    }    
-    
-    ChangeRoom(room: Room):void{
-        this.bookingItem.room = room;
-    }
-
-    changeQuantity(quantity:number){
-        this.bookingItem.quantity = quantity
-    }
-
-    getBookingItem():BookingItem{
-        return this.bookingItem;
-    }
-
-    getBookings(): Observable<Booking[]> {
-        return of(this.getAll());
-        //return this.http.get<Booking[]>(this.apiUrl);
+    getBookingsByUserId(userId: string): Observable<Booking[]> {
+      return this.http.get<Booking[]>(`${this.apiUrl}/${userId}`)
     }
 
     createBooking(booking: BookingCreate): Observable<Booking>{
-        return this.http.get<Booking>(this.apiUrl);
+        return this.http.post<Booking>(this.apiUrl, booking);
     }
 
-    editBooking(bookingid:number): Observable<Booking>{
-        return this.http.get<Booking>(this.apiUrl);
+    editBooking(booking: Booking): Observable<Booking>{
+        return this.http.put<Booking>(this.apiUrl, booking);
     }
 
-    deleteBooking(bookingid:number): Observable<Booking>{
-        return this.http.get<Booking>(this.apiUrl);
+    deleteBooking(bookingid: number): Observable<Booking>{
+        return this.http.delete<Booking>(`${this.apiUrl}/${bookingid}`);
     }
 
     getAll(): Booking[] {

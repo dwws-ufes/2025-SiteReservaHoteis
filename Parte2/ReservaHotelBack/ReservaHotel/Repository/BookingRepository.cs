@@ -29,9 +29,13 @@ namespace ReservaHotel.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Booking>> Get()
+        public async Task<IEnumerable<Booking>> Get(Guid userId)
         {
-            return await _context.Bookings.ToListAsync();
+            return await _context.Bookings
+                .Where(x => x.UserId == userId)
+                .Include(x => x.User)
+                .Include(x => x.Room)
+                .ToListAsync();
         }
 
         public async Task Update(Booking booking)

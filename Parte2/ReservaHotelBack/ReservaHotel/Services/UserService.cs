@@ -36,15 +36,16 @@ namespace ReservaHotel.Services
             await _userRepository.Delete(id);
         }
 
-        public async Task<IEnumerable<UserDTO>> Get(Guid? id = null)
+        public async Task<IEnumerable<UserDTO>> Get(Guid? id = null, string? email = null)
         {
-            var users = await _userRepository.Get(id);
+            var users = await _userRepository.Get(id, email);
             return users.Select(x => new UserDTO
             {
                 Id = x.Id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Email = x.Email,
+                IsAdmin = x.IsAdmin
             });
         }
 
@@ -59,7 +60,7 @@ namespace ReservaHotel.Services
                 throw new UnauthorizedAccessException("password incorrect");
 
             var token = _jwtTokenService.Generate(email);
-            var userDto = new UserDTO { Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Id = user.Id };
+            var userDto = new UserDTO { Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Id = user.Id, IsAdmin = user.IsAdmin };
             return (userDto, token);
         }
     }

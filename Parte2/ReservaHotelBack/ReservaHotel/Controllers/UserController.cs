@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ReservaHotel.DTOs;
 using ReservaHotel.Services.Interfaces;
+using System.Security.Claims;
 
 namespace ReservaHotel.Controllers
 {
@@ -16,27 +18,29 @@ namespace ReservaHotel.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<UserDTO>> Get(Guid? id = null)
+        [Authorize]
+        public async Task<IActionResult> Get(Guid? id = null)
         {
-            return await _userService.Get(id);
+            return Ok(await _userService.Get(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] UserCreateDTO userDTO)
+        public async Task<IActionResult> Post([FromBody] UserCreateDTO userDTO)
         {
             await _userService.Create(userDTO);
             return Ok();
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete(Guid id)
+        [Authorize]
+        public async Task<IActionResult> Delete(Guid id)
         {
             await _userService.Delete(id);
             return Ok();
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody] LoginInfo info)
+        public async Task<IActionResult> Login([FromBody] LoginInfo info)
         {
             try
             {
@@ -46,6 +50,17 @@ namespace ReservaHotel.Controllers
             {
                 return Unauthorized(ex.Message);
             }
+        }
+
+        [HttpGet("profile")]
+        [Authorize]
+        public async Task<IActionResult> GetUserProfile()
+        {
+            var email = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (email == null)
+                throw new Exception("Claim 'sub' not found");
+
+            return Ok((await _userService.Get(email: email)).First());
         }
     }
 }

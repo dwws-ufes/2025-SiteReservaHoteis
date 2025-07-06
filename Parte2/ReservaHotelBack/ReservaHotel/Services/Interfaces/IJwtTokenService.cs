@@ -3,5 +3,6 @@
     public interface IJwtTokenService
     {
         public string Generate(string email);
+        Task<bool> Validate(string token);
     }
 }

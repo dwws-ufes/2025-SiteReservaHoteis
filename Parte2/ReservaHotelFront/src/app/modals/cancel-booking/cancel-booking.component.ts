@@ -11,43 +11,29 @@ import { BookingService } from 'src/app/services/booking.service';
   styleUrls: ['./cancel-booking.component.css']
 })
 export class CancelBookingComponent { 
+  success = false;
 
-    booking!: Booking;
-    success = false;
-
-    constructor (
-      public dialogRef: MatDialogRef<CancelBookingComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: { booking: Booking },
-      private readonly toastr: ToastrService,
-      private bookingService: BookingService
-    ) {
-      this.booking = {
-        id: data.booking.id,
-        userId: data.booking.userId,
-        price: data.booking.price,
-        checkIn: data.booking.checkIn,
-        checkOut: data.booking.checkOut,
-        roomId: data.booking.roomId,
-        roomQtd: data.booking.roomQtd,
-        adultsNumber: data.booking.adultsNumber,
-        childNumber: data.booking.childNumber
-      }
-     }
+  constructor (
+    public dialogRef: MatDialogRef<CancelBookingComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { bookingId: number },
+    private readonly toastr: ToastrService,
+    private readonly bookingService: BookingService
+  ) { }
 
   close() {
     this.dialogRef.close(this.success);
   }
 
   delete() {
-    this.bookingService.deleteBooking(this.booking.id)
-            .pipe(
-              tap(() => {
-                this.toastr.success('Booking Deletado com sucesso!', 'Sucesso!');
-                this.success = true;
-                this.close();
-              })
-            )
-            .subscribe()
+    this.bookingService.deleteBooking(this.data.bookingId)
+      .pipe(
+        tap(() => {
+          this.toastr.success('Booking Deletado com sucesso!', 'Sucesso!');
+          this.success = true;
+          this.close();
+        })
+      )
+      .subscribe()
     this.close()
   }
         

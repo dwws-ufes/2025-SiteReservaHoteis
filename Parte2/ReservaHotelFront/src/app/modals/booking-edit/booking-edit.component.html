@@ -3,15 +3,14 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
     <button class="modal-close" (click)="close()">×</button>
         <div class="edit-reservation-area">
-            <form (ngSubmit)="create()">
-                <div class="reservation-wrap">
+            <div class="reservation-wrap">
                 <div class="single-field datepicker">
                     <label>Check In Date:</label>
-                    <input type="date" [(ngModel)]="booking.checkIn" name="" id="" placeholder="12/12/2020">
+                    <input type="date" [ngModel]="formatDate(booking.checkIn)" (ngModelChange)="booking.checkIn = parseDate($event)" placeholder="12/12/2020">
                 </div>
                 <div class="single-field datepicker">
                     <label>Check Out Date:</label>
-                    <input type="date" [(ngModel)]="booking.checkOut" name="" id="" placeholder="12/12/2020">
+                    <input type="date" [ngModel]="formatDate(booking.checkOut)" (ngModelChange)="booking.checkOut = parseDate($event)" placeholder="12/12/2020">
                 </div>
                 <div class="single-field">
                     <label>Adults:</label>
@@ -23,7 +22,7 @@
                 </div>
                 <div class="single-field">
                     <label>Rooms QTD:</label>
-                    <input #quantitySelect (change)="changeQuantity(selectedRoom,quantitySelect.value)" [(ngModel)]="booking.roomQtd" type="number" [value]="booking.roomQtd" min="1" />
+                    <input [(ngModel)]="booking.roomQtd" type="number" [value]="booking.roomQtd" min="1" />
                 </div>
                 <div class="single-field">
                     <label>Rooms: </label>
@@ -31,19 +30,17 @@
                         id="select3"
                         class="form-control"
                         name="select"
-                        [value]="selectedRoom"
-                        [(ngModel)]="selectedRoom"
+                        [(ngModel)]="selectedRoomId"
                         (ngModelChange)="changeRoom($event)"
                     >
-                        <option *ngFor="let room of rooms" [ngValue]="room">
-                        {{ room.name }}
+                        <option *ngFor="let room of rooms" [ngValue]="room.id">
+                            {{ room.name }}
                         </option>
                     </select>
-                </div >
-                <button type="submit" class="book-btn">Book Now</button>
-                <div class="total-price">${{ bookingItem.price }}</div>
                 </div>
-            </form>
+                <button type="button" (click)="edit()" class="book-btn">Edit Now</button>
+                <div class="total-price">${{ selectedRoom.price * booking.roomQtd }}</div>
+            </div>
         </div>
     </div>
 </div>
