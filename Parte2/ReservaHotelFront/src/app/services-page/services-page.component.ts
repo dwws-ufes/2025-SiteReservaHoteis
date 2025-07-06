@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-services-page',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServicesPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly router: Router, private readonly auth: AuthService) { }
 
   ngOnInit(): void {
   }
 
+  redirectToServicesList() {
+    const isLogged = this.auth.isLoggedIn();
+
+    if (!isLogged)
+      this.router.navigate(['/login']);
+    else
+      this.router.navigate(['/services/list']);
+  }
 }

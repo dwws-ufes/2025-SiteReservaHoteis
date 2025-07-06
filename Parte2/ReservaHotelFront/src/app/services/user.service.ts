@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { User, UserCreate } from '../models/user';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { User, UserCreate } from '../models/user';
 export class UserService {
   private readonly apiUrl = 'https://localhost:7099/api/user'
 
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient, private readonly auth: AuthService) { }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl);
@@ -32,6 +33,9 @@ export class UserService {
   }
 
   getUserProfile(): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/profile`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+    const token = this.auth.getToken();
+    if (!token)
+      return of();
+    return this.http.get<User>(`${this.apiUrl}/profile`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` } });
   }
 }

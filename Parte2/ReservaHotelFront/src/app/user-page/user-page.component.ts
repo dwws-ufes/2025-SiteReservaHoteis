@@ -115,7 +115,7 @@ export class UserPageComponent implements OnInit{
   }
 
   servicePage(): void {
-    this.router.navigateByUrl('/services');
+    this.router.navigateByUrl('/services/list');
   }
 
   yourCart(): void {

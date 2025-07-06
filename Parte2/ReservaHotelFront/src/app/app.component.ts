@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.verifyLogin();
+    this.auth.userSubject.subscribe(user => this.user = user);
 
     this.router.events
       .pipe(

@@ -12,6 +12,8 @@ import { UserPageComponent } from "./user-page/user-page.component";
 import { PoolPageComponent } from "./pool-page/pool-page.component";
 import { RestaurantPageComponent } from "./restaurant-page/restaurant-page.component";
 import { AmenitiesPageComponent } from "./amenities-page/amenities-page.component";
+import { adminGuard } from "./admin.guard";
+import { authGuard } from "./auth.guard";
 
 const routes: Routes = [
     { path: '', component: HomePageComponent },
@@ -19,19 +21,21 @@ const routes: Routes = [
     { path: 'restaurant', component: RestaurantPageComponent },
     { path: 'amenities', component: AmenitiesPageComponent },
     { path: 'services', component: ServicesPageComponent },
-    { path: 'services/list', component: ServiceListComponent },
-    { path: 'services/list/:searchTerm', component: ServiceListComponent },
-    { path: 'cartpagefood', component: CartPageComponent },
+    { path: 'services/list', component: ServiceListComponent, canActivate: [authGuard] },
+    { path: 'services/list/:searchTerm', component: ServiceListComponent, canActivate: [authGuard] },
+    { path: 'cartpagefood', component: CartPageComponent, canActivate: [authGuard] },
     { path: 'rooms', component: RoomsPageComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'admin', component: AdminPageComponent },
-    { path: 'userpage', component: UserPageComponent },
+    { path: 'admin', component: AdminPageComponent, canActivate: [adminGuard] },
+    { path: 'userpage', component: UserPageComponent, canActivate: [authGuard] },
     { path: '**', redirectTo: '' }
 ]
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, {
+        scrollPositionRestoration: 'enabled',
+    })],
     exports: [RouterModule]
 })
 export class AppRountingModule { }
