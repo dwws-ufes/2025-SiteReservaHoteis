@@ -13,5 +13,6 @@ namespace ReservaHotel.Entities
         public bool IsAdmin { get; set; } = false;
 
         public ICollection<Booking> Bookings { get; }
+        public ICollection<Service> Services { get; }
     }
 }

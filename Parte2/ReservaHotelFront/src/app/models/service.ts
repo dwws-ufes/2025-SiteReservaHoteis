@@ -1,21 +1,24 @@
+import { Food } from "./food";
+
 export interface ServiceItem{
-    food:string;
-    quantity:number;
+    foodId: number;
+    food?: Food;
+    qtd: number;
 }
 
 export interface Service {
     id:number;
     userId:string;
-    totalprice:number;
-    itens: ServiceItem[];
+    price:number;
+    serviceItems: ServiceItem[];
     deliveryTime: string;
     status: string;
 }
 
 export interface ServiceCreate {
-    userId:string;
-    totalprice:number;
-    itens: ServiceItem[];
+    userId: string;
+    price: number;
+    serviceItems: ServiceItem[];
     deliveryTime: string;
     status: string;
 }

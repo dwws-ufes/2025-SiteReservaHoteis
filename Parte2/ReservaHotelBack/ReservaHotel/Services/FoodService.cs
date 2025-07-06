@@ -1,6 +1,7 @@
 ﻿using ReservaHotel.DTOs;
 using ReservaHotel.Repository.Interfaces;
 using ReservaHotel.Services.Interfaces;
+using System.Xml.Linq;
 
 namespace ReservaHotel.Services
 {
@@ -26,7 +27,7 @@ namespace ReservaHotel.Services
 
         public async Task<IEnumerable<FoodDTO>> Get(int? id, string? name, string? tag)
         {
-            return (await foodRepository.Get(id, name, tag)).Select(x => FoodDTO.GetDto(x));
+            return (await foodRepository.Get(name, tag, id != null ? [(int)id] : null)).Select(x => FoodDTO.GetDto(x));
         }
 
         public async Task Update(FoodDTO food)

@@ -11,6 +11,8 @@ namespace ReservaHotel.Infra.Core
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Food> Foods { get; set; }
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<ServiceItem> ServiceItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +31,24 @@ namespace ReservaHotel.Infra.Core
                 .HasOne(x => x.Room)
                 .WithMany(x => x.Bookings)
                 .HasForeignKey(x => x.RoomId)
+                .HasPrincipalKey(x => x.Id);
+
+            modelBuilder.Entity<ServiceItem>()
+                .HasOne(x => x.Food)
+                .WithMany()
+                .HasForeignKey(x => x.FoodId)
+                .HasPrincipalKey(x => x.Id);
+
+            modelBuilder.Entity<ServiceItem>()
+                .HasOne(x => x.Service)
+                .WithMany(x => x.ServiceItems)
+                .HasForeignKey(x => x.ServiceId)
+                .HasPrincipalKey(x => x.Id);
+
+            modelBuilder.Entity<Service>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Services)
+                .HasForeignKey(x => x.UserId)
                 .HasPrincipalKey(x => x.Id);
 
             modelBuilder.Entity<User>()

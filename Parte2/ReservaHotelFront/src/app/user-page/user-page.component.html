@@ -74,7 +74,11 @@
           <img class="icon" src="assets/imgs/dining/dining-img3.png" alt="Food" />
           <div class="details">
             <div class="item-list">
-              <p *ngFor="let it of s.itens">{{ it.quantity }} - {{ it.food }}</p>
+              <p *ngFor="let it of s.serviceItems">
+                <span *ngIf="it.food">
+                  {{ it.qtd }} - {{ it.food.name }}
+                </span>
+              </p>
             </div>
             <div class="meta">
               <span class="category">Food and Take-Out</span>

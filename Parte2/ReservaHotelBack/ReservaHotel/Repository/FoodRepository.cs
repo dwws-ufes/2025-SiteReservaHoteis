@@ -33,11 +33,11 @@ namespace ReservaHotel.Repository
             return;
         }
 
-        public async Task<IEnumerable<Food>> Get(int? id, string? name, string? tag)
+        public async Task<IEnumerable<Food>> Get(string? name, string? tag, params int[]? id)
         {
             var filters = new List<Expression<Func<Food, bool>>>();
             if (id != null)
-                filters.Add(x => x.Id == id);
+                filters.Add(x => id.Contains(x.Id));
             if (name != null)
                 filters.Add(x => x.Name.ToLower().Contains(name.ToLower()));
             if (tag != null)

@@ -4,6 +4,10 @@ header {
     justify-content: space-around;
 }
 
+header img {
+    cursor: pointer;
+}
+
 header div {
     display: flex;
     align-items: center;

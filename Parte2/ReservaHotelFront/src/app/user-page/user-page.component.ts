@@ -51,6 +51,7 @@ export class UserPageComponent implements OnInit{
     private readonly bookingService: BookingService,
     private readonly toastr: ToastrService,
     private readonly roomService: RoomService,
+    private readonly serviceService: ServiceService
   ) { }
   
   ngOnInit(): void {
@@ -61,12 +62,11 @@ export class UserPageComponent implements OnInit{
           return user.id;
         }),
         switchMap(user => this.bookingService.getBookingsByUserId(user.id)),
-        tap(bookings => {
-          this.bookings = bookings;
-        })
+        tap(bookings => this.bookings = bookings),
+        switchMap(() => this.serviceService.getServicesByUserId(this.user.id)),
+        tap(services => this.services = services)
       )
       .subscribe();
-    // this.services = this.serviceService.getServicesByUserId(this.user.id);
     this.roomService.getRooms().subscribe(rooms => this.rooms = rooms);
   }
 

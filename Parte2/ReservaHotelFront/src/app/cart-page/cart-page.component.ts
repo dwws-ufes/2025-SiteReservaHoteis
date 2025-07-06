@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { ServiceService } from '../services/service.service';
 import { tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class CartPageComponent implements OnInit {
     private readonly cartService: CartService, 
     private readonly userService: UserService,
     private readonly serviceService: ServiceService,
-    private readonly toastr: ToastrService
+    private readonly toastr: ToastrService,
+    private readonly router: Router
   ) { 
     this.setCart();
     this.userService.getUserProfile().subscribe(user => this.user = user)
@@ -49,27 +51,26 @@ export class CartPageComponent implements OnInit {
 
   checkOut() {
     const itens: ServiceItem[] = this.cart.items.map(ci => ({
-      food: ci.food.name,
-      quantity: ci.quantity
+      foodId: ci.food.id,
+      qtd: ci.quantity
     }));
     
     const serviceCreate: ServiceCreate = {
       userId : this.user.id,
-      totalprice: this.cart.totalPrice,
-      itens,
+      price: this.cart.totalPrice,
+      serviceItems: itens,
       deliveryTime: new Date().toISOString(),
       status: 'pending'
     };
 
     this.serviceService.createService(serviceCreate)
-        .pipe(
-          tap(() => {
-            this.toastr.success('Quarto criado com sucesso!', 'Sucesso!');
-            this.success = true;
-          })
-        )
-        .subscribe();
-
+      .pipe(
+        tap(() => {
+          this.toastr.success('Order successful!', 'Success!');
+          this.success = true;
+          this.router.navigate(['/userpage']);
+        })
+      )
+      .subscribe();
   }
-
 }
