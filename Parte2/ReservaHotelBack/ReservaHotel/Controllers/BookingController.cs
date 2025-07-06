@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ReservaHotel.DTOs;
 using ReservaHotel.Services.Interfaces;
 
 namespace ReservaHotel.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class BookingController : Controller
     {

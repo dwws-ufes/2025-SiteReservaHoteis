@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Booking , BookingCreate} from '../models/booking';
 import { Room } from '../models/room';
 import { of } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +12,22 @@ import { of } from 'rxjs';
 export class BookingService {
     private readonly apiUrl = 'https://localhost:7099/api/booking';
 
-    constructor(private readonly http: HttpClient) {}
+    constructor(private readonly http: HttpClient, private readonly auth: AuthService) {}
 
     getBookingsByUserId(userId: string): Observable<Booking[]> {
-      return this.http.get<Booking[]>(`${this.apiUrl}/${userId}`)
+      return this.http.get<Booking[]>(`${this.apiUrl}/${userId}`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` } })
     }
 
     createBooking(booking: BookingCreate): Observable<Booking>{
-        return this.http.post<Booking>(this.apiUrl, booking);
+        return this.http.post<Booking>(this.apiUrl, booking, { headers: { Authorization: `Bearer ${this.auth.getToken()}` } });
     }
 
     editBooking(booking: Booking): Observable<Booking>{
-        return this.http.put<Booking>(this.apiUrl, booking);
+        return this.http.put<Booking>(this.apiUrl, booking, { headers: { Authorization: `Bearer ${this.auth.getToken()}` } });
     }
 
     deleteBooking(bookingid: number): Observable<Booking>{
-        return this.http.delete<Booking>(`${this.apiUrl}/${bookingid}`);
+        return this.http.delete<Booking>(`${this.apiUrl}/${bookingid}`, { headers: { Authorization: `Bearer ${this.auth.getToken()}` } });
     }
 
     getAll(): Booking[] {

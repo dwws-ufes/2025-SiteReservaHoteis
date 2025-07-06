@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Service, ServiceCreate } from '../models/service';
-import { FoodService } from './food.service';
-import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable({

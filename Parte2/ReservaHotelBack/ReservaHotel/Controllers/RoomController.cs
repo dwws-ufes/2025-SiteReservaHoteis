@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ReservaHotel.DTOs;
 using ReservaHotel.Services.Interfaces;
 
@@ -22,6 +23,7 @@ namespace ReservaHotel.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> Post([FromBody] RoomCreateDTO roomDto)
         {
             var room = await _roomService.Create(roomDto);
@@ -29,6 +31,7 @@ namespace ReservaHotel.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<ActionResult> Put([FromBody] RoomDTO roomDto)
         {
             try
@@ -42,6 +45,7 @@ namespace ReservaHotel.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult> Delete([FromRoute] int id)
         {
             try
