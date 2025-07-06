@@ -39,8 +39,11 @@ export class LoginComponent implements OnInit {
           else
             this.router.navigate(['/userpage']);
         }),
-        catchError(() => {
-          this.toastr.error('Invalid credentials', 'Error');
+        catchError((err) => {
+          if (err.status == 401)
+            this.toastr.error('Invalid credentials', 'Error');
+          else 
+            this.toastr.error('Internal Error', 'Error');
           return of();
         })
       )

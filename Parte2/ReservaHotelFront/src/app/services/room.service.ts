@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { Room, RoomCreate } from '../models/room';
 import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
-  private readonly apiUrl = 'https://localhost:7099/api/room'
+  private readonly apiUrl = `${environment.url}/api/room`;
+  
   constructor(private readonly http: HttpClient, private readonly auth: AuthService) { }
 
   getRooms(): Observable<Room[]> {
