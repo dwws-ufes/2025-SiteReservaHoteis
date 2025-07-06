@@ -10,12 +10,14 @@ export class AuthService {
 
   user$: Observable<User | null> = this.userSubject.asObservable();
 
-  setUser(user: User) {
-    this.userSubject.next(user);
+  setUser(login: { user: User, token: string }) {
+    this.userSubject.next(login.user);
+    localStorage.setItem('token', login.token);
   }
 
   cleanUser() {
     this.userSubject.next(null);
+    localStorage.removeItem('token');
   }
 
   isLoggedIn(): boolean {

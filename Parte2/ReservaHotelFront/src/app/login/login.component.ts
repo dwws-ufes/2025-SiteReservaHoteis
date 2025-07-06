@@ -30,11 +30,13 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.email, this.password)
       .pipe(
         tap(login => {
+          this.auth.setUser(login);
           this.toastr.success('Login feito com sucesso!', 'Sucesso');
-          localStorage.setItem('token', login.token);
 
-          this.auth.setUser(login.user);
-          this.router.navigate(['/userpage']);
+          if (login.user.isAdmin)
+            this.router.navigate(['/admin']);
+          else
+            this.router.navigate(['/userpage']);
         })
       )
       .subscribe();

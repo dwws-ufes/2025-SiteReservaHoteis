@@ -31,10 +31,6 @@ export class UserService {
     return this.http.post<{ user: User, token: string}>(`${this.apiUrl}/login`, { email, password });
   }
 
-  logout() {
-    localStorage.removeItem('token');
-  }
-
   getUserProfile(): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/profile`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
   }

@@ -1,8 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-logout',
@@ -16,9 +14,7 @@ export class LogoutComponent {
   constructor(
       public dialogRef: MatDialogRef<LogoutComponent>,
       @Inject(MAT_DIALOG_DATA) public data: { },
-      private readonly toastr: ToastrService,
-      private readonly router: Router,
-      private readonly userService: UserService,
+      private readonly auth: AuthService
     ) {}
 
   closeLogoutModal(){
@@ -26,9 +22,8 @@ export class LogoutComponent {
   }
 
   confirmLogout(){
-    this.userService.logout();
-    this.toastr.success('Successful logout', 'Success!');
-    this.router.navigate(['']);
+    this.auth.cleanUser();
+    this.success = true;
     this.closeLogoutModal();
   }
 }

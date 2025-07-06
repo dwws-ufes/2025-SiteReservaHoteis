@@ -6,7 +6,7 @@
             <a routerLink="/">Home</a>
             <a routerLink="/services">Service</a>
             <a routerLink="/rooms">Rooms</a> 
-            <a routerLink="/admin">Admin</a> 
+            <a *ngIf="user?.isAdmin" routerLink="/admin">Admin</a> 
         </ul>
     
         <div class="logged" *ngIf="user" (click)="redirectTo()">

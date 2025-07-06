@@ -18,6 +18,7 @@ import { ServiceService } from '../services/service.service';
 import { RoomService } from '../services/room.service';
 import { Room } from '../models/room';
 import { EMPTY, Subject } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class UserPageComponent implements OnInit{
     private readonly router: Router,
     private readonly userService: UserService,
     private readonly bookingService: BookingService,
-    private readonly serviceService: ServiceService,
+    private readonly toastr: ToastrService,
     private readonly roomService: RoomService,
   ) { }
   
@@ -149,14 +150,22 @@ export class UserPageComponent implements OnInit{
 
   logout(): void {
     const dialog = this.dialog.open(LogoutComponent, {
-            width: '400px',
-          });
-      
-          dialog.afterClosed()
-            .subscribe(success => {
-              if (!success)
-                return;
-            })
+      width: '400px',
+    });
+    
+    dialog.afterClosed()
+      .pipe(
+        tap(success => {
+          if (!success){
+            this.toastr.error('Logout error');
+            return;
+          }
+
+          this.toastr.success('Successful logout', 'Success!');
+          this.router.navigate(['']);
+        })
+      )
+      .subscribe()
   }
 
   editBooking(booking: Booking): void {

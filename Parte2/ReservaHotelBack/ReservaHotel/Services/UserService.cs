@@ -45,6 +45,7 @@ namespace ReservaHotel.Services
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Email = x.Email,
+                IsAdmin = x.IsAdmin
             });
         }
 
@@ -59,7 +60,7 @@ namespace ReservaHotel.Services
                 throw new UnauthorizedAccessException("password incorrect");
 
             var token = _jwtTokenService.Generate(email);
-            var userDto = new UserDTO { Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Id = user.Id };
+            var userDto = new UserDTO { Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Id = user.Id, IsAdmin = user.IsAdmin };
             return (userDto, token);
         }
     }

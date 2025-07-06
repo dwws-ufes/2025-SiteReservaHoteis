@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './models/user';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -19,9 +20,19 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.auth.isLoggedIn()) {
-      this.userService.getUserProfile().subscribe(user => this.user = user);
-    }
+    this.verifyLogin();
+
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd))
+      .subscribe(() => this.verifyLogin());
+  }
+
+  verifyLogin() {
+    if (!this.auth.isLoggedIn())
+      this.user = null;
+    
+    this.userService.getUserProfile().subscribe(user => this.user = user);
   }
 
   redirectTo() {

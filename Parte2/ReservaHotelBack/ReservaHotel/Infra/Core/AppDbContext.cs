@@ -35,12 +35,21 @@ namespace ReservaHotel.Infra.Core
                 .HasData(
                     new User
                     {
-                        Id =Guid.Parse("8df75a4a-783d-4f4d-8e8e-cb3d3e32ba29"),
+                        Id = Guid.Parse("8df75a4a-783d-4f4d-8e8e-cb3d3e32ba29"),
                         Email = "admin@mail.com",
                         FirstName = "Admin",
                         LastName = "Admin",
-                        Password = "AQAAAAIAAYagAAAAEGz/fpd61Ohoc6bWFk7V6IDD9IsMBIrxAflFIc5mJFqki6ZS6hAg2/IIx4fEEF9ODw==",
+                        Password = "AQAAAAIAAYagAAAAEGz/fpd61Ohoc6bWFk7V6IDD9IsMBIrxAflFIc5mJFqki6ZS6hAg2/IIx4fEEF9ODw==", // admin123
                         IsAdmin = true,
+                    },
+                    new User
+                    {
+                        Id = Guid.Parse("31aa1652-db12-41a6-9109-23c04d8eb1b2"),
+                        Email = "cliff@mail.com",
+                        FirstName = "Cliff",
+                        LastName = "Stanford",
+                        Password = "AQAAAAIAAYagAAAAEIIRpFTL+PuPKFKyfyfZ8ZRVZNWzXFZ8hJQkmtFvfy14h3TRSvx37W3oTJU57wY4iA==", // usertest
+                        IsAdmin = false
                     }
                 );
 

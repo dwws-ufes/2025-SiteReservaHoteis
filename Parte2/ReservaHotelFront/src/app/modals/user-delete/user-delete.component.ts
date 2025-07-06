@@ -27,7 +27,8 @@ export class UserDeleteComponent {
       lastName: data.user.lastName,
       email: data.user.email,
       password: data.user.password,
-      avatar: data.user.avatar
+      avatar: data.user.avatar,
+      isAdmin: data.user.isAdmin
     }
   }
 
