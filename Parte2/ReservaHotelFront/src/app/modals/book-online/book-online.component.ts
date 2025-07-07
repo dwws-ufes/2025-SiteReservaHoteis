@@ -51,10 +51,20 @@ export class BookOnlineComponent implements OnInit {
       adultsNumber: this.adultsNumber,
       childNumber: this.childNumber
     }
+    if (new Date(this.checkIn).getTime() < Date.now()) {
+      this.toastr.error("You can't check out in the past", 'Error');
+      return;
+    }
+
+    if (new Date(this.checkOut).getTime() < new Date(this.checkIn).getTime()) {
+      this.toastr.error('You cannot check out before you check in', 'Error');
+      return;
+    }
+
     this.bookingService.createBooking(booking)
       .pipe(
         tap(() => {
-          this.toastr.success('Booking Criado com sucesso!', 'Sucesso!');
+          this.toastr.success('Booking successfully created!', 'Success!');
           this.success = true;
           this.close();
         }),
