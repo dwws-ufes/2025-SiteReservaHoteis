@@ -32,7 +32,6 @@ import { PoolPageComponent } from './pool-page/pool-page.component';
 import { RestaurantPageComponent } from './restaurant-page/restaurant-page.component';
 import { AmenitiesPageComponent } from './amenities-page/amenities-page.component';
 import { FoodTakeOutComponent } from './food-take-out/food-take-out.component';
-import { NoResultsComponent } from './no-results/no-results.component';
 
 @NgModule({
   declarations: [
@@ -60,8 +59,7 @@ import { NoResultsComponent } from './no-results/no-results.component';
     PoolPageComponent,
     RestaurantPageComponent,
     AmenitiesPageComponent,
-    FoodTakeOutComponent,
-    NoResultsComponent
+    FoodTakeOutComponent
   ],
   imports: [
     BrowserModule,
