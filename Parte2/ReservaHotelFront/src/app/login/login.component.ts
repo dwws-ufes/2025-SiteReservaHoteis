@@ -24,15 +24,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { }
 
   login(): void {
-    if (!this.email || !this.password)
+    if (!this.email || !this.password){
       return;
-
+    }
+    
     this.userService.login(this.email, this.password)
       .pipe(
         tap(login => {
           this.auth.setUser(login);
           this.toastr.success('Login feito com sucesso!', 'Sucesso');
-
+          
           if (login.user.isAdmin)
             this.router.navigate(['/admin']);
           else
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
         })
       )
       .subscribe();
+      
   }
 
 }
