@@ -1,28 +1,4 @@
 <div class="container">
-<div *ngIf="!isLogged">
-        <div class="title">
-            <h2>Food and Take-Out</h2>
-        </div>
-    
-        <section class="food-service-section">
-            <div class="hero">
-                <img src="/assets/imgs/food-take-out/dining-img3.png" alt="Serviço de Food & Take-Out" class="hero-img" />
-                <div class="hero-text">
-                <h1>Food & Take-Out Service</h1>
-                <p>Delight in our meal and take-out options available anytime.</p>
-                </div>
-            </div>
-    
-            <div class="features">
-                <div class="feature-card" *ngFor="let feature of foodFeatures">
-                <img [src]="feature.img" [alt]="feature.title" class="feature-img" />
-                <h3>{{ feature.title }}</h3>
-                <p>{{ feature.description }}</p>
-                </div>
-            </div>
-        </section>
-    </div>
-
     <div *ngIf="isLogged">
         <div class="title-reverse">
         </div>
@@ -33,6 +9,14 @@
             <app-search (searchTerm)="getSearchTerm($event)" ></app-search>
     
             <ul class="food-grid">
+                <div *ngIf="foods.length < 1">
+                    <div class="no-results-container">
+                        <div class="icon">
+                            <img src="assets/imgs/no-results.png" alt="lupa">
+                        </div>
+                        <p class="message">No Results</p>
+                    </div>
+                </div>
                 <li *ngFor="let food of foods" class="food-card">
                     <a (click)="foodPage(food)">
                         <div class="card-image">

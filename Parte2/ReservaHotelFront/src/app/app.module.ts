@@ -31,6 +31,7 @@ import { CancelBookingComponent } from './modals/cancel-booking/cancel-booking.c
 import { PoolPageComponent } from './pool-page/pool-page.component';
 import { RestaurantPageComponent } from './restaurant-page/restaurant-page.component';
 import { AmenitiesPageComponent } from './amenities-page/amenities-page.component';
+import { FoodTakeOutComponent } from './food-take-out/food-take-out.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { AmenitiesPageComponent } from './amenities-page/amenities-page.componen
     CancelBookingComponent,
     PoolPageComponent,
     RestaurantPageComponent,
-    AmenitiesPageComponent
+    AmenitiesPageComponent,
+    FoodTakeOutComponent
   ],
   imports: [
     BrowserModule,

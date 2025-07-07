@@ -37,7 +37,7 @@ export class UserPageComponent implements OnInit{
 
   options = [
     'Book Online',
-    'Services',
+    'Take-Out',
     'Your Cart',
     'Edit Profile',
     'Delete Account',
@@ -75,7 +75,7 @@ export class UserPageComponent implements OnInit{
       case 'Book Online':
         this.bookOnline();
         break;
-      case 'Services':
+      case 'Take-Out':
         this.servicePage();
         break;
       case 'Your Cart':
