@@ -3,12 +3,13 @@ import { Food } from '../models/food';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FoodService {
-  private readonly apiUrl = 'https://localhost:7099/api/food'
+  private readonly apiUrl = `${environment.url}/api/food`;
 
   constructor(private readonly http: HttpClient, private readonly auth: AuthService) { }
   

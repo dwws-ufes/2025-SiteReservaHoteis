@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { tap } from 'rxjs/operators'
+import { catchError, tap } from 'rxjs/operators'
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -33,11 +34,18 @@ export class LoginComponent implements OnInit {
         tap(login => {
           this.auth.setUser(login);
           this.toastr.success('Login feito com sucesso!', 'Sucesso');
-          
+
           if (login.user.isAdmin)
             this.router.navigate(['/admin']);
           else
             this.router.navigate(['/userpage']);
+        }),
+        catchError((err) => {
+          if (err.status == 401)
+            this.toastr.error('Invalid credentials', 'Error');
+          else 
+            this.toastr.error('Internal Error', 'Error');
+          return of();
         })
       )
       .subscribe();

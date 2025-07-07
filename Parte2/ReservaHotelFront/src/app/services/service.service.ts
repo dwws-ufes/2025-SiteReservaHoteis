@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Service, ServiceCreate } from '../models/service';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceService {
-    private readonly apiUrl = 'https://localhost:7099/api/service'
+    private readonly apiUrl = `${environment.url}/api/service`;
 
     constructor(private readonly http: HttpClient, private readonly auth: AuthService) {}
 

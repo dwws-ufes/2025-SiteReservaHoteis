@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Booking , BookingCreate} from '../models/booking';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
-    private readonly apiUrl = 'https://localhost:7099/api/booking';
+    private readonly apiUrl = `${environment.url}/api/booking`;
 
     constructor(private readonly http: HttpClient, private readonly auth: AuthService) {}
 
