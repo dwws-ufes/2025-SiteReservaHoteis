@@ -9,6 +9,14 @@
             <app-search (searchTerm)="getSearchTerm($event)" ></app-search>
     
             <ul class="food-grid">
+                <ng-container *ngIf="foods.length < 1">
+                    <div class="no-results-container">
+                        <div class="icon">
+                            <img src="assets/imgs/no-results.png" alt="lupa">
+                        </div>
+                        <p class="message">No Results</p>
+                    </div>
+                </ng-container>
                 <li *ngFor="let food of foods" class="food-card">
                     <a (click)="foodPage(food)">
                         <div class="card-image">

@@ -23,6 +23,14 @@
     <main class="main-content">
       <section class="bookings">
   <h3>Bookings</h3>
+  <ng-container *ngIf="bookings.length < 1">
+      <div class="no-results-container">
+          <div class="icon">
+              <img src="assets/imgs/no-results.png" alt="lupa">
+          </div>
+          <p class="message">No Results</p>
+      </div>
+  </ng-container>
   <div class="booking-card" *ngFor="let b of bookings">
     <div class="image-wrapper">
       <!-- Busca o quarto pelo ID e exibe sua imagem -->
@@ -70,6 +78,14 @@
 
       <section class="services">
         <h3>Services</h3>
+        <ng-container *ngIf="services.length < 1">
+          <div class="no-results-container">
+              <div class="icon">
+                  <img src="assets/imgs/no-results.png" alt="lupa">
+              </div>
+              <p class="message">No Results</p>
+          </div>
+      </ng-container>
         <div class="service-item" *ngFor="let s of services">
           <img class="icon" src="assets/imgs/dining/dining-img3.png" alt="Food" />
           <div class="details">
