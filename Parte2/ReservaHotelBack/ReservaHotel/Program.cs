@@ -14,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+builder.Services.AddHttpClient<DbpediaService>();
+builder.Services.AddScoped<DbpediaService>();
 
 // Add authentication
 var key = builder.Configuration["Configuration:JwtKey"];
