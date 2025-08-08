@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { Room } from 'src/app/models/room';
 import { RoomService } from 'src/app/services/room.service';
 
@@ -70,6 +71,10 @@ export class RoomEditComponent {
           this.toastr.success('Quarto removido com sucesso!', 'Sucesso!');
           this.success = true;
           this.close();
+        }),
+        catchError(err => {
+          this.toastr.error(err.error);
+          return of();
         })
       )
       .subscribe()

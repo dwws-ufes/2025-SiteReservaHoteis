@@ -53,9 +53,9 @@ namespace ReservaHotel.Controllers
                 await _roomService.Delete(id);
                 return Ok();
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
         }
     }

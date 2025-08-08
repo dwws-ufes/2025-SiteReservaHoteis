@@ -43,9 +43,16 @@ namespace ReservaHotel.Repository
 
         public async Task Delete(int id)
         {
-            var room = await _context.Rooms.AsQueryable().FirstOrDefaultAsync(x => x.Id == id);
+            var room = await _context.Rooms
+                .AsQueryable()
+                .Include(x => x.Bookings)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
             if (room == null)
                 throw new Exception("Room not found");
+
+            if (room.Bookings.Any())
+                throw new Exception("There are reservations for this room");
 
             _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
