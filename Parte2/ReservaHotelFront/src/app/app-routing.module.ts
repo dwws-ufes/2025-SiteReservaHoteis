@@ -13,6 +13,7 @@ import { PoolPageComponent } from "./pool-page/pool-page.component";
 import { RestaurantPageComponent } from "./restaurant-page/restaurant-page.component";
 import { AmenitiesPageComponent } from "./amenities-page/amenities-page.component";
 import { FoodTakeOutComponent } from "./food-take-out/food-take-out.component";
+import { HotelPageComponent } from "./hotel-page/hotel-page.component";
 import { adminGuard } from "./admin.guard";
 import { authGuard } from "./auth.guard";
 
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'restaurant', component: RestaurantPageComponent },
     { path: 'amenities', component: AmenitiesPageComponent },
     { path: 'foodtakeout', component: FoodTakeOutComponent },
+    { path: 'hotel', component: HotelPageComponent },
     { path: 'services', component: ServicesPageComponent },
     { path: 'services/list', component: ServiceListComponent, canActivate: [authGuard] },
     { path: 'services/list/:searchTerm', component: ServiceListComponent, canActivate: [authGuard] },

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule } from '@angular/material/dialog';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 import { AppComponent } from './app.component';
 import { AppRountingModule } from './app-routing.module';
@@ -32,6 +33,7 @@ import { PoolPageComponent } from './pool-page/pool-page.component';
 import { RestaurantPageComponent } from './restaurant-page/restaurant-page.component';
 import { AmenitiesPageComponent } from './amenities-page/amenities-page.component';
 import { FoodTakeOutComponent } from './food-take-out/food-take-out.component';
+import { HotelPageComponent } from './hotel-page/hotel-page.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { FoodTakeOutComponent } from './food-take-out/food-take-out.component';
     PoolPageComponent,
     RestaurantPageComponent,
     AmenitiesPageComponent,
-    FoodTakeOutComponent
+    FoodTakeOutComponent,
+    HotelPageComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { FoodTakeOutComponent } from './food-take-out/food-take-out.component';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
-    MatDialogModule
+    MatDialogModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
