@@ -6,12 +6,12 @@
            placeholder="Filtrar por nome/cidade..."
            class="input" />
 
-    <div class="stats">Total: {{ filtered.length }}</div>
+    <div class="stats">Total: {{ hotels.length }}</div>
 
     <ul class="list">
-      <li *ngFor="let h of filtered" (click)="focusHotel(h)">
+      <li *ngFor="let h of hotels" (click)="focusHotel(h)">
         <div class="item-title">{{ h.name }}</div>
-        <div class="item-sub">{{ h.city }}</div>
+        <!-- <div class="item-sub">{{ h.city }}</div> -->
       </li>
     </ul>
   </aside>
@@ -24,17 +24,18 @@
       [center]="center"
       [zoom]="zoom">
       <map-marker
-        *ngFor="let h of filtered"
-        #mk="mapMarker"
-        [position]="{ lat: h.lat, lng: h.lng }"
-        [title]="h.name"
-        (mapClick)="openInfo(mk, h)">
-      </map-marker>
+      *ngFor="let h of hotels"
+      #m="mapMarker" 
+      [position]="{ lat: h.lat, lng: h.lng }"
+      [title]="h.name"
+      (mapClick)="openInfo(m, h)">
+    </map-marker>
+
 
       <map-info-window #info>
         <div class="info">
           <div class="info-title">{{ currentHotel?.name }}</div>
-          <div class="info-sub">{{ currentHotel?.city }}</div>
+          <!-- <div class="info-sub">{{ currentHotel?.city }}</div> -->
           <button class="btn" (click)="openDbpedia(currentHotel!)">Ver na DBpedia</button>
         </div>
       </map-info-window>

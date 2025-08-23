@@ -49,6 +49,12 @@ builder.Services.AddAuthorization();
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.Configure<ConfigurationService>(builder.Configuration.GetSection("Configuration"));
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(connection));
+builder.Services.AddHttpClient<DbpediaService>(c =>
+{
+    c.BaseAddress = new Uri("https://dbpedia.org/");
+    c.DefaultRequestHeaders.Accept.Add(new("application/sparql-results+json"));
+});
+
 
 builder.Services.AddCors(options =>
 {
