@@ -18,20 +18,58 @@ export class HotelPageComponent implements OnInit {
   query = '';
   currentHotel: Hotel | null = null;
 
-  hotels: Hotel[] = []
+  hotels: Hotel[] = [];
+  filteredHotels: Hotel[] = [];
+
+  mapOptions: google.maps.MapOptions = {
+  mapTypeControl: true,
+  zoomControl: true,
+  streetViewControl: true,
+  fullscreenControl: true,
+  scaleControl: true,
+};  
 
   constructor(private hotelService: HotelService) {}
 
   ngOnInit() {
-    this.hotelService.get().subscribe({
-      next: (data) => this.hotels = data,
-      error: (err) => console.error('Erro ao carregar hotéis', err)
-    });
+  this.hotelService.get().subscribe({
+    next: (data) => {
+      this.hotels = data ?? [];
+      this.filteredHotels = this.hotels.slice();
+      this.applyFilter(); // garante estado inicial
+    },
+    error: (err) => console.error('Erro ao carregar hotéis', err)
+  });
+}
+
+  private normalize(s: string) {
+  return (s || '')
+    .toLowerCase()
+    .normalize('NFD')              // separa acentos
+    .replace(/\p{Diacritic}/gu, ''); // remove acentos
+}
+
+applyFilter() {
+  const q = this.normalize(this.query.trim());
+  if (!q) {
+    this.filteredHotels = this.hotels.slice();
+    return;
+  }
+
+  this.filteredHotels = this.hotels.filter(h => {
+    const tokens = [
+      this.normalize(h.name),
+      this.normalize(h.city ?? ''),
+      this.normalize(h.country ?? ''),
+      this.normalize(h.uri ?? '')
+    ];
+    return tokens.some(v => v.includes(q));
+  });
 }
 
   focusHotel(h: Hotel) {
     this.center = { lat: h.lat, lng: h.lng };
-    this.zoom = 12;
+    this.zoom = 15;
     this.currentHotel = h;
   }
 
@@ -41,6 +79,12 @@ export class HotelPageComponent implements OnInit {
   }
 
   openDbpedia(h: Hotel) {
-    window.open(h.uri, '_blank');
+    window.open(h.homepage || h.uri, '_blank');
   }
+
+  onImgError(event: Event) {
+    (event.target as HTMLImageElement).src = 'assets/imgs/hotel.png';
+  }
+
+  trackByUri = (_: number, h: Hotel) => h.uri;
 }
