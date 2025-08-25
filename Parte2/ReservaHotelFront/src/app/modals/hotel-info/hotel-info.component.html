@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="text">
+    <h3 class="title">{{ hotel.name }}</h3>
+    <div class="subtitle" *ngIf="hotel.city || hotel.country">
+      {{ hotel.city }}
+      <span *ngIf="hotel.city && hotel.country"> • </span>
+      {{ hotel.country }}
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" type="button" (click)="bookOnline()">
+        Book now
+      </button>
+      <button class="btn btn-secondary" type="button" (click)="handleMore()">
+        More info
+      </button>
+    </div>
+  </div>
+
+  <div class="thumb-wrap">
+    <img
+      [src]="hotel.thumbnail || 'assets/imgs/hotel.png'"
+      alt="{{ hotel.name }}"
+      (error)="onImgError($event)"
+    />
+  </div>
+</div>

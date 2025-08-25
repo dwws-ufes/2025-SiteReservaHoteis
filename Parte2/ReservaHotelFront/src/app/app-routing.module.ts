@@ -16,6 +16,8 @@ import { FoodTakeOutComponent } from "./food-take-out/food-take-out.component";
 import { HotelPageComponent } from "./hotel-page/hotel-page.component";
 import { adminGuard } from "./admin.guard";
 import { authGuard } from "./auth.guard";
+import { HotelListComponent } from "./hotel-list/hotel-list.component";
+import { RestaurantListComponent } from "./restaurant-list/restaurant-list.component";
 
 const routes: Routes = [
     { path: '', component: HomePageComponent },
@@ -23,13 +25,15 @@ const routes: Routes = [
     { path: 'restaurant', component: RestaurantPageComponent },
     { path: 'amenities', component: AmenitiesPageComponent },
     { path: 'foodtakeout', component: FoodTakeOutComponent },
-    { path: 'hotel', component: HotelPageComponent },
-    { path: 'services', component: ServicesPageComponent },
-    { path: 'services/list', component: ServiceListComponent, canActivate: [authGuard] },
-    { path: 'services/list/:searchTerm', component: ServiceListComponent, canActivate: [authGuard] },
+    { path: 'hotel', component: HotelPageComponent, canActivate: [authGuard] },
+    { path: 'restaurantlist', component: RestaurantListComponent },
+    { path: 'services/:hotelname', component: ServicesPageComponent, canActivate: [authGuard] },
+    { path: 'services/list/:restaurantname', component: ServiceListComponent, canActivate: [authGuard] },
+    { path: 'services/list/:restaurantname/:searchTerm', component: ServiceListComponent, canActivate: [authGuard] },
     { path: 'cartpagefood', component: CartPageComponent, canActivate: [authGuard] },
-    { path: 'rooms', component: RoomsPageComponent },
+    { path: 'rooms/:hotelname', component: RoomsPageComponent , canActivate: [authGuard]},
     { path: 'login', component: LoginComponent },
+    { path: 'hotellist', component: HotelListComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'admin', component: AdminPageComponent, canActivate: [adminGuard] },
     { path: 'userpage', component: UserPageComponent, canActivate: [authGuard] },

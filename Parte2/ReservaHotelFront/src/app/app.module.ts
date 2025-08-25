@@ -34,6 +34,9 @@ import { RestaurantPageComponent } from './restaurant-page/restaurant-page.compo
 import { AmenitiesPageComponent } from './amenities-page/amenities-page.component';
 import { FoodTakeOutComponent } from './food-take-out/food-take-out.component';
 import { HotelPageComponent } from './hotel-page/hotel-page.component';
+import { HotelInfoComponent } from './modals/hotel-info/hotel-info.component';
+import { HotelListComponent } from './hotel-list/hotel-list.component';
+import { RestaurantListComponent } from './restaurant-list/restaurant-list.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,11 @@ import { HotelPageComponent } from './hotel-page/hotel-page.component';
     RestaurantPageComponent,
     AmenitiesPageComponent,
     FoodTakeOutComponent,
-    HotelPageComponent
+    HotelPageComponent,
+    HotelInfoComponent,
+    HotelListComponent,
+    RestaurantListComponent,
+    RestaurantPageComponent
   ],
   imports: [
     BrowserModule,

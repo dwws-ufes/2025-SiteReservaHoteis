@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="title">
+        <h1>Our Hotels</h1>
+    </div>
+
+    <div class="content" >
+        <div class="room" *ngFor="let h of hotels" (click)="handleMore(h)">
+            <img
+          [src]="h.thumbnail || 'assets/imgs/hotel.png'"
+          alt="{{ h.name }}"
+          (error)="onImgError($event)"
+        />
+    
+            <div class="info">
+                <h1>{{ h.name }}</h1>
+                <p>{{ h.city }}</p>
+                <p>{{ h.country }}</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,13 +9,13 @@ using ReservaHotel.Repository.Interfaces;
 using ReservaHotel.Services;
 using ReservaHotel.Services.Interfaces;
 using System.Text;
+using System.Net;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
-builder.Services.AddHttpClient<DbpediaService>();
-builder.Services.AddScoped<DbpediaService>();
 
 // Add authentication
 var key = builder.Configuration["Configuration:JwtKey"];
@@ -49,11 +49,20 @@ builder.Services.AddAuthorization();
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.Configure<ConfigurationService>(builder.Configuration.GetSection("Configuration"));
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(connection));
-builder.Services.AddHttpClient<DbpediaService>(c =>
-{
-    c.BaseAddress = new Uri("https://dbpedia.org/");
-    c.DefaultRequestHeaders.Accept.Add(new("application/sparql-results+json"));
-});
+builder.Services
+    .AddHttpClient<DbpediaService>(client =>
+    {
+        client.BaseAddress = new Uri("https://dbpedia.org/");
+        client.Timeout = TimeSpan.FromSeconds(600); // min (ajuste se precisar)
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("ReservaHotel/1.0 (+https://localhost)");
+        client.DefaultRequestHeaders.Accept.Clear();
+        client.DefaultRequestHeaders.Accept.ParseAdd("application/sparql-results+json");
+    })
+    .ConfigurePrimaryHttpMessageHandler(() => new SocketsHttpHandler
+    {
+        AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
+        PooledConnectionLifetime = TimeSpan.FromMinutes(5)
+    });
 
 
 builder.Services.AddCors(options =>

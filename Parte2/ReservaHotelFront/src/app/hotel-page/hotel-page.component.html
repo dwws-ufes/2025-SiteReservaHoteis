@@ -1,3 +1,8 @@
+<div class="container">
+    <div class="title">
+        <h2>Hotels</h2>
+    </div>
+</div>
 <div class="page">
   <aside class="panel">
     <h2 class="panel-title">Hotéis</h2>
@@ -58,7 +63,7 @@
           #m="mapMarker"
           [position]="{ lat: h.lat, lng: h.lng }"
           [title]="h.name"
-          (mapClick)="openInfo(m, h)"
+          (mapClick)="openDbpedia(h)"
         >
         </map-marker>
 

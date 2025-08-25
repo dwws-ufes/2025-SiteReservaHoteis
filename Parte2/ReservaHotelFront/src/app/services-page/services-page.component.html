@@ -1,8 +1,36 @@
 <div class="container">
     <div class="title">
-        <h2>Services</h2>
+        <h2>{{hotel.name}}</h2>
     </div>
 </div>
+<section class="info-section">
+    <div class="hero">
+        <img
+          class="hero-img"
+          [src]="hotel.thumbnail || 'assets/imgs/hotel.png'"
+          alt="{{ hotel.name }}"
+          (error)="onImgError($event)"
+        />
+        <div class="hero-text">
+        <h1>{{hotel.name}}</h1>
+        <p>{{hotel.city}}</p>
+        </div>
+    </div>
+
+    <div class="features">
+        <div
+            class="feature-card"
+            *ngFor="let f of features"
+            (click)="onFeatureClick(f.key)"
+            (keyup.enter)="onFeatureClick(f.key)"
+            tabindex="0"
+            role="button"
+        >
+            <h3>{{ f.title }}</h3>
+            <p>{{ f.description }}</p>
+        </div>
+        </div>
+    </section>
 
 <section class="restaurant-section">
     <div class="image-wrapper">

@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Hotel } from '../models/hotel';
 import { HotelService } from '../services/hotel.service';
+import { MatDialog } from '@angular/material/dialog';
+import { HotelInfoComponent } from '../modals/hotel-info/hotel-info.component';
 
 @Component({
   selector: 'app-hotel-page',
@@ -29,7 +31,7 @@ export class HotelPageComponent implements OnInit {
   scaleControl: true,
 };  
 
-  constructor(private hotelService: HotelService) {}
+  constructor(private hotelService: HotelService, private readonly dialog: MatDialog) {}
 
   ngOnInit() {
   this.hotelService.get().subscribe({
@@ -79,7 +81,22 @@ applyFilter() {
   }
 
   openDbpedia(h: Hotel) {
-    window.open(h.homepage || h.uri, '_blank');
+    const dialog = this.dialog.open(HotelInfoComponent, {
+      data:{
+        hotel: h,                           
+        btnSuccess: 'Edit hotel',
+        btnDelete: 'Delete hotel'
+      },
+      width: '900px',
+      maxWidth: '95vw'
+    });
+    
+        dialog.afterClosed()
+          .subscribe(success => {
+            if (!success)
+              return;
+    
+          })
   }
 
   onImgError(event: Event) {

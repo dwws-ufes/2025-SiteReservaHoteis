@@ -5,7 +5,5 @@ export interface Hotel {
   lng: number;
   city?: string;
   country?: string;
-  description?: string;
   thumbnail?: string;  
-  homepage?: string;   
 }

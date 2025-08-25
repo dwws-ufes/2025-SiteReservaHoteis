@@ -96,26 +96,11 @@ export class UserPageComponent implements OnInit{
   }
 
   bookOnline(): void {
-    const dialog = this.dialog.open(BookOnlineComponent, {
-      width: '400px',
-      data: { userId: this.user.id, rooms: this.rooms }
-    });
-    
-    dialog.afterClosed()
-      .pipe(
-        tap(res => {
-          if (!res)
-            this.destroyBookingCreate$.next();
-        }),
-        switchMap(() => this.bookingService.getBookingsByUserId(this.user.id)),
-        tap(bookings => this.bookings = bookings),
-        takeUntil(this.destroyBookingCreate$)
-      )
-      .subscribe()
+    this.router.navigate(['/hotel']);
   }
 
   servicePage(): void {
-    this.router.navigateByUrl('/services/list');
+    this.router.navigate(['/restaurantlist']);
   }
 
   yourCart(): void {
