@@ -20,6 +20,9 @@ export class HotelPageComponent implements OnInit {
   query = '';
   currentHotel: Hotel | null = null;
 
+  geocodeQuery = '';
+  geocodingLoading = false;
+
   hotels: Hotel[] = [];
   filteredHotels: Hotel[] = [];
 
@@ -104,4 +107,44 @@ applyFilter() {
   }
 
   trackByUri = (_: number, h: Hotel) => h.uri;
+
+  geocodeAddress() {
+    const query = this.geocodeQuery.trim();
+    if (!query) return;
+
+    // garante que a API JS do Maps está disponível
+    if (!(window as any).google?.maps?.Geocoder) {
+      console.error('Google Maps JS API ainda não carregada.');
+      alert('Mapa ainda carregando. Tente novamente em alguns segundos.');
+      return;
+    }
+
+    this.geocodingLoading = true;
+
+    // Se for CEP BR, a API aceita direto como address; forçamos região BR
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode(
+      {
+        address: query,
+        region: 'BR',
+        componentRestrictions: { country: 'BR' },
+      },
+      (results, status) => {
+        this.geocodingLoading = false;
+
+        if (status === 'OK' && results && results.length) {
+          const best = results[0];
+          const loc = best.geometry.location;
+          this.center = { lat: loc.lat(), lng: loc.lng() };
+          this.zoom = 16;
+          // opcional: destacar primeiro hotel mais próximo
+          // this.currentHotel = null;
+          // this.info?.close();
+        } else {
+          console.error('Geocode falhou:', status, results);
+          alert('Não foi possível localizar esse CEP/endereço.');
+        }
+      }
+    );
+  }
 }

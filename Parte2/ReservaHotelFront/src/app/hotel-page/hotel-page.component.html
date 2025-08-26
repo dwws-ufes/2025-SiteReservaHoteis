@@ -1,56 +1,13 @@
 <div class="container">
     <div class="title">
         <h2>Hotels</h2>
+        <h1>Look for Hotels around You!</h1>
     </div>
 </div>
-<div class="page">
-  <aside class="panel">
-    <h2 class="panel-title">Hotéis</h2>
-
-    <div class="search">
-      <input
-        [(ngModel)]="query"
-        placeholder="Filtrar por nome, cidade, país..."
-        class="input"
-        (keyup.enter)="applyFilter()"
-      />
-      <button class="btn btn-search" (click)="applyFilter()" aria-label="Buscar">
-        🔎
-      </button>
-    </div>
-
-    <div class="stats">Exibindo: {{ filteredHotels.length }} / {{ hotels.length }}</div>
-
-    <ul class="list">
-      <li
-        *ngFor="let h of filteredHotels; trackBy: trackByUri"
-        (click)="focusHotel(h)"
-        [class.active]="currentHotel?.uri === h.uri"
-      >
-        <img
-          class="thumb"
-          [src]="h.thumbnail || 'assets/imgs/hotel.png'"
-          alt="{{ h.name }}"
-          (error)="onImgError($event)"
-        />
-
-        <div class="meta">
-          <div class="item-title">{{ h.name }}</div>
-          <div class="item-sub">
-            <span *ngIf="h.city">{{ h.city }}</span>
-            <span *ngIf="h.city && h.country"> • </span>
-            <span *ngIf="h.country">{{ h.country }}</span>
-          </div>
-        </div>
-
-        <button class="btn btn-open" (click)="openDbpedia(h); $event.stopPropagation()">DBpedia</button>
-      </li>
-    </ul>
-  </aside>
-
-  <section class="map-wrap">
-    <div class="map-rounded">
-      <google-map
+<section class="restaurant-section reverse">
+    <div class="image-wrapper">
+      <div class="map-rouded">
+        <google-map
         #gmap
         height="100%"
         width="100%"
@@ -79,6 +36,60 @@
           </div>
         </map-info-window>
       </google-map>
+      </div>
     </div>
-  </section>
+    <div class="content-wrapper">
+  <h2 class="panel-title">Hotels</h2>
+
+  <div class="search">
+    <input [(ngModel)]="query" class="input" placeholder="Filter by Name City or Country..." (keyup.enter)="applyFilter()" />
+    <button class="btn btn-search" (click)="applyFilter()" aria-label="Buscar">🔎</button>
+  </div>
+
+  <div class="search">
+    <input [(ngModel)]="geocodeQuery" class="input" placeholder="Go to a CEP or Address..." (keyup.enter)="geocodeAddress()" />
+    <button class="btn btn-search" (click)="geocodeAddress()" [disabled]="geocodingLoading">
+      {{ geocodingLoading ? 'Carregando...' : 'Ir' }}
+    </button>
+  </div>
+
+  <div class="stats">Found: {{ filteredHotels.length }} Hotels</div>
+
+  <!-- Somente esta área rola -->
+  <div class="results">
+    <!-- GRADE DE CARDS NO ESTILO DA IMAGEM -->
+    <div class="content">
+      <div
+        class="room"
+        *ngFor="let h of filteredHotels; trackBy: trackByUri"
+        (click)="focusHotel(h)"
+      >
+        <div class="info">
+          <h1>{{ h.name }}</h1>
+
+          <!-- descrição: use cidade/país; ajuste se tiver description real -->
+          <p *ngIf="h.city || h.country">
+            <ng-container *ngIf="h.city">{{ h.city }}</ng-container>
+            <ng-container *ngIf="h.city && h.country"> — </ng-container>
+            <ng-container *ngIf="h.country">{{ h.country }}</ng-container>
+          </p>
+        </div>
+
+        <img
+          [src]="h.thumbnail || 'assets/imgs/hotel.png'"
+          alt="{{ h.name }}"
+          (error)="onImgError($event)"
+        />
+
+        <!-- botão flutuante no canto (abre DBpedia) -->
+        <div class="btnEdit"
+            title="Ver na DBpedia"
+            (click)="$event.stopPropagation(); openDbpedia(h)">
+        
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+    
+</section>
