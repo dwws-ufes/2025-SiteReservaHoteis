@@ -45,7 +45,16 @@
     <input [(ngModel)]="query" class="input" placeholder="Filter by Name City or Country..." (keyup.enter)="applyFilter()" />
     <button class="btn btn-search" (click)="applyFilter()" aria-label="Buscar">🔎</button>
   </div>
-
+  <div class="search">
+  <input
+    [formControl]="searchCtrl"
+    class="input"
+    placeholder="Buscar hotéis por nome…"
+    (keyup.enter)="onSearch()" />
+  <button class="btn btn-search" (click)="onSearch()" [disabled]="loading">
+    {{ loading ? 'Buscando...' : '🔎' }}
+  </button>
+</div>
   <div class="search">
     <input [(ngModel)]="geocodeQuery" class="input" placeholder="Go to a CEP or Address..." (keyup.enter)="geocodeAddress()" />
     <button class="btn btn-search" (click)="geocodeAddress()" [disabled]="geocodingLoading">

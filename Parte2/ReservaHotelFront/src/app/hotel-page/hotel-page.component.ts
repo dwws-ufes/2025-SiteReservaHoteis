@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { debounceTime, distinctUntilChanged, startWith, switchMap, tap, Subject, takeUntil } from 'rxjs';
 import { Hotel } from '../models/hotel';
+import { FormControl } from '@angular/forms';
 import { HotelService } from '../services/hotel.service';
 import { MatDialog } from '@angular/material/dialog';
 import { HotelInfoComponent } from '../modals/hotel-info/hotel-info.component';
@@ -10,14 +12,21 @@ import { HotelInfoComponent } from '../modals/hotel-info/hotel-info.component';
   templateUrl: './hotel-page.component.html',
   styleUrls: ['./hotel-page.component.css']
 })
-export class HotelPageComponent implements OnInit {
+export class HotelPageComponent implements OnInit, OnDestroy {
   @ViewChild('gmap') gmap?: GoogleMap;
   @ViewChild('info') info?: MapInfoWindow;
 
   center: google.maps.LatLngLiteral = { lat: -15.7939, lng: -47.8828 }; // BR
   zoom = 4;
 
+  // BARRA DE BUSCA REATIVA
+  searchCtrl = new FormControl<string>('');
+  loading = false;
+  private destroy$ = new Subject<void>();
+
+  // filtro local (opcional, se quiser manter)
   query = '';
+
   currentHotel: Hotel | null = null;
 
   geocodeQuery = '';
@@ -27,50 +36,99 @@ export class HotelPageComponent implements OnInit {
   filteredHotels: Hotel[] = [];
 
   mapOptions: google.maps.MapOptions = {
-  mapTypeControl: true,
-  zoomControl: true,
-  streetViewControl: true,
-  fullscreenControl: true,
-  scaleControl: true,
-};  
+    mapTypeControl: true,
+    zoomControl: true,
+    streetViewControl: true,
+    fullscreenControl: true,
+    scaleControl: true,
+  };
 
   constructor(private hotelService: HotelService, private readonly dialog: MatDialog) {}
 
   ngOnInit() {
-  this.hotelService.get().subscribe({
-    next: (data) => {
-      this.hotels = data ?? [];
-      this.filteredHotels = this.hotels.slice();
-      this.applyFilter(); // garante estado inicial
-    },
-    error: (err) => console.error('Erro ao carregar hotéis', err)
-  });
-}
+    // 1) carrega lista inicial
+    this.hotelService.get().subscribe({
+      next: (data) => {
+        this.hotels = data ?? [];
+        this.filteredHotels = this.hotels.slice();
+        this.applyFilter(); // estado inicial do filtro local (se houver)
+      },
+      error: (err) => console.error('Erro ao carregar hotéis', err)
+    });
 
-  private normalize(s: string) {
-  return (s || '')
-    .toLowerCase()
-    .normalize('NFD')              // separa acentos
-    .replace(/\p{Diacritic}/gu, ''); // remove acentos
-}
-
-applyFilter() {
-  const q = this.normalize(this.query.trim());
-  if (!q) {
-    this.filteredHotels = this.hotels.slice();
-    return;
+    // 2) liga a BUSCA REATIVA com debounce (POST /api/hotels/search)
+    this.searchCtrl.valueChanges.pipe(
+      startWith(''),             // dispara uma vez ao iniciar
+      debounceTime(350),
+      distinctUntilChanged(),
+      tap(() => this.loading = true),
+      switchMap(q => {
+        const term = (q ?? '').trim();
+        return term
+          ? this.hotelService.searchByName(term)     // busca remota por nome
+          : this.hotelService.get({ force: true });  // volta para lista padrão
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: (list) => {
+        this.filteredHotels = list ?? [];
+        this.loading = false;
+        // opcional: focar no primeiro resultado
+        // if (this.filteredHotels.length) this.focusHotel(this.filteredHotels[0]);
+      },
+      error: (err) => {
+        console.error('[HotelPage] erro na busca', err);
+        this.loading = false;
+      }
+    });
   }
 
-  this.filteredHotels = this.hotels.filter(h => {
-    const tokens = [
-      this.normalize(h.name),
-      this.normalize(h.city ?? ''),
-      this.normalize(h.country ?? ''),
-      this.normalize(h.uri ?? '')
-    ];
-    return tokens.some(v => v.includes(q));
-  });
-}
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private normalize(s: string) {
+    return (s || '')
+      .toLowerCase()
+      .normalize('NFD')              // separa acentos
+      .replace(/\p{Diacritic}/gu, ''); // remove acentos
+  }
+
+  // Fallback manual (Enter/click) — usa a mesma lógica do valueChanges
+  onSearch(): void {
+    const term = (this.searchCtrl.value ?? '').trim();
+    this.loading = true;
+    const src$ = term
+      ? this.hotelService.searchByName(term)
+      : this.hotelService.get({ force: true });
+
+    src$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (list) => {
+        this.filteredHotels = list ?? [];
+        this.loading = false;
+      },
+      error: () => this.loading = false
+    });
+  }
+
+  // Filtro local por nome/cidade/país/URI (opcional)
+  applyFilter() {
+    const q = this.normalize(this.query.trim());
+    if (!q) {
+      this.filteredHotels = this.hotels.slice();
+      return;
+    }
+    this.filteredHotels = this.hotels.filter(h => {
+      const tokens = [
+        this.normalize(h.name),
+        this.normalize(h.city ?? ''),
+        this.normalize(h.country ?? ''),
+        this.normalize(h.uri ?? '')
+      ];
+      return tokens.some(v => v.includes(q));
+    });
+  }
 
   focusHotel(h: Hotel) {
     this.center = { lat: h.lat, lng: h.lng };
@@ -86,33 +144,30 @@ applyFilter() {
   openDbpedia(h: Hotel) {
     const dialog = this.dialog.open(HotelInfoComponent, {
       data:{
-        hotel: h,                           
+        hotel: h,
         btnSuccess: 'Edit hotel',
         btnDelete: 'Delete hotel'
       },
       width: '900px',
       maxWidth: '95vw'
     });
-    
-        dialog.afterClosed()
-          .subscribe(success => {
-            if (!success)
-              return;
-    
-          })
+
+    dialog.afterClosed().subscribe(success => {
+      if (!success) return;
+      // ... ações pós-edição (se houver)
+    });
   }
 
   onImgError(event: Event) {
     (event.target as HTMLImageElement).src = 'assets/imgs/hotel.png';
   }
 
-  trackByUri = (_: number, h: Hotel) => h.uri;
+  trackByUri = (_: number, h: Hotel) => h.uri || h.name;
 
   geocodeAddress() {
     const query = this.geocodeQuery.trim();
     if (!query) return;
 
-    // garante que a API JS do Maps está disponível
     if (!(window as any).google?.maps?.Geocoder) {
       console.error('Google Maps JS API ainda não carregada.');
       alert('Mapa ainda carregando. Tente novamente em alguns segundos.');
@@ -120,8 +175,6 @@ applyFilter() {
     }
 
     this.geocodingLoading = true;
-
-    // Se for CEP BR, a API aceita direto como address; forçamos região BR
     const geocoder = new google.maps.Geocoder();
     geocoder.geocode(
       {
@@ -131,15 +184,11 @@ applyFilter() {
       },
       (results, status) => {
         this.geocodingLoading = false;
-
         if (status === 'OK' && results && results.length) {
           const best = results[0];
           const loc = best.geometry.location;
           this.center = { lat: loc.lat(), lng: loc.lng() };
           this.zoom = 16;
-          // opcional: destacar primeiro hotel mais próximo
-          // this.currentHotel = null;
-          // this.info?.close();
         } else {
           console.error('Geocode falhou:', status, results);
           alert('Não foi possível localizar esse CEP/endereço.');
