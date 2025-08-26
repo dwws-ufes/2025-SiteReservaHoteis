@@ -10,13 +10,11 @@ export class HotelService {
   private readonly apiUrl    = `${environment.url}/api/hotels`;
   private readonly searchUrl = `${environment.url}/api/hotels/search`;
 
-  // cache localStorage
   private readonly CACHE_KEY = 'hotels:v1';
   private readonly TTL_MS = 1000 * 60 * 60 * 24; // 24h
 
   constructor(private http: HttpClient) {}
 
-  /** Prioriza cache; se houver, emite já e atualiza em background. */
   get(opts?: { force?: boolean }): Observable<Hotel[]> {
     const cached = this.loadFromCache();
 
@@ -25,23 +23,19 @@ export class HotelService {
       tap(list => this.saveToCache(list)),
       catchError(err => {
         console.error('[HotelService] erro na API', err);
-        // quando estamos emitindo cache + refresh, não queremos quebrar o fluxo
         return EMPTY;
       })
     );
 
     if (opts?.force) return network$;
 
-    // cache válido → emite já + atualiza em background
     if (cached && !this.isExpired(cached.ts)) {
       return concat(of(cached.data), network$);
     }
 
-    // sem cache / expirado → busca direto
     return network$;
   }
 
-  /** NOVO: busca remota por nome (POST /api/hotels/search). */
   searchByName(name: string, limit = 200): Observable<Hotel[]> {
     const q = (name ?? '').trim();
     if (!q) return of([]);
@@ -50,7 +44,7 @@ export class HotelService {
       map(raw => this.normalizeResponse(raw)),
       catchError(err => {
         console.error('[HotelService] erro no search', err);
-        return of([]); // não quebra o fluxo da tela
+        return of([]); 
       })
     );
   }
@@ -88,16 +82,13 @@ export class HotelService {
       .trim();
   }
 
-  /** Converte diferentes formatos (array normalizado OU SPARQL) em Hotel[]. */
   private normalizeResponse(raw: any): Hotel[] {
-    // 1) Resposta já como array de objetos (do seu backend)
     if (Array.isArray(raw)) {
       return raw
         .map((b: any): Hotel => this.toHotel(b))
         .filter(h => Number.isFinite(h.lat) && Number.isFinite(h.lng));
     }
 
-    // 2) Resposta padrão SPARQL (caso ligue direto no endpoint por engano)
     if (raw?.results?.bindings && Array.isArray(raw.results.bindings)) {
       const list: Hotel[] = raw.results.bindings.map((b: any) => this.toHotel(b));
       return list.filter(h => Number.isFinite(h.lat) && Number.isFinite(h.lng));
@@ -107,7 +98,6 @@ export class HotelService {
     return [];
   }
 
-  /** Extrai um Hotel de objeto “plano” ou de binding SPARQL. */
   private toHotel(b: any): Hotel {
     const pick = (obj: any, ...paths: string[]) => {
       for (const p of paths) {
@@ -147,16 +137,12 @@ export class HotelService {
         ? (list.find((h: Hotel) => norm(h).includes(needle)) ?? null)
         : (list.find((h: Hotel) => norm(h) === needle) ?? null);
     };
-
-    // Reuso do get() que já prioriza cache + faz refresh
     return this.get({ force: opts?.force }).pipe(
       map((list: Hotel[]) => pick(list)),
-      // evita emitir o mesmo hotel duas vezes (cache e rede iguais)
       distinctUntilChanged((a, b) => (a?.uri ?? a?.name) === (b?.uri ?? b?.name))
     );
   }
 
-  /** Versão síncrona: busca somente no cache. Retorna null se não houver ou se expirado. */
   findCachedByName(name: string): Hotel | null {
     const cached = this.loadFromCache();
     if (!cached || this.isExpired(cached.ts)) return null;

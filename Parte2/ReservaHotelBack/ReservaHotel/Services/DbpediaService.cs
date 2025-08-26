@@ -58,7 +58,7 @@ LIMIT {limit}";
 
             var sw = System.Diagnostics.Stopwatch.StartNew();
 
-            using var req = new HttpRequestMessage(HttpMethod.Post, Endpoint) { Content = form };
+            using var req = new HttpRequestMessage(HttpMethod.Get, Endpoint) { Content = form };
             using var resp = await _httpClient.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, ct);
             resp.EnsureSuccessStatusCode();
 

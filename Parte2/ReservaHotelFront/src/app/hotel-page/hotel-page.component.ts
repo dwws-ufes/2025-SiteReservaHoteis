@@ -17,14 +17,12 @@ export class HotelPageComponent implements OnInit, OnDestroy {
   @ViewChild('info') info?: MapInfoWindow;
 
   center: google.maps.LatLngLiteral = { lat: -15.7939, lng: -47.8828 }; // BR
-  zoom = 4;
+  zoom = 6;
 
-  // BARRA DE BUSCA REATIVA
   searchCtrl = new FormControl<string>('');
   loading = false;
   private destroy$ = new Subject<void>();
 
-  // filtro local (opcional, se quiser manter)
   query = '';
 
   currentHotel: Hotel | null = null;
@@ -46,35 +44,32 @@ export class HotelPageComponent implements OnInit, OnDestroy {
   constructor(private hotelService: HotelService, private readonly dialog: MatDialog) {}
 
   ngOnInit() {
-    // 1) carrega lista inicial
     this.hotelService.get().subscribe({
       next: (data) => {
         this.hotels = data ?? [];
         this.filteredHotels = this.hotels.slice();
-        this.applyFilter(); // estado inicial do filtro local (se houver)
+        this.applyFilter(); 
       },
       error: (err) => console.error('Erro ao carregar hotéis', err)
     });
 
-    // 2) liga a BUSCA REATIVA com debounce (POST /api/hotels/search)
+ 
     this.searchCtrl.valueChanges.pipe(
-      startWith(''),             // dispara uma vez ao iniciar
+      startWith(''),             
       debounceTime(350),
       distinctUntilChanged(),
       tap(() => this.loading = true),
       switchMap(q => {
         const term = (q ?? '').trim();
         return term
-          ? this.hotelService.searchByName(term)     // busca remota por nome
-          : this.hotelService.get({ force: true });  // volta para lista padrão
+          ? this.hotelService.searchByName(term)     
+          : this.hotelService.get({ force: true });  
       }),
       takeUntil(this.destroy$)
     ).subscribe({
       next: (list) => {
         this.filteredHotels = list ?? [];
         this.loading = false;
-        // opcional: focar no primeiro resultado
-        // if (this.filteredHotels.length) this.focusHotel(this.filteredHotels[0]);
       },
       error: (err) => {
         console.error('[HotelPage] erro na busca', err);
@@ -91,11 +86,10 @@ export class HotelPageComponent implements OnInit, OnDestroy {
   private normalize(s: string) {
     return (s || '')
       .toLowerCase()
-      .normalize('NFD')              // separa acentos
-      .replace(/\p{Diacritic}/gu, ''); // remove acentos
+      .normalize('NFD')              
+      .replace(/\p{Diacritic}/gu, '');
   }
 
-  // Fallback manual (Enter/click) — usa a mesma lógica do valueChanges
   onSearch(): void {
     const term = (this.searchCtrl.value ?? '').trim();
     this.loading = true;
@@ -112,7 +106,6 @@ export class HotelPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Filtro local por nome/cidade/país/URI (opcional)
   applyFilter() {
     const q = this.normalize(this.query.trim());
     if (!q) {
@@ -154,7 +147,6 @@ export class HotelPageComponent implements OnInit, OnDestroy {
 
     dialog.afterClosed().subscribe(success => {
       if (!success) return;
-      // ... ações pós-edição (se houver)
     });
   }
 

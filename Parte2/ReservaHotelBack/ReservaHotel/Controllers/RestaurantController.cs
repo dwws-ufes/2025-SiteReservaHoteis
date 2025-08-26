@@ -18,7 +18,7 @@ namespace ReservaHotel.Controllers
         public async Task<IActionResult> GetRestaurants()
         {
             var restaurants = await _dbpedia.GetRestaurantsAsync();
-            return Ok(restaurants); // retorna já no formato [{ name, uri, imageUrl }]
+            return Ok(restaurants); 
         }
     }
 }

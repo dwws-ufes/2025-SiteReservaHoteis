@@ -14,18 +14,15 @@ export class RestaurantService {
 
   constructor(private http: HttpClient) {}
 
-  /** Prioriza cache; se houver, emite já e atualiza em background. */
   get(opts?: { force?: boolean }): Observable<Restaurant[]> {
     const cached = this.loadFromCache();
 
     const network$ = this.http.get<any>(this.apiUrl).pipe(
       map(raw => {
-        // Suporta array plano
         if (Array.isArray(raw)) {
           return raw.map((b: any): Restaurant => this.toRestaurant(b));
         }
 
-        // Suporta formato SPARQL padrão
         if (raw?.results?.bindings && Array.isArray(raw.results.bindings)) {
           const list: Restaurant[] = raw.results.bindings.map((b: any) => this.toRestaurant(b));
           return list;
@@ -43,19 +40,16 @@ export class RestaurantService {
 
     if (opts?.force) return network$;
 
-    // cache válido → emite já + atualiza em background
     if (cached && !this.isExpired(cached.ts)) {
       return concat(of(cached.data), network$);
     }
 
-    // sem cache / expirado → busca direto
     return network$;
   }
 
   // ===== helpers =====
 
   private toRestaurant(b: any): Restaurant {
-    // aceita chaves "planas" (name, uri, thumbnail, city) e o formato SPARQL (?var.value)
     const get = (obj: any, ...paths: string[]) => {
       for (const p of paths) {
         const v = p.split('.').reduce((acc: any, k: string) => acc?.[k], obj);
@@ -64,27 +58,20 @@ export class RestaurantService {
       return undefined;
     };
 
-    // name / label
     const name =
       get(b, 'label.value', 'name.value', 'name', 'label') ?? '';
 
-    // uri: preferir ?restaurant, senão ?city, senão uri plano
     const uri =
       get(b, 'restaurant.value', 'city.value', 'uri.value', 'uri') ?? '';
 
-    // city label (se vier no SPARQL, ex.: ?cityLabel)
     const city =
       get(b, 'cityLabel.value', 'cityName.value', 'cityLabel', 'city') ?? undefined;
 
-    // imagem / thumbnail: suporta ?thumb, ?image, etc.
     const thumbnail =
     get(
       b,
-      // SPARQL
       'thumb.value', 'thumbnail.value', 'image.value',
-      // plano camelCase
       'thumb', 'thumbnail', 'image', 'imageUrl',
-      // PascalCase do .NET
       'Thumb', 'Thumbnail', 'Image', 'ImageUrl'
     ) ?? undefined;
 
@@ -143,17 +130,15 @@ getByName(
       : (list.find((r: Restaurant) => norm(r) === needle) ?? null);
   };
 
-  // Reuso do get() que já prioriza cache + faz refresh
+
   return this.get({ force: opts?.force }).pipe(
     map((list: Restaurant[]) => pick(list)),
-    // evita emitir o mesmo restaurante duas vezes (cache e rede iguais)
     distinctUntilChanged((a, b) =>
       `${a?.name ?? ''}::${a?.city ?? ''}` === `${b?.name ?? ''}::${b?.city ?? ''}`
     )
   );
 }
 
-/** Versão síncrona: busca somente no cache. Retorna null se não houver ou se expirado. */
 findCachedByName(name: string): Restaurant | null {
   const cached = this.loadFromCache();
   if (!cached || this.isExpired(cached.ts)) return null;

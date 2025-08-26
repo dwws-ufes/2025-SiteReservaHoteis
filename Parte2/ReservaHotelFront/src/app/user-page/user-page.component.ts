@@ -31,6 +31,7 @@ export class UserPageComponent implements OnInit{
   bookings: Booking[] = [];
   services: Service[] = [];
   rooms: Room[] = [];
+  downloading = false;
 
   private destroyBookingCreate$ = new Subject<void>();
   private destroyBookingEdit$ = new Subject<void>();
@@ -40,6 +41,7 @@ export class UserPageComponent implements OnInit{
     'Take-Out',
     'Your Cart',
     'Edit Profile',
+    'Download Booking',
     'Delete Account',
     'Logout'
   ];
@@ -83,6 +85,9 @@ export class UserPageComponent implements OnInit{
         break;
       case 'Edit Profile':
         this.editProfile(this.user);
+        break;
+      case 'Download Booking':
+        this.downloadRdfTurtle();
         break;
       case 'Delete Account':
         this.deleteAccount(this.user);
@@ -202,5 +207,26 @@ export class UserPageComponent implements OnInit{
               if (!success)
                 return;
             })
+  }
+
+  downloadRdfTurtle(): void {
+    if (!this.user.id) { alert('Informe o UserId'); return; }
+
+    this.downloading = true;
+    this.bookingService.getBookingsTurtle(this.user.id).subscribe({
+      next: (ttl: string) => {
+        const blob = new Blob([ttl], { type: 'text/turtle;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `bookings-${this.user.id}.ttl`;
+        a.click();
+
+        URL.revokeObjectURL(url);
+        this.downloading = false;
+      },
+      error: () => { this.downloading = false; }
+    });
   }
 }

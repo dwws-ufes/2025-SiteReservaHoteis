@@ -23,18 +23,6 @@
           (mapClick)="openDbpedia(h)"
         >
         </map-marker>
-
-        <map-info-window #info>
-          <div class="info">
-            <div class="info-title">{{ currentHotel?.name }}</div>
-            <div class="info-sub">
-              <span *ngIf="currentHotel?.city">{{ currentHotel?.city }}</span>
-              <span *ngIf="currentHotel?.city && currentHotel?.country"> • </span>
-              <span *ngIf="currentHotel?.country">{{ currentHotel?.country }}</span>
-            </div>
-            <button class="btn btn-open" (click)="openDbpedia(currentHotel!)">Ver na DBpedia</button>
-          </div>
-        </map-info-window>
       </google-map>
       </div>
     </div>
@@ -58,15 +46,14 @@
   <div class="search">
     <input [(ngModel)]="geocodeQuery" class="input" placeholder="Go to a CEP or Address..." (keyup.enter)="geocodeAddress()" />
     <button class="btn btn-search" (click)="geocodeAddress()" [disabled]="geocodingLoading">
-      {{ geocodingLoading ? 'Carregando...' : 'Ir' }}
+      {{ geocodingLoading ? 'Carregando...' : '🔎' }}
     </button>
   </div>
 
   <div class="stats">Found: {{ filteredHotels.length }} Hotels</div>
 
-  <!-- Somente esta área rola -->
   <div class="results">
-    <!-- GRADE DE CARDS NO ESTILO DA IMAGEM -->
+
     <div class="content">
       <div
         class="room"
@@ -76,7 +63,6 @@
         <div class="info">
           <h1>{{ h.name }}</h1>
 
-          <!-- descrição: use cidade/país; ajuste se tiver description real -->
           <p *ngIf="h.city || h.country">
             <ng-container *ngIf="h.city">{{ h.city }}</ng-container>
             <ng-container *ngIf="h.city && h.country"> — </ng-container>
@@ -90,7 +76,7 @@
           (error)="onImgError($event)"
         />
 
-        <!-- botão flutuante no canto (abre DBpedia) -->
+
         <div class="btnEdit"
             title="Ver na DBpedia"
             (click)="$event.stopPropagation(); openDbpedia(h)">
